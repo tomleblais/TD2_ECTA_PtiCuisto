@@ -1,0 +1,5 @@
+# Dossier de configuration de VS-Code
+.vscode/
+
+# Fichier environnement
+.env
