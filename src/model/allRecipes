@@ -11,9 +11,9 @@ class Recipe {
     public string $rec_title;
 }
 
-class AllRecipes {
+class AllRecipeRepository {
     public DatabaseConnection $connection;
-    public function getRecipes(int $rec_id): array {
+    public function getRecipes(): array {
         // Make the query
         $statement = $this->connection->getConnection()->query(
             "SELECT rec_id, rec_title FROM pc_recipe"
@@ -26,7 +26,7 @@ class AllRecipes {
             $recipe = new Recipe();
             $recipe->rec_id = $row["rec_id"];
             $recipe->rec_title = $row["rec_title"];
-            
+
             $recipes[] = $recipe;
         }
 
