@@ -12,7 +12,12 @@ class Recipe {
 }
 
 class AllRecipeRepository {
-    public DatabaseConnection $connection;
+    private DatabaseConnection $connection;
+
+    public function __construct(DatabaseConnection $connection) {
+        $this->connection = $connection;
+    }
+
     public function getRecipes(): array {
         // Make the query
         $statement = $this->connection->getConnection()->query(
