@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Model\AllRecipes;
+namespace Application\Model\filteredRecipes;
 
 require_once('src/lib/database.php');
 require_once('src/model/Recipe.php');
@@ -8,7 +8,7 @@ require_once('src/model/Recipe.php');
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\Recipe\Recipe;
 
-class AllRecipeRepository {
+class FilteredRecipesRepository {
     private DatabaseConnection $connection;
 
     public function __construct(DatabaseConnection $connection) {
