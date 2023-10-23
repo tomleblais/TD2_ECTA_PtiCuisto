@@ -15,13 +15,7 @@ class FilteredRecipesRepository {
         $this->connection = $connection;
     }
 
-    public function getRecipes(): array {
-        // Make the query
-        $statement = $this->connection->getConnection()->query(
-            "SELECT rec_id, rec_title FROM pc_recipe"
-        );
-
-        // Take values
+    private function createRecipes($statement): array {
         $recipes = [];
 
         while (($row = $statement->fetch())) {
@@ -33,5 +27,34 @@ class FilteredRecipesRepository {
         }
 
         return $recipes;
+    }
+
+    public function getFilteredRecipesByCategory(int $category) : array {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT rec_id, rec_title FROM pc_recipe WHERE cat_id = ?"
+        );
+        $statement->execute([$category]);
+
+        return $this->createRecipes($statement);
+    }
+
+    public function getFilteredRecipesByTitle(string $title) : array {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT rec_id, rec_title FROM pc_recipe WHERE rec_title = ?"
+        );
+        $statement->execute([$title]);
+
+        return $this->createRecipes($statement);
+    }
+
+    public function getFilteredRecipesByIngredient(int $ingredient) : array {
+        $statement = $this->connection->getConnection()->prepare(
+            "SELECT rec_id, rec_title FROM pc_recipe WHERE rec_id = (
+                SELECT rec_id FROM pc_contain WHERE ing_id = ?   
+            )"
+        );
+        $statement->execute([$ingredient]);
+
+        return $this->createRecipes($statement);
     }
 }
