@@ -3,3 +3,6 @@
 
 # Fichier environnement
 .env
+
+# Tests folders
+test/
