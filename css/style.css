@@ -1,1 +1,116 @@
 @import "vars_light.css";
+
+* {
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+
+    line-height: var(--line-height);
+}
+
+p {
+    margin-top: var(--margin-top);
+    margin-bottom: var(--margin-bottom);
+    margin-left: var(--margin-left);
+    margin-right: var(--margin-right);
+
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
+
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    color: var(--primary-color);
+}
+
+.container,
+.primary-container {
+    margin-top: var(--margin-top);
+    margin-bottom: var(--margin-bottom);
+    margin-left: var(--margin-left);
+    margin-right: var(--margin-right);
+
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
+
+    background-color: var(--primary-background-color);
+    color: var(--primary-color);
+}
+
+.secondary-container {
+    margin-top: var(--margin-top);
+    margin-bottom: var(--margin-bottom);
+    margin-left: var(--margin-left);
+    margin-right: var(--margin-right);
+
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    border-color: transparent;
+    
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
+
+    background-color: var(--secondary-background-color);
+    color: var(--secondary-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    display: block;
+
+    margin-top: var(--subtitle-margin-top);
+    margin-bottom: var(--subtitle-margin-bottom);
+    margin-left: var(--subtitle-margin-left);
+    margin-right: var(--subtitle-margin-right);
+
+    padding-top: var(--subtitle-padding-top);
+    padding-bottom: var(--subtitle-padding-bottom);
+    padding-left: var(--subtitle-padding-left);
+    padding-right: var(--subtitle-padding-right);
+
+    font-family: var(--subtitle-font-family);
+    color: var(--primary-color);
+}
+
+h1 {
+    margin-top: var(--title-margin-top);
+    margin-bottom: var(--title-margin-bottom);
+    margin-left: var(--title-margin-left);
+    margin-right: var(--title-margin-right);
+
+    
+    padding-top: var(--title-padding-top);
+    padding-bottom: var(--title-padding-bottom);
+    padding-left: var(--title-padding-left);
+    padding-right: var(--title-padding-right);
+
+    font-family: var(--title-font-family);
+    font-size: 25pt;
+}
+
+h2 {
+    font-size: 25pt;
+}
+
+h3 {
+    font-size: 22pt;
+}
+
+h4 {
+    font-size: 20pt;
+}
+
+h5 {
+    font-size: 18pt;
+}
+
+h6 {
+    font-size: 15pt;
+}

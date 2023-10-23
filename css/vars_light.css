@@ -3,74 +3,98 @@
     --primary-color: #7890cd;
     --primary-background-color: #fff;
 
-    --font-family: "Open sans";
+    --font-family: "Open Sans";
     --font-size: 12pt;
 
     --line-height: 1.15;
 
-    --padding: 5px;
-    --paddding-top: var(--padding);
-    --paddding-bottom: var(--padding);
-    --paddding-left: var(--padding);
-    --paddding-right: var(--padding);
+    --margin-top: 5px;
+    --margin-bottom: 5px;
+    --margin-left: 5px;
+    --margin-right: 5px;
+
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+    --padding-left: 5px;
+    --padding-right: 5px;
 
     --secondary-color: #fff;
     --secondary-background-color: #2a3990;
 
     /* MAIN */
-    --main-padding-top: 5mm;
-    --main-padding-bottom: 5mm;
-    --main-padding-left: 5mm;
-    --main-padding-right: 5mm;
+    --main-margin-top: 0;
+    --main-margin-bottom: 0;
+    --main-margin-left: 0;
+    --main-margin-right: 0;
+
+    --main-padding-top: 10px;
+    --main-padding-bottom: 10px;
+    --main-padding-left: 10px;
+    --main-padding-right: 10px;
+
+    /* BODY */
+    --body-margin-top: 0;
+    --body-margin-bottom: var(--body-margin-top);
+    --body-margin-left: 0;
+    --body-margin-right: var(--body-margin-left);
+
+    --body-padding-top: 20px;
+    --body-padding-bottom: var(--body-padding-top);
+    --body-padding-left: 20px;
+    --body-padding-right: var(--body-padding-left);
 
     /* HEADER */
     --header-color: var(--secondary-color);
     --header-background-color: var(--primary-color);
 
+    --header-margin-top: 0;
+    --header-margin-bottom: 0;
+    --header-margin-left: 0;
+    --header-margin-right: 0;
+
+    --header-padding-top: 5px;
+    --header-padding-bottom: 5px;
+    --header-padding-left: 5px;
+    --header-padding-right: 5px;
+
     /* FOOTER */
-    --footer-color: var(--secondary-color: #fff);
+    --footer-color: var(--secondary-color);
     --footer-background-color: var(--secondary-background-color);
 
-    --footer-padding: 5px;
-    --footer-paddding-top: var(--footer-padding);
-    --footer-paddding-bottom: var(--footer-padding);
-    --footer-paddding-left: var(--footer-padding);
-    --footer-paddding-right: var(--footer-padding);
+    --footer-margin-top: 0;
+    --footer-margin-bottom: var(--footer-margin-top);
+    --footer-margin-left: 0;
+    --footer-margin-right: var(--footer-margin-left);
 
-    --footer-margin: 0;
-    --footer-margin-top: var(--footer-margin);
-    --footer-margin-bottom: var(--footer-margin);
-    --footer-margin-left: var(--footer-margin);
-    --footer-margin-right: var(--footer-margin);
+    --footer-padding-top: 40px;
+    --footer-padding-bottom: var(--footer-padding-top);
+    --footer-padding-left: 20px;
+    --footer-padding-right: var(--footer-padding-left);
 
     /* HEADINGS */
     --title-font-family: "Permanent Marker";
 
-    --title-padding: 5px;
-    --title-padding-top: var(--title-padding);
-    --title-padding-bottom: var(--title-padding);
-    --title-padding-left: var(--title-padding);
-    --title-padding-right: var(--title-padding);
+    --title-padding-top: 5px;
+    --title-padding-bottom: 5px;
+    --title-padding-left: 5px;
+    --title-padding-right: 5px;
 
-    --title-margin: 5px;
-    --title-margin-top: var(--title-margin);
-    --title-margin-bottom: var(--title-margin);
-    --title-margin-left: var(--title-margin);
-    --title-margin-right: var(--title-margin);
+    --title-margin-top: 5px;
+    --title-margin-bottom: 5px;
+    --title-margin-left: 5px;
+    --title-margin-right: 5px;
 
     --subtitle-font-family: "Pacifico";
 
-    --subtitle-padding: 5px;
-    --subtitle-padding-top: var(--subtitle-padding);
-    --subtitle-padding-bottom: var(--subtitle-padding);
-    --subtitle-padding-left: var(--subtitle-padding);
-    --subtitle-padding-right: var(--subtitle-padding);
+    --subtitle-padding-top: 5px;
+    --subtitle-padding-bottom: 5px;
+    --subtitle-padding-left: 5px;
+    --subtitle-padding-right: 5px;
 
-    --subtitle-margin: 5px;
-    --subtitle-margin-top: var(--subtitle-margin);
-    --subtitle-margin-bottom: var(--subtitle-margin);
-    --subtitle-margin-left: var(--subtitle-margin);
-    --subtitle-margin-right: var(--subtitle-margin);
+    --subtitle-margin-top: 5px;
+    --subtitle-margin-bottom: 5px;
+    --subtitle-margin-left: 5px;
+    --subtitle-margin-right: 5px;
 
     /* BORDERS */
     --border-width: 3px;
@@ -98,5 +122,4 @@
     --border-top-right-radius: var(--border-radius);
     --border-bottom-left-radius: var(--border-radius);
     --border-top-right-radius: var(--border-radius);
-
 }

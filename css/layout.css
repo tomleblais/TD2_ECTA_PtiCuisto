@@ -1,0 +1,117 @@
+body {
+    margin-top: var(--body-margin-top);
+    margin-bottom: var(--body-margin-bottom);
+    margin-left: var(--body-margin-left);
+    margin-right: var(--body-margin-right);
+
+    padding-top: var(--body-padding-top);
+    padding-bottom: var(--body-padding-bottom);
+    padding-left: var(--body-padding-left);
+    padding-right: var(--body-padding-right);
+
+    font-family: var(--font-family);
+    /* color: var(--primary-color); */
+}
+
+header {
+    margin-top: var(--header-margin-top);
+    margin-bottom: var(--header-margin-bottom);
+    margin-left: var(--header-margin-left);
+    margin-right: var(--header-margin-right);
+
+    padding-top: var(--header-padding-top);
+    padding-bottom: var(--header-padding-bottom);
+    padding-left: var(--header-padding-left);
+    padding-right: var(--header-padding-right);
+
+    background-color: var(--header-background-color);
+    color: var(--header-color);
+}
+
+header nav {
+    display: inline-block;
+    position: relative;
+    right: 0;
+}
+
+header nav ul li {
+    --link-width: 110px;
+    --link-padding: 10px;
+    display: inline-block;
+    background-color: var(--header-background-color);
+}
+
+header nav ul li a {
+    display: inline-block;
+    width: var(--link-width);
+    padding: var(--link-padding);
+
+    text-align: center;
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
+header nav ul li:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+header nav ul li ul {
+    display: none;
+    position: absolute;
+    background-color: var(--header-background-color);
+}
+
+header nav ul li ul li {
+    display: block;
+}
+
+header nav ul li ul li:not(:last-child):after {
+    content: "";
+    display: block;
+    position: relative;
+    top: calc(var(--border-width) / 2);
+    left: var(--link-padding);
+    width: var(--link-width);
+    height: var(--border-width);
+    background-color: var(--primary-background-color);
+}
+
+header nav ul li ul li a {
+    padding: 10px;
+}
+
+header nav ul li:hover ul {
+    display: block;
+}
+
+main {
+    margin-top: var(--main-margin-top);
+    margin-bottom: var(--main-margin-bottom);
+    margin-left: var(--main-margin-left);
+    margin-right: var(--main-margin-right);
+
+    padding-top: var(--main-padding-top);
+    padding-bottom: var(--main-padding-bottom);
+    padding-left: var(--main-padding-left);
+    padding-right: var(--main-padding-right);
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    margin-top: var(--footer-margin-top);
+    margin-bottom: var(--footer-margin-bottom);
+    margin-left: var(--footer-margin-left);
+    margin-right: var(--footer-margin-right);
+
+    padding-top: var(--footer-padding-top);
+    padding-bottom: var(--footer-padding-bottom);
+    padding-left: var(--footer-padding-left);
+    padding-right: var(--footer-padding-right);
+    
+    color: var(--footer-color);
+    background-color: var(--footer-background-color);
+}
