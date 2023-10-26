@@ -15,12 +15,6 @@ class DatabaseConnection {
             $user = getenv('DB_USER');
             $pass = getenv('DB_PASS');
 
-            echo "host = $host <br>";
-            echo "port = $port <br>";
-            echo "dbname = $dbname <br>";
-            echo "user = $user <br>";
-            echo "pass = $pass <br>";
-
             try {
                 echo "mysql:host=$host:$port;dbname=$dbname, $user, $pass <br>";
                 $this->database = new \PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $user, $pass);
@@ -52,5 +46,3 @@ class DatabaseConnection {
         }        
     }
 }
-
-// $this->database = new \PDO('lien;dbname=nom;charset=utf8', 'blog', 'password');
