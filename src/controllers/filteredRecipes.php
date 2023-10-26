@@ -8,13 +8,13 @@ require_once('src/model/filteredRecipes.php');
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\FilteredRecipes\FilteredRecipesRepository;
 
-class AllRecipes {
+class FilteredRecipes {
     public function execute(string $type, string $option) {
         $recipes = [];
         $allRecipeRepository = new FilteredRecipesRepository(new DatabaseConnection());
 
         switch ($type) {
-            case 'categoriy':
+            case 'category':
                 $recipes = $allRecipeRepository->getFilteredRecipesByCategory(intval($option));
                 break;
             case 'title':
