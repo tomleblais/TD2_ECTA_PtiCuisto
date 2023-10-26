@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Model\Recipe;
+namespace Application\Lib\Recipe;
 
 class Recipe {
     public int $rec_id;

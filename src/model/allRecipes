@@ -3,10 +3,10 @@
 namespace Application\Model\AllRecipes;
 
 require_once('src/lib/database.php');
-require_once('src/model/Recipe.php');
+require_once('src/lib/Recipe.php');
 
 use Application\Lib\Database\DatabaseConnection;
-use Application\Model\Recipe\Recipe;
+use Application\Lib\Recipe\Recipe;
 
 class AllRecipeRepository {
     private DatabaseConnection $connection;
