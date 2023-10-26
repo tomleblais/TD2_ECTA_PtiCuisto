@@ -8,6 +8,10 @@
     </head>
 
     <body>
+        <header>
+            <a href="index.php">Page d'acceuil</a>
+        </header>
+
         <?= $content ?>
     </body>
 </html>
