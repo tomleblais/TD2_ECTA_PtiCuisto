@@ -1,4 +1,5 @@
 <?php
+// http://localhost/TD2_ECTA_PTICUISTOT/index.php
 
 require_once('src/controllers/homepage.php');
 require_once('src/controllers/allRecipes.php');
