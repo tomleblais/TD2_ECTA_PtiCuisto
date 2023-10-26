@@ -3,7 +3,7 @@
 <?php ob_start(); ?>
 <h1>Petit cuisto</h1>
 
-<a href="index.php?action=allRecipes"></a>
+<a href="index.php?action=allRecipes">Toutes les recettes</a>
 
 <?php $content = ob_get_clean(); ?>
 
