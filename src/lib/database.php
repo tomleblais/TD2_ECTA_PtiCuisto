@@ -16,13 +16,10 @@ class DatabaseConnection {
             $pass = getenv('DB_PASS');
 
             try {
-                echo "mysql:host=$host:$port;dbname=$dbname, $user, $pass <br>";
                 $this->database = new \PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $user, $pass);
-                //$this->database->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             } catch (\PDOException $error) {
                 die("Erreur de connexion à la base de données : " . $error->getMessage());
             }
-            echo "connexion pdo";
         }        
 
         return $this->database;
