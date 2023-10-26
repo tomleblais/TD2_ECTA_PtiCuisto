@@ -11,7 +11,7 @@ use Application\Model\FilteredRecipes\FilteredRecipesRepository;
 class AllRecipes {
     public function execute(string $type, string $option) {
         $recipes = [];
-        $allRecipeRepository = new filteredRecipesRepository(new DatabaseConnection());
+        $allRecipeRepository = new FilteredRecipesRepository(new DatabaseConnection());
 
         switch ($type) {
             case 'categoriy':

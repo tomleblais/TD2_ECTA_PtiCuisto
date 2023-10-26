@@ -1,8 +1,10 @@
 <?php
 
+require_once('src/controllers/homepage.php');
 require_once('src/controllers/allRecipes.php');
 require_once('src/controllers/filteredRecipes.php');
 
+use Application\Controllers\Homepage\Homepage;
 use Application\Controllers\AllRecipes\AllRecipes;
 use Application\Controllers\FilteredRecipes\FilteredRecipes;
 
@@ -21,10 +23,10 @@ try {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }*/
         } else {
-            // TODO Erreur 404
+            require('templates/error404.php');
         }
     } else {
-        // TODO afficher la page de base
+        (new Homepage())->execute();
     }
 } catch (Exception $e) {
     $errorMessage = $e->getMessage();
