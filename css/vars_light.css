@@ -2,6 +2,7 @@
     /* GENERAL */
     --primary-color: #7890cd;
     --primary-background-color: #fff;
+    --primary-hover-background-color: #eee;
 
     --font-family: "Open Sans";
     --font-size: 12pt;
@@ -20,6 +21,7 @@
 
     --secondary-color: #fff;
     --secondary-background-color: #2a3990;
+    --secondary-hover-background-color: #212d75;
 
     --tertiary-color: #999;
 
@@ -128,4 +130,10 @@
     /* RECIPE DETAILS */
     --recipe-details-width: 400px;
     --recipe-details-height: 200px;
+
+    /* SHADOWS */
+    --box-shadow-offset-x: 5px;
+    --box-shadow-offset-y: 5px;
+    --box-shadow-blur-radius: 5px;
+    --box-shadow-color: var(--tertiary-color);
 }
