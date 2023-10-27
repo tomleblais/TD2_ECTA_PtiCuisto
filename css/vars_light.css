@@ -21,6 +21,8 @@
     --secondary-color: #fff;
     --secondary-background-color: #2a3990;
 
+    --tertiary-color: #999;
+
     /* MAIN */
     --main-margin-top: 0;
     --main-margin-bottom: 0;
@@ -74,27 +76,27 @@
     /* HEADINGS */
     --title-font-family: "Permanent Marker";
 
-    --title-padding-top: 5px;
-    --title-padding-bottom: 5px;
-    --title-padding-left: 5px;
-    --title-padding-right: 5px;
+    --title-padding-top: 2.5px;
+    --title-padding-bottom: 2.5px;
+    --title-padding-left: 2.5px;
+    --title-padding-right: 2.5px;
 
-    --title-margin-top: 5px;
-    --title-margin-bottom: 5px;
-    --title-margin-left: 5px;
-    --title-margin-right: 5px;
+    --title-margin-top: 2.5px;
+    --title-margin-bottom: 2.5px;
+    --title-margin-left: 2.5px;
+    --title-margin-right: 2.5px;
 
     --subtitle-font-family: "Pacifico";
 
-    --subtitle-padding-top: 5px;
-    --subtitle-padding-bottom: 5px;
-    --subtitle-padding-left: 5px;
-    --subtitle-padding-right: 5px;
+    --subtitle-padding-top: 2.5px;
+    --subtitle-padding-bottom: 2.5px;
+    --subtitle-padding-left: 2.5px;
+    --subtitle-padding-right: 2.5px;
 
-    --subtitle-margin-top: 5px;
-    --subtitle-margin-bottom: 5px;
-    --subtitle-margin-left: 5px;
-    --subtitle-margin-right: 5px;
+    --subtitle-margin-top: 2.5px;
+    --subtitle-margin-bottom: 2.5px;
+    --subtitle-margin-left: 2.5px;
+    --subtitle-margin-right: 2.5px;
 
     /* BORDERS */
     --border-width: 3px;
@@ -124,11 +126,6 @@
     --border-top-right-radius: var(--border-radius);
 
     /* RECIPE DETAILS */
-    --recipe-details-width: 600px;
-    --recipe-details-height: 300px;
-
-    --recipe-image-width: calc(var(--recipe-details-width) / 2 - var(--margin-left) - var(--margin-right));
-    --recipe-image-height: auto;
-    /* TAGS */
-    --tag-width: calc(var(--recipe-image-width) / 2);
+    --recipe-details-width: 400px;
+    --recipe-details-height: 200px;
 }
