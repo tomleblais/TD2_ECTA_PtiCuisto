@@ -84,7 +84,8 @@ header nav ul li:hover ul {
 
 main {
     margin-top: var(--main-margin-top);
-    margin-bottom: var(--main-margin-bottom);
+    margin-bottom: calc(var(--margin-bottom) + var(--footer-padding-top) + var(--footer-padding-top));
+
     margin-left: auto;
     margin-right: auto;
 
