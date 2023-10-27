@@ -24,7 +24,8 @@ p {
 }
 
 .container,
-.primary-container {
+.primary-container,
+.container.primary {
     margin-top: var(--margin-top);
     margin-bottom: var(--margin-bottom);
     margin-left: var(--margin-left);
@@ -43,7 +44,8 @@ p {
     color: var(--primary-color);
 }
 
-.secondary-container {
+.secondary-container,
+.container.secondary {
     margin-top: var(--margin-top);
     margin-bottom: var(--margin-bottom);
     margin-left: var(--margin-left);
@@ -270,6 +272,73 @@ select {
     font-size: 10pt;
 }
 
+/* MISCELLANEOUS */
+hr {
+    margin-top: calc(var(--margin-top) * 2);
+    margin-bottom: calc(var(--margin-bottom) * 2);
+    margin-left: calc(var(--margin-left) * 2);
+    margin-right: calc(var(--margin-right) * 2);
+
+    border: none;
+    border-bottom-style: var(--border-style);
+    border-bottom-width: var(--border-width);
+    border-bottom-color: var(--border-color);
+
+}
+
+/* SIMPLE RECIPE */
+.recipe-container {
+    display: block;
+}
+
+.recipe-container .recipe {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+
+    margin-top: var(--margin-top);
+    margin-bottom: var(--margin-bottom);
+    margin-left: var(--margin-left);
+    margin-right: var(--margin-right);
+    
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+    padding-left: var(--padding-left);
+    padding-right: var(--padding-right);
+
+    background-color: var(--primary-background-color);
+    color: var(--primary-color);
+}
+
+.recipe-container .recipe .recipe-left,
+.recipe-container .recipe .recipe-right {
+    display: block;
+}
+.recipe-container .recipe .recipe-left {
+    flex: 4;
+}
+.recipe-container .recipe .recipe-left img {
+    width: 100%;
+}
+
+.recipe-container .recipe .recipe-right {
+    flex: 6;
+}
+
+.recipe-container .recipe h3 {
+    font-size: 15pt;
+    font-family: var(--title-font-family);
+}
+
+.recipe-container .recipe h4 {
+    font-size: 13pt;
+    font-family: var(--subtitle-font-family);
+}
+
 /* RECIPE DETAILS*/
 .recipe-details-container {
     display: flex;
@@ -321,7 +390,6 @@ select {
 .recipe-details-right {
     flex: 6;
 }
-
 
 .recipe-details-container .recipe-details img.recipe-details-image {
     width: 100%;
