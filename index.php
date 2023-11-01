@@ -24,13 +24,13 @@ try {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }*/
         } else {
-            require('templates/error404.php');
+            require('templates/errors/error404.php');
         }
     } else {
         (new Homepage())->execute();
     }
-} catch (Exception $e) {
-    $errorMessage = $e->getMessage();
+} catch (Exception $exception) {
+    $errorMessage = $exception->getMessage();
 
-    require('templates/error.php');
+    require('templates/errors/error.php');
 }
