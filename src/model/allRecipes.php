@@ -18,7 +18,7 @@ class AllRecipeRepository {
     public function getRecipes(): array {
         // Make the query
         $statement = $this->connection->getConnection()->query(
-            "SELECT rec_id, rec_title FROM pc_recipe"
+            "SELECT rec_id, rec_title FROM PC_RECIPE"
         );
 
         // Take values

@@ -15,14 +15,7 @@ try {
             (new AllRecipes())->execute();
         } elseif ($_GET['action'] === 'filteredRecipes') {
             // TODO filteredRecipes
-
-            /*if (isset($_GET['id']) && $_GET['id'] > 0) {
-                $identifier = $_GET['id'];
-
-                (new AddComment())->execute($identifier, $_POST);
-            } else {
-                throw new Exception('Aucun identifiant de billet envoyé');
-            }*/
+            (new FilteredRecipes())->execute("category", "jlk");
         } else {
             require('templates/errors/error404.php');
         }

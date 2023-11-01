@@ -31,7 +31,7 @@ class FilteredRecipesRepository {
 
     public function getFilteredRecipesByCategory(int $category) : array {
         $statement = $this->connection->getConnection()->prepare(
-            "SELECT rec_id, rec_title FROM pc_recipe WHERE cat_id = ?"
+            "SELECT rec_id, rec_title FROM PC_RECIPE WHERE cat_id = ?"
         );
         $statement->execute([$category]);
 

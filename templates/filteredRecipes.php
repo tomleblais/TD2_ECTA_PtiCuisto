@@ -1,9 +1,9 @@
 <?php $title = "Filtered recipes"; ?>
 
 <?php ob_start(); ?>
-<h1>All recipes</h1>
+<h1>Filtered recipes</h1>
 
-<!-- Show all recipes -->
+<!-- Show filtered recipes -->
 <?php foreach ($recipes as $recipe): ?>
 <div>
     <h2><?= $recipe->rec_title ?></h2>
