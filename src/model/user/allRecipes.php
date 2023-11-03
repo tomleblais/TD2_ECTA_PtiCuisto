@@ -9,21 +9,14 @@ use Application\Lib\Database\DatabaseConnection;
 use Application\Lib\Recipe\Recipe;
 
 class AllRecipeRepository {
-    private DatabaseConnection $connection;
-
-    public function __construct(DatabaseConnection $connection) {
-        $this->connection = $connection;
-    }
-
     public function getRecipes(): array {
         // Make the query
-        $statement = $this->connection->getConnection()->query(
+        $statement = DatabaseConnection::getConnection()->query(
             "SELECT rec_id, rec_title FROM PC_RECIPE"
         );
 
         // Take values
         $recipes = [];
-
         while (($row = $statement->fetch())) {
             $recipe = new Recipe();
             $recipe->rec_id = $row["rec_id"];

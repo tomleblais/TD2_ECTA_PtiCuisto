@@ -9,12 +9,6 @@ use Application\Lib\Database\DatabaseConnection;
 use Application\Lib\Recipe\Recipe;
 
 class FilteredRecipesRepository {
-    private DatabaseConnection $connection;
-
-    public function __construct(DatabaseConnection $connection) {
-        $this->connection = $connection;
-    }
-
     private function createRecipes($statement): array {
         $recipes = [];
 
@@ -30,7 +24,7 @@ class FilteredRecipesRepository {
     }
 
     public function getFilteredRecipesByCategory(int $category) : array {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT rec_id, rec_title FROM PC_RECIPE WHERE cat_id = ?"
         );
         $statement->execute([$category]);
@@ -39,7 +33,7 @@ class FilteredRecipesRepository {
     }
 
     public function getFilteredRecipesByTitle(string $title) : array {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT rec_id, rec_title FROM pc_recipe WHERE rec_title = ?"
         );
         $statement->execute([$title]);
@@ -48,7 +42,7 @@ class FilteredRecipesRepository {
     }
 
     public function getFilteredRecipesByIngredient(int $ingredient) : array {
-        $statement = $this->connection->getConnection()->prepare(
+        $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT rec_id, rec_title FROM pc_recipe WHERE rec_id = (
                 SELECT rec_id FROM pc_contain WHERE ing_id = ?   
             )"

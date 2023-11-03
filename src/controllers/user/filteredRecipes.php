@@ -2,16 +2,14 @@
 
 namespace Application\Controllers\User\FilteredRecipes;
 
-require_once('src/lib/database.php');
 require_once('src/model/user/filteredRecipes.php');
 
-use Application\Lib\Database\DatabaseConnection;
 use Application\Model\User\FilteredRecipes\FilteredRecipesRepository;
 
 class FilteredRecipes {
     public function execute(string $type, string $option) {
         $recipes = [];
-        $allRecipeRepository = new FilteredRecipesRepository(new DatabaseConnection());
+        $allRecipeRepository = new FilteredRecipesRepository();
 
         switch ($type) {
             case 'category':
