@@ -1,6 +1,8 @@
 <?php
 // http://localhost/TD2_ECTA_PTICUISTOT/index.php
 
+// TODO review all link
+
 require_once('src/controllers/homepage.php');
 require_once('src/controllers/allRecipes.php');
 require_once('src/controllers/filteredRecipes.php');

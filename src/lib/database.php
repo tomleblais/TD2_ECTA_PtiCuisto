@@ -3,11 +3,11 @@
 namespace Application\Lib\Database;
 
 class DatabaseConnection {
-    public ?\PDO $database = null;
+    private static ?\PDO $database = null;
 
-    public function getConnection(): \PDO {
-        if ($this->database === null) {
-            $this->loadEnv();
+    public static function getConnection(): \PDO {
+        if (self::$database === null) {
+            self::loadEnv();
 
             $host = getenv('DB_HOST');
             $port = getenv('DB_PORT');
@@ -16,16 +16,16 @@ class DatabaseConnection {
             $pass = getenv('DB_PASS');
 
             try {
-                $this->database = new \PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $user, $pass);
+                self::$database = new \PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $user, $pass);
             } catch (\PDOException $error) {
                 die("Erreur de connexion à la base de données : " . $error->getMessage());
             }
         }        
 
-        return $this->database;
+        return self::$database;
     }
     
-    private function loadEnv() {
+    private static function loadEnv() {
         $envFile = './.env';
 
         if (file_exists($envFile)) {
