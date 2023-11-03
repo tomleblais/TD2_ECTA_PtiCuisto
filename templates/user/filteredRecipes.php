@@ -1,7 +1,7 @@
-<?php $title = "Filtered recipes"; ?>
+<?php $title = "recettes"; ?>
 
 <?php ob_start(); ?>
-<h1>Filtered recipes</h1>
+<h1>Recettes</h1>
 
 <!-- Show filtered recipes -->
 <?php foreach ($recipes as $recipe): ?>

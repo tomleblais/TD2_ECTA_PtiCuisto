@@ -1,12 +1,12 @@
 <?php
 
-namespace Application\Controllers\FilteredRecipes;
+namespace Application\Controllers\User\FilteredRecipes;
 
 require_once('src/lib/database.php');
-require_once('src/model/filteredRecipes.php');
+require_once('src/model/user/filteredRecipes.php');
 
 use Application\Lib\Database\DatabaseConnection;
-use Application\Model\FilteredRecipes\FilteredRecipesRepository;
+use Application\Model\User\FilteredRecipes\FilteredRecipesRepository;
 
 class FilteredRecipes {
     public function execute(string $type, string $option) {

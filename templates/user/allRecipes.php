@@ -1,4 +1,4 @@
-<?php $title = "All repcies"; ?>
+<?php $title = "toutes les recettes"; ?>
 
 <?php ob_start(); ?>
 <h1>All recipes</h1>

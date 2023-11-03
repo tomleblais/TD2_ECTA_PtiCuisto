@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Model\FilteredRecipes;
+namespace Application\Model\User\FilteredRecipes;
 
 require_once('src/lib/database.php');
 require_once('src/lib/recipe.php');

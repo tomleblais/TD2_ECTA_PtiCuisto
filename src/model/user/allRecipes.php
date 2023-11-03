@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Model\AllRecipes;
+namespace Application\Model\User\AllRecipes;
 
 require_once('src/lib/database.php');
 require_once('src/lib/recipe.php');
