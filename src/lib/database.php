@@ -42,4 +42,8 @@ class DatabaseConnection {
             die("Le fichier .env n'existe pas.");
         }        
     }
+
+    private function __construct() {
+        // Void
+    }
 }
