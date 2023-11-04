@@ -20,8 +20,8 @@ require_once('src/controllers/admin/updateEdito.php');
 use Application\Controllers\Homepage\Homepage;
 use Application\Controllers\Connexion\Connexion;
 
-use Application\Controllers\user\AllRecipes\AllRecipes;
-use Application\Controllers\user\FilteredRecipes\FilteredRecipes;
+use Application\Controllers\User\AllRecipes\AllRecipes;
+use Application\Controllers\User\FilteredRecipes\FilteredRecipes;
 use Application\Controllers\User\ViewRecipe\ViewRecipe;
 
 use Application\Controllers\Editer\AddRecipe\AddRecipe;
