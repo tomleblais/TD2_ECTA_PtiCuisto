@@ -11,6 +11,6 @@ class AllRecipes {
         $allRecipeRepository = new AllRecipeRepository();
         $recipes = $allRecipeRepository->getRecipes();
 
-        require('templates/allRecipes.php');
+        require('templates/user/allRecipes.php');
     }
 }

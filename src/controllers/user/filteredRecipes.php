@@ -23,6 +23,6 @@ class FilteredRecipes {
                 break;
         }
 
-        require('templates/filteredRecipes.php');
+        require('templates/user/filteredRecipes.php');
     }
 }
