@@ -7,10 +7,10 @@ require_once("./src/lib/database.php");
 use Application\Lib\Database\DatabaseConnection;
 
 class Status {
-    public static const NONE = 0;
-    public static const USER = 1;
-    public static const EDITER = 2;
-    public static const ADMIN = 3;
+    public const NONE = 0;
+    public const USER = 1;
+    public const EDITER = 2;
+    public const ADMIN = 3;
 
     public static function getType(int $id): int {
         $statement = DatabaseConnection::getConnection()->prepare(

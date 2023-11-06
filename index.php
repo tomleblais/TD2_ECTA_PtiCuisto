@@ -39,7 +39,6 @@ use Application\Lib\Status\Status;
 define('ERROR_404', 'templates/errors/error404.php');
 $type = (isset($_SESSION['id'])) ? Status::getType($_SESSION['id']) : Status::USER;
 
-
 try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {
         if ($_GET['action'] === 'connexion') {
