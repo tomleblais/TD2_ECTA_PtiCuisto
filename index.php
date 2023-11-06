@@ -75,7 +75,7 @@ try {
             }
         }
         // ADMIN ------------------------------------------------------------------------
-        if ($id == Status::ADMIN) {
+        if ($type == Status::ADMIN) {
             if ($_GET['action'] === 'checkRecipes') {
                 (new CheckRecipes())->execute();
             } elseif ($_GET['action'] === 'updateEdito') {
