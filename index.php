@@ -4,11 +4,10 @@ session_start();
 // Require -----------------------------------------------------------------
 require_once('src/controllers/homepage.php');
 require_once('src/controllers/connexion.php');
-require_once('src/controllers/connexion/login.php');
-
-require_once('src/controllers/user/allRecipes.php');
-require_once('src/controllers/user/filteredRecipes.php');
-require_once('src/controllers/user/viewRecipe.php');
+require_once('src/controllers/login.php');
+require_once('src/controllers/allRecipes.php');
+require_once('src/controllers/filteredRecipes.php');
+require_once('src/controllers/viewRecipe.php');
 
 require_once('src/controllers/editer/addRecipe.php');
 require_once('src/controllers/editer/myRecipes.php');
@@ -22,11 +21,10 @@ require_once('src/lib/status.php');
 // Use application ----------------------------------------------------------
 use Application\Controllers\Homepage\Homepage;
 use Application\Controllers\Connexion\Connexion;
-use Application\Controllers\Connexion\Login\Login;
-
-use Application\Controllers\User\AllRecipes\AllRecipes;
-use Application\Controllers\User\FilteredRecipes\FilteredRecipes;
-use Application\Controllers\User\ViewRecipe\ViewRecipe;
+use Application\Controllers\Login\Login;
+use Application\Controllers\AllRecipes\AllRecipes;
+use Application\Controllers\FilteredRecipes\FilteredRecipes;
+use Application\Controllers\ViewRecipe\ViewRecipe;
 
 use Application\Controllers\Editer\AddRecipe\AddRecipe;
 use Application\Controllers\Editer\MyRecipes\MyRecipes;
@@ -73,7 +71,8 @@ try {
             if ($_GET['action'] === 'addRecipe') {
                 (new AddRecipe())->execute();
             } elseif ($_GET['action'] === 'myRecipes') {
-                (new MyRecipes())->execute();
+                // TODO MyRecipes
+                (new MyRecipes())->execute(0);
             } elseif ($_GET['action'] === 'updateRecipe') {
                 (new UpdateRecipe())->execute();
             } elseif ($type == Status::EDITER) {

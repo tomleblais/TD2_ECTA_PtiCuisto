@@ -2,13 +2,13 @@
 
 namespace Application\Controllers\Editer\MyRecipes;
 
-require_once('src/model/editer/myRecipes.php');
+require_once('src/model/recipe.php');
 
-use Application\Model\Editer\MyRecipes\MyRecipesModel;
+use Application\Model\Recipe\RecipeModel;
 
 class MyRecipes {
-    public function execute() {
-        $myRecipeModel = new MyRecipesModel();
+    public function execute(int $id) {
+        $myRecipeModel = new RecipeModel();
 
         require('templates/editer/myRecipes.php');
     }

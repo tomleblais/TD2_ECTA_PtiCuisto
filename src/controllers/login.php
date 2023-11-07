@@ -1,11 +1,11 @@
 <?php
 
-namespace Application\Controllers\Connexion\Login;
+namespace Application\Controllers\Login;
 
-require_once("src/model/user/connexion.php");
+require_once("src/model/user.php");
 require_once('src/lib/status.php');
 
-use Application\Model\Connexion\ConnexionModel;
+use Application\Model\User\UserModel;
 use Application\Lib\Status\Status;
 
 class Login {
@@ -30,7 +30,7 @@ class Login {
             return "Adresse email invalide";
         }
 
-        $model = new ConnexionModel();
+        $model = new UserModel();
         $id = $model->login($email, hash("sha256", $password));
     
         $_SESSION["id"] = $id;

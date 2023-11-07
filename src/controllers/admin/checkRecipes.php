@@ -2,13 +2,13 @@
 
 namespace Application\Controllers\Admin\CheckRecipes;
 
-require_once('src/model/admin/checkRecipes.php');
+require_once('src/model/recipe.php');
 
-use Application\Model\Admin\CheckRecipes\CheckRecipesModel;
+use Application\Model\Recipe\RecipeModel;
 
 class CheckRecipes {
     public function execute() {
-        $checkRecipesModel = new CheckRecipesModel();
+        $checkRecipesModel = new RecipeModel();
 
         require('templates/admin/checkRecipes.php');
     }

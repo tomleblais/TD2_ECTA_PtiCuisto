@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Model\RecipeModel;
+namespace Application\Model\Recipe;
 
 require_once('src/lib/database.php');
 
@@ -58,8 +58,6 @@ class RecipeModel {
             JOIN PC_recette USING (COM_ID)
             JOIN PC_USER USING (USE_ID)
             WHERE REC_ID = ?"
-
-            
         );
 
         $statement2->execute([$id]);

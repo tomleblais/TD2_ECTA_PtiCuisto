@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Model\CommentModel;
+namespace Application\Model\Comment;
 
 require_once('src/lib/database.php');
 

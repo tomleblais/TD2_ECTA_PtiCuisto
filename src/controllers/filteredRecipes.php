@@ -1,15 +1,15 @@
 <?php
 
-namespace Application\Controllers\User\FilteredRecipes;
+namespace Application\Controllers\FilteredRecipes;
 
-require_once('src/model/user/filteredRecipes.php');
+require_once('src/model/recipe.php');
 
-use Application\Model\User\FilteredRecipes\FilteredRecipesRepository;
+use Application\Model\Recipe\RecipeModel;
 
 class FilteredRecipes {
     public function execute(string $type, string $option) {
         $recipes = [];
-        $allRecipeRepository = new FilteredRecipesRepository();
+        $allRecipeRepository = new RecipeModel();
 
         switch ($type) {
             case 'category':
