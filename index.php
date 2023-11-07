@@ -4,6 +4,7 @@ session_start();
 // Require -----------------------------------------------------------------
 require_once('src/controllers/homepage.php');
 require_once('src/controllers/connexion.php');
+require_once('src/controllers/connexion/login.php');
 
 require_once('src/controllers/user/allRecipes.php');
 require_once('src/controllers/user/filteredRecipes.php');
@@ -20,7 +21,8 @@ require_once('src/lib/status.php');
 
 // Use application ----------------------------------------------------------
 use Application\Controllers\Homepage\Homepage;
-use Application\Controllers\Connection\Login;
+use Application\Controllers\Connexion\Connexion;
+use Application\Controllers\Connexion\Login\Login;
 
 use Application\Controllers\User\AllRecipes\AllRecipes;
 use Application\Controllers\User\FilteredRecipes\FilteredRecipes;
@@ -41,9 +43,6 @@ $type = (isset($_SESSION['type'])) ? $_SESSION['type'] : Status::USER;
 
 try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {
-        if ($_GET['action'] === 'connexion') {
-            // (new Login())->execute();
-        }
         // NONE -----------------------------------------------------------------------
         if ($type == Status::NONE) {
             throw new RangeException("Type d'utilisateur inconu, vous ne pouvez pas être John Doe !");
@@ -61,6 +60,10 @@ try {
                 } else {
                     throw new Exception('Aucun identifiant pour afficher une page');
                 }
+            } elseif ($_GET['action'] === 'connexion') {
+                (new Connexion())->execute();
+            } elseif ($_GET['action'] === 'login') {
+                (new Login())->execute();
             } elseif ($type == Status::USER) {
                 require(ERROR_404);
             }
