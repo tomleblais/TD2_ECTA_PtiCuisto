@@ -10,6 +10,6 @@ class AllRecipes {
     public function execute() {
         $recipes = (new RecipeModel())->getRecipes();
 
-        require('templates/user/allRecipes.php');
+        require('templates/allRecipes.php');
     }
 }

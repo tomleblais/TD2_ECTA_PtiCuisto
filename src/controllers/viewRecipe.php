@@ -13,6 +13,6 @@ class ViewRecipe {
         $recette = (new RecipeModel())->getRecipe($id);
         $comments = (new CommentModel())->getComments($id);
 
-        require('templates/user/viewRecipe.php');
+        require('templates/viewRecipe.php');
     }
 }

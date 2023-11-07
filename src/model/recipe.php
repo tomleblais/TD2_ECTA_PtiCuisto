@@ -61,7 +61,8 @@ class RecipeModel {
         );
 
         $statement2->execute([$id]);
-        $recette= new Recipe;
+        $recette = new Recipe();
+        echo $statement2->fetch() . "aaaaaa";
         while (($row = $statement2->fetch())) {
             $recette->rec_title = $row["rec_title"];
             $recette->rec_image = $row["rec_image"];
@@ -69,8 +70,8 @@ class RecipeModel {
             $recette->rec_creation_date = $row["rec_creation_date"];
             $recette->rec_modification_date = $row["rec_modification_date"];
             $recette->use_nickname = $row["use_nickname"];
+            echo $row;
         }
-        $recette->tags= $tags;
 
         return $recette;
     }
