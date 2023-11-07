@@ -25,7 +25,7 @@ class ViewRecipeModel
     
     public function getComments() : array {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT USE_NICKNAME, COM_CONTENT, COM_DATE FROM PC_WRITE
+            "SELECT USE_NICKNAME, COM_CONTENT, TO_CHAR(COM_DATE) AS COM_DATE FROM PC_WRITE
             JOIN PC_recette USING (COM_ID)
             JOIN PC_USER USING (USE_ID)
             WHERE REC_ID = ?"
@@ -34,7 +34,7 @@ class ViewRecipeModel
         $statement->execute([$this->id]);
         $comments = [];
         while (($row = $statement->fetch())) {
-            $comment= new Comment();
+            $comment = new Comment();
             $comment->use_nickname = $row["use_nickname"];
             $comment->com_content = $row["com_content"];
             $comment->com_date = $row["com_date"];
@@ -42,7 +42,7 @@ class ViewRecipeModel
             $comments[] = $comment;
         }
 
-        return $comment;
+        return $comments;
     }
 
     public function getRecipe() : Recipe {
@@ -58,7 +58,7 @@ class ViewRecipeModel
         $tags = [];
         while (($row = $statement->fetch())) {
             $tag_name= $row["tag_name"];
-            $tags[] += $tag_name;
+            $tags = $tag_name;
         }
 
         $statement2 = DatabaseConnection::getConnection()->prepare(

@@ -42,7 +42,7 @@ $type = (isset($_SESSION['type'])) ? $_SESSION['type'] : Status::USER;
 try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {
         if ($_GET['action'] === 'connexion') {
-            (new Login())->execute();
+            // (new Login())->execute();
         }
         // NONE -----------------------------------------------------------------------
         if ($type == Status::NONE) {
@@ -57,7 +57,7 @@ try {
                 (new FilteredRecipes())->execute("category", "jlk");
             } elseif ($_GET['action'] === 'viewRecipe') {
                 if (isset($_GET['id'])) {
-                    (new ViewRecipe())->execute($_GET['id']);
+                    (new ViewRecipe())->execute(intval($_GET['id']));
                 } else {
                     throw new Exception('Aucun identifiant pour afficher une page');
                 }
