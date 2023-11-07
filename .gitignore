@@ -1,5 +1,8 @@
-# Dossier de configuration de VS-Code
+# VSCODE configuration folder
 .vscode/
 
-# Fichier environnement
+# Environment file
 .env
+
+# Skiped file
+gitignore/
