@@ -37,7 +37,7 @@ use Application\Lib\Status\Status;
 
 // Execute --------------------------------------------------------------------
 define('ERROR_404', 'templates/errors/error404.php');
-$type = (isset($_SESSION['id'])) ? Status::getType($_SESSION['id']) : Status::USER;
+$type = (isset($_SESSION['type'])) ? $_SESSION['type'] : Status::USER;
 
 try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {
