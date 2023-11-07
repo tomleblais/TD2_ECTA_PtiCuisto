@@ -1,15 +1,15 @@
 <?php
 
-namespace Application\Controllers\Connection;
+namespace Application\Controllers\Connexion;
 
 require_once('src/lib/database.php');
 
 use Application\Lib\Database\DatabaseConnection;
 
-class Connection {
+class Connexion {
 
     public function execute() {
-        require('templates/connection.php');
+        require('templates/connexion.php');
     }
 }
 

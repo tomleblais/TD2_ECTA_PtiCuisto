@@ -1,36 +1,33 @@
 <?php
 
-namespace Application\Model\Connection;
+namespace Application\Model\Connexion;
 
 require_once('src/lib/database.php');
 
 use Application\Lib\Database\DatabaseConnection;
+use Exception;
 
-class ConnectionModel {
+class ConnexionModel {
     
-    public function execute() {
-        require('templates/connection.php');
-    }
-
     public function login($email, $password): int {
         
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT COUNT(*) AS user_count FROM User WHERE use_email = '?' AND use_password = '?'"
+            "SELECT COUNT(*) AS USER_COUNT FROM PC_USER WHERE USE_EMAIL = ? AND USE_PASSWORD = ?"
         );
         $statement->execute([$email, $password]);
-        $row = $statement->fetch();
+        $result = $statement->fetch();
         
-        if ($row["user_count"] != 1) {
-            throw "Aucun utilisateur ne correspond";
+        if ($result["USER_COUNT"] != 1) {
+            throw new Exception("Aucun utilisateur ne correspond");
             
         } else {
             $statement = DatabaseConnection::getConnection()->prepare(
-                "SELECT use_id FROM User WHERE use_email = '?' AND use_password = '?'"
+                "SELECT USE_ID FROM PC_USER WHERE USE_EMAIL = ? AND USE_PASSWORD = ?"
             );
             $statement->execute([$email, $password]);
-            $row = $statement->fetch();
+            $result = $statement->fetch();
     
-            return $row["use_id"];
+            return $result["USE_ID"];
         }
 
     }

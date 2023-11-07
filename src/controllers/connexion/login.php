@@ -1,17 +1,14 @@
 <?php
 
-namespace Application\Controllers\Connection\Login;
+namespace Application\Controllers\Connexion\Login;
 
-require_once("src/model/user/connection.php");
+require_once("src/model/user/connexion.php");
 require_once('src/lib/status.php');
 
-use Application\Model\Connection\ConnectionModel;
+use Application\Model\Connexion\ConnexionModel;
 use Application\Lib\Status\Status;
 
-session_start();
-
 class Login {
-
     public function execute() {
         if(!isset($_POST['email']) && !isset($_POST['password'])){
             return "email ou mot de passe indéfini";
@@ -33,8 +30,8 @@ class Login {
             return "Adresse email invalide";
         }
 
-        $model = new ConnectionModel();
-        $id = $model->login($email, $password);
+        $model = new ConnexionModel();
+        $id = $model->login($email, hash("sha256", $password));
     
         $_SESSION["id"] = $id;
         $_SESSION["type"] = Status::getType($id);
