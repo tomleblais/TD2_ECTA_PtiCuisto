@@ -20,7 +20,7 @@ require_once('src/lib/status.php');
 
 // Use application ----------------------------------------------------------
 use Application\Controllers\Homepage\Homepage;
-use Application\Controllers\Connexion\Connexion;
+use Application\Controllers\Connection\Login;
 
 use Application\Controllers\User\AllRecipes\AllRecipes;
 use Application\Controllers\User\FilteredRecipes\FilteredRecipes;
@@ -42,7 +42,7 @@ $type = (isset($_SESSION['id'])) ? Status::getType($_SESSION['id']) : Status::US
 try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {
         if ($_GET['action'] === 'connexion') {
-            (new Connexion())->execute();
+            (new Login())->execute();
         }
         // NONE -----------------------------------------------------------------------
         if ($type == Status::NONE) {
