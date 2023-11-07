@@ -1,5 +1,5 @@
 <?php
-// http://localhost/TD2_ECTA_PTICUISTOT/index.php
+session_start();
 
 // Require -----------------------------------------------------------------
 require_once('src/controllers/homepage.php');
@@ -16,12 +16,14 @@ require_once('src/controllers/editer/updateRecipe.php');
 require_once('src/controllers/admin/checkRecipes.php');
 require_once('src/controllers/admin/updateEdito.php');
 
+require_once('src/lib/status.php');
+
 // Use application ----------------------------------------------------------
 use Application\Controllers\Homepage\Homepage;
-use Application\Controllers\Connexion\Connexion;
+use Application\Controllers\Connection\Login;
 
-use Application\Controllers\user\AllRecipes\AllRecipes;
-use Application\Controllers\user\FilteredRecipes\FilteredRecipes;
+use Application\Controllers\User\AllRecipes\AllRecipes;
+use Application\Controllers\User\FilteredRecipes\FilteredRecipes;
 use Application\Controllers\User\ViewRecipe\ViewRecipe;
 
 use Application\Controllers\Editer\AddRecipe\AddRecipe;
@@ -31,48 +33,57 @@ use Application\Controllers\Editer\UpdateRecipe\UpdateRecipe;
 use Application\Controllers\Admin\CheckRecipes\CheckRecipes;
 use Application\Controllers\Admin\UpdateEdito\UpdateEdito;
 
+use Application\Lib\Status\Status;
 
 // Execute --------------------------------------------------------------------
 define('ERROR_404', 'templates/errors/error404.php');
+$type = (isset($_SESSION['type'])) ? $_SESSION['type'] : Status::USER;
 
 try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {
         if ($_GET['action'] === 'connexion') {
-            (new Connexion())->execute();
+            (new Login())->execute();
+        }
+        // NONE -----------------------------------------------------------------------
+        if ($type == Status::NONE) {
+            throw new RangeException("Type d'utilisateur inconu, vous ne pouvez pas être John Doe !");
         }
         // USER -----------------------------------------------------------------------
-        if (true) { // TODO USER ou EDITER ou ADMIN
+        if ($type >= Status::USER) {
             if ($_GET['action'] === 'allRecipes') {
                 (new AllRecipes())->execute();
             } elseif ($_GET['action'] === 'filteredRecipes') {
                 // TODO filteredRecipes
                 (new FilteredRecipes())->execute("category", "jlk");
             } elseif ($_GET['action'] === 'viewRecipe') {
-                // TODO view recipe
-                (new ViewRecipe())->execute(1);
-            } elseif (false) {  // TODO USER
+                if (isset($_GET['id'])) {
+                    (new ViewRecipe())->execute($_GET['id']);
+                } else {
+                    throw new Exception('Aucun identifiant pour afficher une page');
+                }
+            } elseif ($type == Status::USER) {
                 require(ERROR_404);
             }
         }
         // EDITER ----------------------------------------------------------------------
-        if (true) { // TODO editer ou admin
+        if ($type >= Status::EDITER) {
             if ($_GET['action'] === 'addRecipe') {
                 (new AddRecipe())->execute();
             } elseif ($_GET['action'] === 'myRecipes') {
                 (new MyRecipes())->execute();
             } elseif ($_GET['action'] === 'updateRecipe') {
                 (new UpdateRecipe())->execute();
-            } elseif (false) {  // TODO EDITER
+            } elseif ($type == Status::EDITER) {
                 require(ERROR_404);
             }
         }
         // ADMIN ------------------------------------------------------------------------
-        if (true) { // TODO admin
+        if ($type == Status::ADMIN) {
             if ($_GET['action'] === 'checkRecipes') {
                 (new CheckRecipes())->execute();
             } elseif ($_GET['action'] === 'updateEdito') {
                 (new UpdateEdito())->execute();
-            } elseif (false) { // TODO ADMIN
+            } else {
                 require(ERROR_404);
             }
         }

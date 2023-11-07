@@ -6,7 +6,7 @@
 <!-- Show all recipes -->
 <?php foreach ($recipes as $recipe): ?>
 <div>
-    <h2><?= $recipe->rec_title ?></h2>
+    <h2><a href="index.php?action=viewRecipe&id=<?= $recipe->rec_id ?>"><?= $recipe->rec_title ?></a></h2>
 </div>
 <?php endforeach; ?>
 

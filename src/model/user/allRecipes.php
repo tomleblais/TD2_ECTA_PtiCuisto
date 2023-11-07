@@ -12,7 +12,7 @@ class AllRecipeRepository {
     public function getRecipes(): array {
         // Make the query
         $statement = DatabaseConnection::getConnection()->query(
-            "SELECT rec_id, rec_title FROM PC_RECIPE"
+            "SELECT rec_id, rec_title FROM PC_RECIPE WHERE rec_valide = TRUE"
         );
 
         // Take values
