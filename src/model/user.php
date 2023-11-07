@@ -1,13 +1,13 @@
 <?php
 
-namespace Application\Model\Connexion;
+namespace Application\Model\User;
 
 require_once('src/lib/database.php');
 
 use Application\Lib\Database\DatabaseConnection;
 use Exception;
 
-class ConnexionModel {
+class UserModel {
     
     public function login($email, $password): int {
         
@@ -88,5 +88,3 @@ class ConnexionModel {
         DatabaseConnection::getConnection()->exec($sqlUpdateUser);
     }
 }
-
-?>
