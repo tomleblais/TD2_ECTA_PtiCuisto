@@ -56,8 +56,11 @@ try {
                 // TODO filteredRecipes
                 (new FilteredRecipes())->execute("category", "jlk");
             } elseif ($_GET['action'] === 'viewRecipe') {
-                // TODO view recipe
-                (new ViewRecipe())->execute(1);
+                if (isset($_GET['id'])) {
+                    (new ViewRecipe())->execute($_GET['id']);
+                } else {
+                    throw new Exception('Aucun identifiant pour afficher une page');
+                }
             } elseif ($type == Status::USER) {
                 require(ERROR_404);
             }
