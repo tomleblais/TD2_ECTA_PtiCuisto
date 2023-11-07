@@ -55,12 +55,20 @@ try {
                 // TODO filteredRecipes
                 (new FilteredRecipes())->execute("category", "jlk");
             } elseif ($_GET['action'] === 'viewRecipe') {
+<<<<<<< HEAD
                 // TODO view recipe
                 (new ViewRecipe())->execute(1);
             } elseif ($_GET['action'] === 'login') {
                 (new Login())->execute();
             } elseif ($_GET['action'] === 'connexion') {
                 (new Connexion())->execute();
+=======
+                if (isset($_GET['id'])) {
+                    (new ViewRecipe())->execute($_GET['id']);
+                } else {
+                    throw new Exception('Aucun identifiant pour afficher une page');
+                }
+>>>>>>> 4cd37b40dda5a2a7525ea32ffc6a47fc07a2396d
             } elseif ($type == Status::USER) {
                 require(ERROR_404);
             }
