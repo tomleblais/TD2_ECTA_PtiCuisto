@@ -1,6 +1,7 @@
 <?php
 
 namespace Application\Model\Recipe;
+use Exception;
 
 require_once('src/lib/database.php');
 
@@ -18,13 +19,12 @@ class Recipe {
 }
 
 class RecipeModel {
-    public function getRecipes(): array {
-        // Make the query
-        $statement = DatabaseConnection::getConnection()->query(
-            "SELECT rec_id, rec_title FROM PC_RECIPE WHERE rec_valide = TRUE"
+    public function getRecipes(bool $check = TRUE): array {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT rec_id, rec_title FROM PC_RECIPE WHERE rec_valide = ?"
         );
+        $statement->execute([$check]);
 
-        // Take values
         $recipes = [];
         while (($row = $statement->fetch())) {
             $recipe = new Recipe();
@@ -74,6 +74,31 @@ class RecipeModel {
         }
 
         return $recette;
+    }
+
+    public function getRecipeB(int $id) : Recipe {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT rec_title, rec_summary FROM PC_RECIPE WHERE rec_id = ?"
+        );
+        $statement->execute([$id]);
+        
+        if (!($row = $statement->fetch())) {
+            throw new Exception("La recette n'a pas pu être trouvée !");
+        }
+    
+        $recipe = new Recipe();
+        $recipe->rec_title = $row["rec_title"];
+        $recipe->rec_summary = $row["rec_summary"];
+    
+        return $recipe;
+    }
+
+    public function checkRecipe(int $id) : bool {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "UPDATE PC_RECIPE SET rec_valide = true, rec_registration_date = SYSDATE() WHERE rec_id = ?"
+        );
+
+        return !$statement->execute([$id]);
     }
 
     private function createRecipes($statement): array {

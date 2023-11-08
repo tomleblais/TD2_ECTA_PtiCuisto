@@ -15,6 +15,9 @@ require_once('src/controllers/editer/updateRecipe.php');
 
 require_once('src/controllers/admin/checkRecipes.php');
 require_once('src/controllers/admin/updateEdito.php');
+require_once('src/controllers/admin/viewRecipeUncheck.php');
+require_once('src/controllers/admin/checkRecipe.php');
+
 
 require_once('src/lib/status.php');
 
@@ -32,12 +35,15 @@ use Application\Controllers\Editer\UpdateRecipe\UpdateRecipe;
 
 use Application\Controllers\Admin\CheckRecipes\CheckRecipes;
 use Application\Controllers\Admin\UpdateEdito\UpdateEdito;
+use Application\Controllers\Admin\ViewRecipeUncheck\ViewRecipeUncheck;
+use Application\Controllers\Admin\CheckRecipe\CheckRecipe;
+
 
 use Application\Lib\Status\Status;
 
 // Execute --------------------------------------------------------------------
 define('ERROR_404', 'templates/errors/error404.php');
-$type = (isset($_SESSION['type'])) ? $_SESSION['type'] : Status::USER;
+$type = (isset($_SESSION['type'])) ? $_SESSION['type'] : Status::ADMIN;
 
 try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {
@@ -85,6 +91,18 @@ try {
                 (new CheckRecipes())->execute();
             } elseif ($_GET['action'] === 'updateEdito') {
                 (new UpdateEdito())->execute();
+            } elseif ($_GET['action'] === 'viewRecipeUncheck') {
+                if (isset($_GET['id'])) {
+                    (new ViewRecipeUncheck())->execute(intval($_GET['id']));
+                } else {
+                    throw new Exception('Aucun identifiant pour afficher une page non validé');
+                }
+            } elseif ($_GET['action'] === 'checkRecipe') {
+                if (isset($_GET['id'])) {
+                    (new CheckRecipe())->execute(intval($_GET['id']));
+                } else {
+                    throw new Exception('Aucun identifiant pour validé la page !');
+                }
             } else {
                 require(ERROR_404);
             }
