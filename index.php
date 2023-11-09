@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+// TODO supprimer une recette
+// TODO modifier plus de chose de la recette
+// TODO update la recette dans la bdd
+
 // Require -----------------------------------------------------------------
 require_once('./src/model/user.php');
 require_once('./src/controllers/permission.php');
@@ -10,11 +14,10 @@ require_once('./src/controllers/connexion.php');
 require_once('./src/controllers/login.php');
 require_once('./src/controllers/allRecipes.php');
 require_once('./src/controllers/filteredRecipes.php');
-require_once('./src/controllers/viewRecipe.php');
+require_once('./src/controllers/recipe.php');
 
 require_once('./src/controllers/editer/addRecipe.php');
 require_once('./src/controllers/editer/myRecipes.php');
-require_once('./src/controllers/editer/updateRecipe.php');
 
 require_once('./src/controllers/admin/checkRecipes.php');
 require_once('./src/controllers/admin/updateEdito.php');
@@ -30,11 +33,10 @@ use Application\Controllers\Connexion\Connexion;
 use Application\Controllers\Login\Login;
 use Application\Controllers\AllRecipes\AllRecipes;
 use Application\Controllers\FilteredRecipes\FilteredRecipes;
-use Application\Controllers\ViewRecipe\ViewRecipe;
+use Application\Controllers\Recipe\Recipe;
 
 use Application\Controllers\Editer\AddRecipe\AddRecipe;
 use Application\Controllers\Editer\MyRecipes\MyRecipes;
-use Application\Controllers\Editer\UpdateRecipe\UpdateRecipe;
 
 use Application\Controllers\Admin\CheckRecipes\CheckRecipes;
 use Application\Controllers\Admin\UpdateEdito\UpdateEdito;
@@ -59,7 +61,7 @@ try {
             (new FilteredRecipes())->execute("category", "jlk");
         } elseif ($_GET['action'] === 'viewRecipe' && $permission->isAllowed('viewRecipe')) {
             if (isset($_GET['id'])) {
-                (new ViewRecipe())->execute(intval($_GET['id']));
+                (new Recipe())->showRecipe(intval($_GET['id']));
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
@@ -77,8 +79,12 @@ try {
             } else {
                 throw new Exception("L'ID n'est pas déffinie");
             }
-        } elseif ($_GET['action'] === 'updateRecipe' && $permission->isAllowed('updateRecipe')) {
-            (new UpdateRecipe())->execute();
+        } elseif ($_GET['action'] === 'modifyRecipe' && $permission->isAllowed('modifyRecipe')) {
+            if (isset($_SESSION["id"])) {
+                (new Recipe())->modifyRecipe(intval($_GET['id']));
+            } else {
+                throw new Exception("L'ID n'est pas déffinie");
+            }
         }
         // ADMIN ----------------------------------------------------------------------
         elseif ($_GET['action'] === 'checkRecipes' && $permission->isAllowed('checkRecipes')) {

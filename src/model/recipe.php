@@ -38,7 +38,7 @@ class RecipeModel {
         return $recipes;
     }
 
-    public function getRecipe(int $id) : Recipe {
+    public function getRecipeB(int $id) : Recipe {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT tag_name FROM PC_TAG
             JOIN PC_LABEL USING (TAG_ID)
@@ -77,7 +77,7 @@ class RecipeModel {
         return $recette;
     }
 
-    public function getRecipeB(int $id) : Recipe {
+    public function getRecipe(int $id) : Recipe {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT rec_title, rec_summary FROM PC_RECIPE WHERE rec_id = ?"
         );
@@ -92,6 +92,19 @@ class RecipeModel {
         $recipe->rec_summary = $row["rec_summary"];
     
         return $recipe;
+    }
+
+    public function getAutor(int $id) : int {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT use_id FROM PC_RECIPE WHERE rec_id = ?"
+        );
+        $statement->execute([$id]);
+
+        if (!($row = $statement->fetch())) {
+            throw new Exception("L'auteur n'a pas pu être trouvée !");
+        }
+
+        return $row["use_id"];
     }
 
     public function getMyRecipes(int $id) : array {

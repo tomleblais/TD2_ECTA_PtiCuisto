@@ -27,7 +27,7 @@ class Permission {
         $this->editer = [
             "addRecipe",
             "myRecipes",
-            "updateRecipe"
+            "modifyRecipe"
         ];
 
         $this->admin = [

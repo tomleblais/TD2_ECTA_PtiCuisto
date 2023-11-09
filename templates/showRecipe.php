@@ -26,21 +26,30 @@
                 <h2><?= $recette->rec_title ?></h2>
             </div>
             <div>
-                <div><?= $recette->use_nickname ?></div>
-                <div><?= $date ?></div>
+                <div><?php /*$recette->use_nickname */ ?></div>
+                <div><?php /* $date */?></div>
             </div>
         </div>
         <p><?= $recette->rec_summary ?></p>
     </div>
 </div>
 
-<?php foreach ($comments as $comment) : ?>
+<?php /* foreach ($comments as $comment) : ?>
     <div>
         <h3><?= $comment->use_nickname ?></h3>
         <p><?= $comment->com_date ?></p>
         <p><?= $comment->com_content ?></p>
     </div>
-<?php endforeach; ?>
+<?php endforeach; */?>
+
+<?php if ($modify) : ?>
+    <form action="index.php?action=modifyRecipe&id=<?= $id ?>" method="POST">
+    <button type="submit">Modifier</button>
+</form>
+<form action="index.php" method="POST">
+    <button type="submit">Supprimer</button>
+</form>
+<?php endif ?>
 
 <?php $content = ob_get_clean(); ?>
 
