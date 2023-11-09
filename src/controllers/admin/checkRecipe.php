@@ -11,7 +11,7 @@ class CheckRecipe {
         if ((new RecipeModel())->checkRecipe($id)) {
             throw new \Exception("La recette n'a pas pu être validée !");
         } else {
-            header("Location: index.php?action=checkRecipes");
+            header("Location: ./index.php?action=checkRecipes");
         }
     }
 }

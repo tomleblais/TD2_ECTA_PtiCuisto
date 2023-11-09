@@ -10,6 +10,6 @@ class CheckRecipes {
     public function execute() {
         $recipes = (new RecipeModel())->getRecipes(false);
 
-        require('templates/admin/checkRecipes.php');
+        require('./templates/admin/checkRecipes.php');
     }
 }

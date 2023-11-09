@@ -2,24 +2,24 @@
 session_start();
 
 // Require -----------------------------------------------------------------
-require_once('src/lib/status.php');
-require_once('src/controllers/permission.php');
+require_once('./src/lib/status.php');
+require_once('./src/controllers/permission.php');
 
-require_once('src/controllers/homepage.php');
-require_once('src/controllers/connexion.php');
-require_once('src/controllers/login.php');
-require_once('src/controllers/allRecipes.php');
-require_once('src/controllers/filteredRecipes.php');
-require_once('src/controllers/viewRecipe.php');
+require_once('./src/controllers/homepage.php');
+require_once('./src/controllers/connexion.php');
+require_once('./src/controllers/login.php');
+require_once('./src/controllers/allRecipes.php');
+require_once('./src/controllers/filteredRecipes.php');
+require_once('./src/controllers/viewRecipe.php');
 
-require_once('src/controllers/editer/addRecipe.php');
-require_once('src/controllers/editer/myRecipes.php');
-require_once('src/controllers/editer/updateRecipe.php');
+require_once('./src/controllers/editer/addRecipe.php');
+require_once('./src/controllers/editer/myRecipes.php');
+require_once('./src/controllers/editer/updateRecipe.php');
 
-require_once('src/controllers/admin/checkRecipes.php');
-require_once('src/controllers/admin/updateEdito.php');
-require_once('src/controllers/admin/viewRecipeUncheck.php');
-require_once('src/controllers/admin/checkRecipe.php');
+require_once('./src/controllers/admin/checkRecipes.php');
+require_once('./src/controllers/admin/updateEdito.php');
+require_once('./src/controllers/admin/viewRecipeUncheck.php');
+require_once('./src/controllers/admin/checkRecipe.php');
 
 // Use application ----------------------------------------------------------
 use Application\Lib\Status\Status;
@@ -95,7 +95,7 @@ try {
                 throw new Exception('Aucun identifiant pour validé la page !');
             }
         } else {
-            require('templates/errors/error404.php');
+            require('./templates/errors/error404.php');
         }
     } else {
         (new Homepage())->execute();
@@ -103,5 +103,5 @@ try {
 } catch (Exception $exception) {
     $errorMessage = $exception->getMessage();
 
-    require('templates/errors/error.php');
+    require('./templates/errors/error.php');
 }

@@ -2,8 +2,8 @@
 
 namespace Application\Controllers\Login;
 
-require_once("src/model/user.php");
-require_once('src/lib/status.php');
+require_once("./src/model/user.php");
+require_once('./src/lib/status.php');
 
 use Application\Model\User\UserModel;
 use Application\Lib\Status\Status;

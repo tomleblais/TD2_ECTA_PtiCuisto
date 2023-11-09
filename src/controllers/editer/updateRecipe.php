@@ -10,6 +10,6 @@ class UpdateRecipe {
     public function execute() {
         $updateRecipeModel = new RecipeModel();
 
-        require('templates/editer/updateRecipe.php');
+        require('./templates/editer/updateRecipe.php');
     }
 }

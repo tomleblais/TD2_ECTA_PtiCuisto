@@ -10,6 +10,6 @@ class MyRecipes {
     public function execute(int $id) {
         $myRecipeModel = new RecipeModel();
 
-        require('templates/editer/myRecipes.php');
+        require('./templates/editer/myRecipes.php');
     }
 }

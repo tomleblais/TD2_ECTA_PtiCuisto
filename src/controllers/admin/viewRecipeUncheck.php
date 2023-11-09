@@ -10,6 +10,6 @@ class ViewRecipeUncheck {
     public function execute(int $id) {
         $recipe = (new RecipeModel())->getRecipeB($id);
 
-        require('templates/admin/viewRecipeUncheck.php');
+        require('./templates/admin/viewRecipeUncheck.php');
     }
 }
