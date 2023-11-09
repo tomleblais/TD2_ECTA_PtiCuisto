@@ -72,8 +72,11 @@ try {
         elseif ($_GET['action'] === 'addRecipe' && $permission->isAllowed('allRecipe')) {
             (new AddRecipe())->execute();
         } elseif ($_GET['action'] === 'myRecipes' && $permission->isAllowed('myRecipes')) {
-            // TODO MyRecipes
-            (new MyRecipes())->execute(0);
+            if (isset($_SESSION["id"])) {
+                (new MyRecipes())->execute($_SESSION["id"]);
+            } else {
+                throw new Exception("L'ID n'est pas déffinie");
+            }
         } elseif ($_GET['action'] === 'updateRecipe' && $permission->isAllowed('updateRecipe')) {
             (new UpdateRecipe())->execute();
         }

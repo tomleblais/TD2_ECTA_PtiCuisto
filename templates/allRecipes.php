@@ -3,7 +3,6 @@
 <?php ob_start(); ?>
 <h1>All recipes</h1>
 
-<!-- Show all recipes -->
 <?php foreach ($recipes as $recipe): ?>
 <div>
     <h2><a href="index.php?action=viewRecipe&id=<?= $recipe->rec_id ?>"><?= $recipe->rec_title ?></a></h2>

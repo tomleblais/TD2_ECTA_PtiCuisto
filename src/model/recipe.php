@@ -16,6 +16,7 @@ class Recipe {
     public string $rec_modification_date;
     public string $use_nickname;
     public array $tags;
+    public int $use_id;
 }
 
 class RecipeModel {
@@ -91,6 +92,24 @@ class RecipeModel {
         $recipe->rec_summary = $row["rec_summary"];
     
         return $recipe;
+    }
+
+    public function getMyRecipes(int $id) : array {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT rec_title, rec_id FROM PC_RECIPE WHERE use_id = ?"
+        );
+        $statement->execute([$id]);
+
+        $recipes = [];
+        while (($row = $statement->fetch())) {
+            $recipe = new Recipe();
+            $recipe->rec_id = $row["rec_id"];
+            $recipe->rec_title = $row["rec_title"];
+
+            $recipes[] = $recipe;
+        }
+
+        return $recipes;
     }
 
     public function checkRecipe(int $id) : bool {

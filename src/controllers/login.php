@@ -35,6 +35,8 @@ class Login {
     
         $_SESSION["id"] = $id;
         $_SESSION["type"] = Status::getType($id);
+
+        header("Location: ./index.php");
     }
 }
 
