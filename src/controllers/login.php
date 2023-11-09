@@ -3,10 +3,8 @@
 namespace Application\Controllers\Login;
 
 require_once("./src/model/user.php");
-require_once('./src/lib/status.php');
 
-use Application\Model\User\UserModel;
-use Application\Lib\Status\Status;
+use Application\Model\User\UserManager;
 
 class Login {
     public function execute() {
@@ -30,11 +28,11 @@ class Login {
             return "Adresse email invalide";
         }
 
-        $model = new UserModel();
+        $model = new UserManager();
         $id = $model->login($email, hash("sha256", $password));
     
         $_SESSION["id"] = $id;
-        $_SESSION["type"] = Status::getType($id);
+        $_SESSION["type"] = UserManager::getType($id);
 
         header("Location: ./index.php");
     }

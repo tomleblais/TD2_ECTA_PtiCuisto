@@ -2,7 +2,7 @@
 session_start();
 
 // Require -----------------------------------------------------------------
-require_once('./src/lib/status.php');
+require_once('./src/model/user.php');
 require_once('./src/controllers/permission.php');
 
 require_once('./src/controllers/homepage.php');
@@ -22,7 +22,7 @@ require_once('./src/controllers/admin/viewRecipeUncheck.php');
 require_once('./src/controllers/admin/checkRecipe.php');
 
 // Use application ----------------------------------------------------------
-use Application\Lib\Status\Status;
+use Application\Model\User\UserManager;
 use Application\Controllers\Permission\Permission;
 
 use Application\Controllers\Homepage\Homepage;
@@ -42,13 +42,13 @@ use Application\Controllers\Admin\ViewRecipeUncheck\ViewRecipeUncheck;
 use Application\Controllers\Admin\CheckRecipe\CheckRecipe;
 
 // Execute --------------------------------------------------------------------
-$type = isset($_SESSION['type']) ? $_SESSION['type'] : Status::USER;
+$type = isset($_SESSION['type']) ? $_SESSION['type'] : UserManager::USER;
 $permission = new Permission($type);
 
 try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {
         // NONE -----------------------------------------------------------------------
-        if ($type == Status::NONE) {
+        if ($type == UserManager::NONE) {
             throw new RangeException("Type d'utilisateur inconu, vous ne pouvez pas être John Doe !");
         }
         // USER -----------------------------------------------------------------------

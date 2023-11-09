@@ -2,9 +2,9 @@
 
 namespace Application\Controllers\Permission;
 
-require_once('./src/lib/status.php');
+require_once('./src/model/user.php');
 
-use Application\Lib\Status\Status;
+use Application\Model\User\UserManager;
 
 class Permission {
     private int $type;
@@ -40,12 +40,12 @@ class Permission {
 
     public function isAllowed(string $action): bool {
         switch ($this->type) {
-        case Status::USER :
+        case UserManager::USER :
             return in_array($action, $this->user);
-        case Status::EDITER :
+        case UserManager::EDITER :
             return in_array($action, $this->editer)
                 || in_array($action, $this->user);
-        case Status::ADMIN :
+        case UserManager::ADMIN :
             return in_array($action, $this->admin)
                 || in_array($action, $this->editer)
                 || in_array($action, $this->user);
