@@ -1,6 +1,7 @@
 <?php
 
 namespace Application\Model\Comment;
+use Exception;
 
 require_once('./src/lib/database.php');
 
@@ -15,23 +16,22 @@ class Comment{
 class CommentModel {
     public function getComments(int $id) : array {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT USE_NICKNAME, COM_CONTENT, TO_CHAR(COM_DATE) AS COM_DATE FROM PC_WRITE
-            JOIN PC_recette USING (COM_ID)
+            "SELECT USE_NICKNAME, COM_CONTENT, COM_DATE FROM PC_WRITE
             JOIN PC_USER USING (USE_ID)
+            JOIN PC_COMMENT USING (COM_ID)
             WHERE REC_ID = ?"
         );
-
         $statement->execute([$id]);
         $comments = [];
-        while (($row = $statement->fetch())) {
+        while ($row = $statement->fetch()) {
             $comment = new Comment();
-            $comment->use_nickname = $row["use_nickname"];
-            $comment->com_content = $row["com_content"];
-            $comment->com_date = $row["com_date"];
+            $comment->use_nickname = 
+            $row["USE_NICKNAME"];
+            $comment->com_content = $row["COM_CONTENT"];
+            $comment->com_date = $row["COM_DATE"];
 
-            $comments[] = $comment;
+            array_push($comments, $comment);
         }
-
         return $comments;
     }
 }
