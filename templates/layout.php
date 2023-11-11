@@ -39,7 +39,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="./index.php?action=connexion">Connexion</a>
+                        <a href="./index.php?action=login">Connexion</a>
                     </li>
                 </ul>
             </nav>

@@ -2,6 +2,12 @@
 
 <?php ob_start(); ?>
 
+<h1>Modifier une recette :</h1>
+
+<?php if($error !== "") : ?>
+    <p><?= $error ?></p>
+<?php endif; ?>
+
 <form action="index.php?action=updateRecipePost&id=<?= $id ?>" method="POST">
     <label for="title">Titre :</label>
     <input type="text" id="title" name="title" value="<?= $recipe->rec_title ?>">

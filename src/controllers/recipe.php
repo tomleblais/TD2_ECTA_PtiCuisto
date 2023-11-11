@@ -47,29 +47,35 @@ class Recipe_c {
         }
     }
 
-    public function updateRecipe(int $id) {
+    public function updateRecipe(int $id, string $error = "") {
         $recipe = (new RecipeModel())->getRecipe($id);
-        require('./templates/editer/modifyRecipe.php');
+        require('./templates/editer/updateRecipe.php');
     }
 
     public function updateRecipePost(int $id) {
         $recipe = new Recipe();
         $recipe->rec_id = $id;
 
-        if (isset($_POST['title'])) {
-            $recipe->rec_title = $_POST['title'];
-        } else {
-            throw new \Exception('updateRecipePost $_Post' . "['title']" . ' non rélgée !');
+        if (!isset($_POST['title'])) {
+            return "Le titre ne peux pas être vide.";
+        } elseif (!isset($_POST['summary'])) {
+           return "Le contenue ne peux pas être vide.";
         }
 
-        if (isset($_POST['summary'])) {
-            $recipe->rec_summary = $_POST['summary'];
-        } else {
-            throw new \Exception('updateRecipePost $_Post' . "['summary']" . ' non rélgée !');
-        }
+        $recipe->rec_title = $_POST['title'];
+        $recipe->rec_summary = $_POST['summary'];
+
+        if (mb_strlen($recipe->rec_title, 'UTF-8') > 32) {
+            return "Le titre ne peut pas faire plus de 32 caractères.";
+        } elseif (mb_strlen($recipe->rec_title, 'UTF-8') < 3) {
+            return "Le titre ne peut pas faire moins de 3 caractères";
+        } elseif (mb_strlen($recipe->rec_summary, 'UTF-8') > 4096) {
+            return "Le contenue ne peut pas faire plus de 4096 caractères.";
+        } elseif (mb_strlen($recipe->rec_summary, 'UTF-8') < 3) {
+            return "Le contenue ne peut pas faire moins de 3 caractères";
+        } 
 
         (new RecipeModel())->updateRecipePost($recipe);
-        header("Location: ./index.php?action=showRecipe&id=$id");
     }
 
     public function deleteRecipe(int $id) {
