@@ -11,7 +11,7 @@ use Application\Model\Comment\CommentModel;
 
 class Recipe_c {
     public function showRecipe(int $id, int $modify) {
-        $recette = (new RecipeModel())->getRecipe($id);
+        $recipe = (new RecipeModel())->getRecipe($id);
         $comments = (new CommentModel())->getComments($id);
         require('./templates/showRecipe.php');
     }

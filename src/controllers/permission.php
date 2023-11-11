@@ -24,6 +24,7 @@ class Permission {
             "homepage",
             "connexion",
             "login",
+            "signin",
             "allRecipes",
             "filteredRecipes",
             "showRecipe"

@@ -2,16 +2,43 @@
 
 <?php ob_start(); ?>
 
-<!-- Contenue de la page -->
-
-<form action="" method="POST">
-    <input type="text" name="nickname" id="nickname">
-    <input type="email" name="email" id="email">
-    <input type="text" name="firstname" id="firstname">
-    <input type="text" name="lastname" id="lastname">
-    <input type="password" name="password" id="password">
-    <button type="submit"> S'inscrire </button>
-</form>
+<div class="form-container container">
+    <h1>S'inscrire</h1>
+    <form action="./index.php?action=signinPost" method="post">
+        <table>
+            <tbody>
+                <tr>
+                    <td><label for="nickname">Nom d'utilisateur :</label></td>
+                    <td><input type="text" name="nickname" id="nickname"  maxlength="32" required></td>
+                </tr>
+                <tr>
+                    <td><label for="firstname">Prénom :</label></td>
+                    <td><input type="text" name="firstname" id="firstname" maxlength="32" required></td>
+                </tr>
+                <tr>
+                    <td><label for="lastname">Nom :</label></td>
+                    <td><input type="text" name="lastname" id="lastname" maxlength="32" required></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email :</label></td>
+                    <td><input type="email" name="email" id="email" maxlength="32" required></td>
+                </tr>
+                <tr>
+                    <td><label for="password" class="password">Mot de passe :</label></td>
+                    <td><input type="password" name="password" id="password" maxlength="128" required></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"><button type="submit">Je m'inscris&mldr;</button></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+    <p>
+        J'ai déja un compte ? Cliquez <a href="./index.php?action=login">ici</a>.
+    </p>
+</div>
 
 <?php $content = ob_get_clean(); ?>
 
