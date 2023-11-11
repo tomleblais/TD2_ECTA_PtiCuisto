@@ -7,7 +7,6 @@ require_once("./src/model/user.php");
 use Application\Model\User\UserManager;
 
 class User_c {
-
     public function connexion() {
         require('./templates/connexion.php');
     }
@@ -44,5 +43,6 @@ class User_c {
 
     public function logout() {
         session_destroy();
+        header("Location: ./index.php");
     }
 }
