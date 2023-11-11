@@ -1,17 +1,56 @@
 <!DOCTYPE html>
 <html lang="fr">
-<html>
     <head>
-        <meta charset="utf-8" />
-        <title><?= $title ?></title>
-        <link href="./css/style.css" rel="stylesheet" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Font imports -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+        
+        <!-- Style imports -->
+        <link rel="stylesheet" href="./css/reset.css">
+        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/layout.css">
+
+        <title>PtiCuisto - <?= $title ?></title>
     </head>
 
     <body>
         <header>
-            <a href="index.php">Page d'acceuil</a>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="./index.php">Accueil</a>
+                    </li>
+                    <li>
+                        <a href="./index.php?action=allRecipes">Nos recettes</a>
+                    </li>
+                    <li>
+                        <a href="./index.php?action=filteredRecipes">Filtrer...</a>
+                        <ul>
+                            <li><a href="">Par catégorie</a></li>
+                            <li><a href="">Par titre</a></li>
+                            <li><a href="">Par ingrédient</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="./index.php?action=connexion">Connexion</a>
+                    </li>
+                </ul>
+            </nav>
         </header>
 
-        <?= $content ?>
+        <main>
+            <?= $content ?>
+        </main>
     </body>
+
+    <footer>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolores 
+    </footer>
 </html>

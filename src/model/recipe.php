@@ -21,7 +21,7 @@ class Recipe {
 class RecipeModel {
     public function getRecipes(int $valide = 1): array {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT rec_id, rec_title FROM PC_RECIPE WHERE rec_valide = ?"
+            "SELECT rec_id, rec_title, rec_image FROM PC_RECIPE WHERE rec_valide = ?"
         );
         $statement->execute([$valide]);
 
@@ -30,6 +30,7 @@ class RecipeModel {
             $recipe = new Recipe();
             $recipe->rec_id = $row["rec_id"];
             $recipe->rec_title = $row["rec_title"];
+            $recipe->rec_image = $row["rec_image"];
 
             $recipes[] = $recipe;
         }

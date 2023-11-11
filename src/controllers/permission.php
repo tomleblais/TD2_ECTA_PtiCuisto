@@ -23,10 +23,10 @@ class Permission {
 
         $this->user = [
             "showEdito",
-            "logout",
             "allRecipes",
             "filteredRecipes",
-            "showRecipe"
+            "showRecipe",
+            "logout",
         ];
 
         $this->userOnly = [
