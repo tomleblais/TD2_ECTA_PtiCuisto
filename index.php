@@ -109,6 +109,8 @@ try {
             } else {
                 throw new Exception('Aucun identifiant pour validé la page !');
             }
+        } elseif ($_GET['action'] === "test") {
+            require('./templates/test.php');
         } else {
             require('./templates/errors/error404.php');
         }
