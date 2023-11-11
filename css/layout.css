@@ -124,6 +124,36 @@ main div.main-container div.main-container-right h1.edito-title {
     text-align: center;
 }
 
+main div.form-container {
+    display: block;
+    width: 75%;
+    
+    margin-top: var(--margin-top);
+    margin-bottom: var(--margin-bottom);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main div.form-container table {
+    margin-top: var(--margin-top);
+    margin-bottom: var(--margin-bottom);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+main div.form-container table tbody tr td:first-child {
+    text-align: right;
+}
+
+main div.form-container table tfoot td * {
+    display: block;
+    margin-top: var(--margin-top);
+    margin-bottom: var(--margin-bottom);
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 footer {
     position: fixed;

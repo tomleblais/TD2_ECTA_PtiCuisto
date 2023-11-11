@@ -1,4 +1,4 @@
-@import "vars_light.css";
+@import "vars.css";
 
 * {
     font-family: var(--font-family);
@@ -124,6 +124,10 @@ button,
 button.primary,
 input[type="button"],
 input[type="button"].primary,
+input[type="submit"],
+input[type="submit"].primary,
+input[type="reset"],
+input[type="reset"].primary,
 input[type="color"],
 input[type="color"].primary {
     display: inline-block;
@@ -161,6 +165,10 @@ button:hover,
 button.primary:hover,
 input[type="button"]:hover,
 input[type="button"].primary:hover,
+input[type="submit"]:hover,
+input[type="submit"].primary:hover,
+input[type="reset"]:hover,
+input[type="reset"].primary:hover,
 input[type="color"]:hover,
 input[type="color"].primary:hover {
     background-color: var(--secondary-hover-background-color);
@@ -168,6 +176,8 @@ input[type="color"].primary:hover {
 
 button:active,
 input[type="button"]:active,
+input[type="submit"]:active,
+input[type="reset"]:active,
 input[type="color"]:active {
     position: relative;
     top: calc(var(--box-shadow-offset-x) / 2);
@@ -231,6 +241,8 @@ input[type="week"] {
     cursor: text;
     font-size: 10pt;
     font-family: var(--font-family);
+
+    outline: none;
 }
 
 input[type="text"]::placeholder,
