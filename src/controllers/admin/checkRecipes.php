@@ -8,7 +8,7 @@ use Application\Model\Recipe\RecipeModel;
 
 class CheckRecipes {
     public function execute() {
-        $recipes = (new RecipeModel())->getRecipes(false);
+        $recipes = (new RecipeModel())->getRecipes(0);
 
         require('./templates/admin/checkRecipes.php');
     }

@@ -5,7 +5,7 @@
 
 <?php foreach ($recipes as $recipe): ?>
 <div>
-    <h2><a href="index.php?action=viewRecipe&id=<?= $recipe->rec_id ?>"><?= $recipe->rec_title ?></a></h2>
+    <h2><a href="index.php?action=showRecipe&id=<?= $recipe->rec_id ?>"><?= $recipe->rec_title ?></a></h2>
 </div>
 <?php endforeach; ?>
 

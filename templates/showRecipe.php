@@ -43,11 +43,8 @@
 <?php endforeach; */?>
 
 <?php if ($modify) : ?>
-    <form action="index.php?action=modifyRecipe&id=<?= $id ?>" method="POST">
+    <form action="index.php?action=updateRecipe&id=<?= $id ?>" method="POST">
     <button type="submit">Modifier</button>
-</form>
-<form action="index.php" method="POST">
-    <button type="submit">Supprimer</button>
 </form>
 <?php endif ?>
 

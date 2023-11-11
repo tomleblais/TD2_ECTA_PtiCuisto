@@ -4,20 +4,18 @@ session_start();
 // TODO supprimer une recette
 // TODO modifier plus de chose de la recette
 // TODO update la recette dans la bdd
+// TODO gestion autorisation modifer recette
 
 // Require -----------------------------------------------------------------
 require_once('./src/model/user.php');
 require_once('./src/controllers/permission.php');
 
-require_once('./src/controllers/homepage.php');
-require_once('./src/controllers/connexion.php');
-require_once('./src/controllers/login.php');
-require_once('./src/controllers/allRecipes.php');
-require_once('./src/controllers/filteredRecipes.php');
 require_once('./src/controllers/recipe.php');
+require_once('./src/controllers/user.php');
+
+require_once('./src/controllers/homepage.php');
 
 require_once('./src/controllers/editer/addRecipe.php');
-require_once('./src/controllers/editer/myRecipes.php');
 
 require_once('./src/controllers/admin/checkRecipes.php');
 require_once('./src/controllers/admin/updateEdito.php');
@@ -28,15 +26,12 @@ require_once('./src/controllers/admin/checkRecipe.php');
 use Application\Model\User\UserManager;
 use Application\Controllers\Permission\Permission;
 
+use Application\Controllers\Recipe\Recipe_c;
+use Application\Controllers\User\User_c;
+
 use Application\Controllers\Homepage\Homepage;
-use Application\Controllers\Connexion\Connexion;
-use Application\Controllers\Login\Login;
-use Application\Controllers\AllRecipes\AllRecipes;
-use Application\Controllers\FilteredRecipes\FilteredRecipes;
-use Application\Controllers\Recipe\Recipe;
 
 use Application\Controllers\Editer\AddRecipe\AddRecipe;
-use Application\Controllers\Editer\MyRecipes\MyRecipes;
 
 use Application\Controllers\Admin\CheckRecipes\CheckRecipes;
 use Application\Controllers\Admin\UpdateEdito\UpdateEdito;
@@ -44,8 +39,9 @@ use Application\Controllers\Admin\ViewRecipeUncheck\ViewRecipeUncheck;
 use Application\Controllers\Admin\CheckRecipe\CheckRecipe;
 
 // Execute --------------------------------------------------------------------
+$id = isset($_GET['id']) ? intval($_GET['id']) : null;
 $type = isset($_SESSION['type']) ? $_SESSION['type'] : UserManager::USER;
-$permission = new Permission($type);
+$permission = new Permission($id, $type);
 
 try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {
@@ -55,35 +51,57 @@ try {
         }
         // USER -----------------------------------------------------------------------
         if ($_GET['action'] === 'allRecipes' && $permission->isAllowed('allRecipes')) {
-            (new AllRecipes())->execute();
+            (new Recipe_c())->allRecipes();
         } elseif ($_GET['action'] === 'filteredRecipes' && $permission->isAllowed('filteredRecipes')) {
             // TODO filteredRecipes
-            (new FilteredRecipes())->execute("category", "jlk");
-        } elseif ($_GET['action'] === 'viewRecipe' && $permission->isAllowed('viewRecipe')) {
+        } elseif ($_GET['action'] === 'showRecipe' && $permission->isAllowed('showRecipe')) {
             if (isset($_GET['id'])) {
-                (new Recipe())->showRecipe(intval($_GET['id']));
+                $id = intval($_GET['id']);
+                (new Recipe_c())->showRecipe($id, $permission->isAllowed('updateRecipe', $id));
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
         } elseif ($_GET['action'] === 'connexion' && $permission->isAllowed('connexion')) {
-            (new Connexion())->execute();
+            (new User_c())->connexion();
         } elseif ($_GET['action'] === 'login' && $permission->isAllowed('login')) {
-            (new Login())->execute();
+            (new User_c())->login();
         }
         // EDITER ---------------------------------------------------------------------
         elseif ($_GET['action'] === 'addRecipe' && $permission->isAllowed('allRecipe')) {
             (new AddRecipe())->execute();
         } elseif ($_GET['action'] === 'myRecipes' && $permission->isAllowed('myRecipes')) {
             if (isset($_SESSION["id"])) {
-                (new MyRecipes())->execute($_SESSION["id"]);
+                (new Recipe_c())->myRecipes($_SESSION["id"]);
             } else {
                 throw new Exception("L'ID n'est pas déffinie");
             }
-        } elseif ($_GET['action'] === 'modifyRecipe' && $permission->isAllowed('modifyRecipe')) {
+        } elseif ($_GET['action'] === 'updateRecipe' && $permission->isAllowed('updateRecipe')) {
             if (isset($_SESSION["id"])) {
-                (new Recipe())->modifyRecipe(intval($_GET['id']));
+                (new Recipe_c())->updateRecipe(intval($_GET['id']));
             } else {
                 throw new Exception("L'ID n'est pas déffinie");
+            }
+        } elseif ($_GET['action'] === 'updateRecipePost') {
+            if (isset($_GET['id'])) {
+                $id = intval($_GET['id']);
+                if ($permission->isAllowed('updateRecipePost', $id)) {
+                    (new Recipe_c())->updateRecipePost($id);
+                } else {
+                    require('./templates/errors/error404.php');
+                }
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
+        } elseif ($_GET['action'] === 'deleteRecipe') {
+            if (isset($_GET['id'])) {
+                $id = intval($_GET['id']);
+                if ($permission->isAllowed('deleteRecipe', $id)) {
+                    (new Recipe_c())->deleteRecipe($id);
+                } else {
+                    require('./templates/errors/error404.php');
+                }
+            } else {
+                throw new Exception('Aucun identifiant pour supprimer la recette');
             }
         }
         // ADMIN ----------------------------------------------------------------------

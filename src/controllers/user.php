@@ -1,13 +1,18 @@
 <?php
 
-namespace Application\Controllers\Login;
+namespace Application\Controllers\User;
 
 require_once("./src/model/user.php");
 
 use Application\Model\User\UserManager;
 
-class Login {
-    public function execute() {
+class User_c {
+
+    public function connexion() {
+        require('./templates/connexion.php');
+    }
+    
+    public function login() {
         if(!isset($_POST['email']) && !isset($_POST['password'])){
             return "email ou mot de passe indéfini";
         }
@@ -37,5 +42,3 @@ class Login {
         header("Location: ./index.php");
     }
 }
-
-?>

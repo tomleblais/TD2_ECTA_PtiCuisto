@@ -1,7 +1,6 @@
 <?php
 
 namespace Application\Model\Recipe;
-use Exception;
 
 require_once('./src/lib/database.php');
 
@@ -20,11 +19,11 @@ class Recipe {
 }
 
 class RecipeModel {
-    public function getRecipes(bool $check = TRUE): array {
+    public function getRecipes(int $valide = 1): array {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT rec_id, rec_title FROM PC_RECIPE WHERE rec_valide = ?"
         );
-        $statement->execute([$check]);
+        $statement->execute([$valide]);
 
         $recipes = [];
         while (($row = $statement->fetch())) {
@@ -84,7 +83,7 @@ class RecipeModel {
         $statement->execute([$id]);
         
         if (!($row = $statement->fetch())) {
-            throw new Exception("La recette n'a pas pu être trouvée !");
+            throw new \Exception("La recette n'a pas pu être trouvée !");
         }
     
         $recipe = new Recipe();
@@ -101,7 +100,7 @@ class RecipeModel {
         $statement->execute([$id]);
 
         if (!($row = $statement->fetch())) {
-            throw new Exception("L'auteur n'a pas pu être trouvée !");
+            throw new \Exception("L'auteur n'a pas pu être trouvée !");
         }
 
         return $row["use_id"];
@@ -109,7 +108,7 @@ class RecipeModel {
 
     public function getMyRecipes(int $id) : array {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT rec_title, rec_id FROM PC_RECIPE WHERE use_id = ?"
+            "SELECT rec_title, rec_id FROM PC_RECIPE WHERE use_id = ? AND rec_valide <> 2"
         );
         $statement->execute([$id]);
 
@@ -127,10 +126,30 @@ class RecipeModel {
 
     public function checkRecipe(int $id) : bool {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "UPDATE PC_RECIPE SET rec_valide = true, rec_registration_date = SYSDATE() WHERE rec_id = ?"
+            "UPDATE PC_RECIPE SET rec_valide = 1, rec_registration_date = SYSDATE() WHERE rec_id = ?"
         );
 
         return !$statement->execute([$id]);
+    }
+
+    public function updateRecipePost(Recipe $recipe) {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "UPDATE PC_RECIPE SET rec_title = ?, rec_summary = ? WHERE rec_id = ?"
+        );
+
+        if (!$statement->execute([$recipe->rec_title, $recipe->rec_summary, $recipe->rec_id])) {
+            throw new \Exception("La recette n'a pas était modifiée.");
+        }
+    }
+
+    public function deleteRecipe(int $id) {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "UPDATE PC_RECIPE SET rec_valide = 2 WHERE rec_id = ?"
+        );
+
+        if (!$statement->execute([$id])) {
+            throw new \Exception("La recete n'a pas était supprimée.");
+        }
     }
 
     private function createRecipes($statement): array {
