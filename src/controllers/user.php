@@ -41,4 +41,8 @@ class User_c {
 
         header("Location: ./index.php");
     }
+
+    public function logout() {
+        session_destroy();
+    }
 }

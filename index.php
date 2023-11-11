@@ -86,6 +86,8 @@ try {
             } else {
                 throw new Exception('Aucun identifiant pour supprimer la recette');
             }
+        } elseif ($_GET['action'] === 'logout' && $permission->isAllowed('logout')) {
+            (new User_c())->logout();
         }
         // ADMIN ----------------------------------------------------------------------
         elseif ($_GET['action'] === 'checkRecipes' && $permission->isAllowed('checkRecipes')) {

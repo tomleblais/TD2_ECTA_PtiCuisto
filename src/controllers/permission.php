@@ -32,6 +32,7 @@ class Permission {
         $this->editer = [
             "addRecipe",
             "myRecipes",
+            "logout",
         ];
 
         $this->admin = [
