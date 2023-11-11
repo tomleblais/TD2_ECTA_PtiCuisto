@@ -92,9 +92,9 @@ try {
             (new Recipe_c())->checkRecipes();
         } elseif ($_GET['action'] === 'updateEdito' && $permission->isAllowed('updateEdito')) {
             (new UpdateEdito())->execute();
-        } elseif ($_GET['action'] === 'viewRecipeUncheck' && $permission->isAllowed('viewRecipeUncheck')) {
+        } elseif ($_GET['action'] === 'showRecipeUncheck' && $permission->isAllowed('showRecipeUncheck')) {
             if (isset($_GET['id'])) {
-                (new Recipe_c())->viewRecipeUncheck(intval($_GET['id']));
+                (new Recipe_c())->showRecipeUncheck(intval($_GET['id']));
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page non validé');
             }

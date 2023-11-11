@@ -16,6 +16,11 @@ class Recipe_c {
         require('./templates/showRecipe.php');
     }
 
+    public function showRecipeUncheck(int $id) {
+        $recipe = (new RecipeModel())->getRecipe($id);
+        require('./templates/admin/showRecipeUncheck.php');
+    }
+
     public function allRecipes() {
         $recipes = (new RecipeModel())->getRecipes();
         require('./templates/allRecipes.php');
@@ -32,11 +37,6 @@ class Recipe_c {
     public function checkRecipes() {
         $recipes = (new RecipeModel())->getRecipes(0);
         require('./templates/admin/checkRecipes.php');
-    }
-
-    public function viewRecipeUncheck(int $id) {
-        $recipe = (new RecipeModel())->getRecipe($id);
-        require('./templates/admin/viewRecipeUncheck.php');
     }
 
     public function checkRecipe(int $id) {

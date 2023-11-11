@@ -36,7 +36,7 @@ class Permission {
 
         $this->admin = [
             "checkRecipes",
-            "viewRecipeUncheck",
+            "showRecipeUncheck",
             "checkRecipe",
             "updateEdito"
         ];
