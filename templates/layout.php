@@ -51,6 +51,6 @@
     </body>
 
     <footer>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit dolores 
+        @ECTA Bon appetit !
     </footer>
 </html>

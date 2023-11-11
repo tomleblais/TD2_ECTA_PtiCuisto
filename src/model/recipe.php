@@ -38,6 +38,32 @@ class RecipeModel {
         return $recipes;
     }
 
+    public function getLatestRecipes(): array {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT rec_id, rec_title, rec_summary, rec_image
+            FROM PC_RECIPE
+            ORDER BY rec_creation_date DESC
+            LIMIT 3"
+        );
+        
+        if (!$statement->execute()) {
+            throw new \Exception("Echec de la requête pour récupérer les recettes de l'edito.");
+        }
+
+        $recipes = [];
+        while (($row = $statement->fetch())) {
+            $recipe = new Recipe();
+            $recipe->rec_id = $row["rec_id"];
+            $recipe->rec_title = $row["rec_title"];
+            $recipe->rec_summary = substr($row["rec_summary"], 0, 300) . '...';
+            $recipe->rec_image = $row["rec_image"];
+
+            $recipes[] = $recipe;
+        }
+
+        return $recipes;
+    }
+
     public function getTags(int $id) : array {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT tag_name FROM PC_TAG JOIN PC_LABEL USING (tag_id) WHERE rec_id = ?"

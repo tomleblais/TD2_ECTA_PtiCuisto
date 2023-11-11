@@ -102,8 +102,6 @@ try {
         // ADMIN ----------------------------------------------------------------------
         elseif ($_GET['action'] === 'checkRecipes' && $permission->isAllowed('checkRecipes')) {
             (new Recipe_c())->checkRecipes();
-        } elseif ($_GET['action'] === 'updateEdito' && $permission->isAllowed('updateEdito')) {
-            (new Edito_c())->updateEdito();
         } elseif ($_GET['action'] === 'showRecipeUncheck' && $permission->isAllowed('showRecipeUncheck')) {
             if (isset($_GET['id'])) {
                 (new Recipe_c())->showRecipeUncheck(intval($_GET['id']));
@@ -116,13 +114,22 @@ try {
             } else {
                 throw new Exception('Aucun identifiant pour validé la page !');
             }
-        } elseif ($_GET['action'] === "test") {
-            require('./templates/test.php');
+        } elseif ($_GET['action'] === "updateEdito" && $permission->isAllowed('updateEdito')) {
+            (new Edito_c())->updateEdito();
+        } elseif ($_GET['action'] === 'updateEditoPost' && $permission->isAllowed('updateEditoPost')) {
+            $edito_c = new Edito_c();
+            $error = $edito_c->updateEditoPost();
+
+            if (!empty($error)) {
+                $edito_c->updateEdito($error);
+            } else {
+                header("Location: ./index.php");
+            }
         } else {
             require('./templates/errors/error404.php');
         }
     } else {
-        (new Edito_c())->showEdito();
+        (new Edito_c())->showEdito($type == UserManager::ADMIN);
     }
 } catch (Exception $exception) {
     $errorMessage = $exception->getMessage();
