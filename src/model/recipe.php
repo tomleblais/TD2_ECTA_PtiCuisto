@@ -15,6 +15,7 @@ class Recipe {
     public string $rec_modification_date;
     public string $use_nickname;
     public array $tags;
+    public array $ingredients;
     public int $use_id;
 }
 
@@ -52,6 +53,20 @@ class RecipeModel {
         return $tags;
     }
 
+    public function getIngredients(int $id) : array {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT ing_name FROM PC_CONTAIN JOIN PC_INGREDIENT USING (ing_id) WHERE rec_id = ?"
+        );
+        $statement->execute([$id]);
+
+        $ingredients= [];
+        while ($row = $statement->fetch()) {
+            array_push($ingredients, $row["ing_name"]);
+        }
+
+        return $ingredients;
+    }
+
     public function getRecipe(int $id) : Recipe {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT rec_title, rec_image, rec_summary, rec_creation_date, rec_modification_date, use_nickname FROM PC_RECIPE
@@ -72,6 +87,7 @@ class RecipeModel {
         $recipe->rec_modification_date = $row["rec_modification_date"];
         $recipe->use_nickname = $row["use_nickname"];
         $recipe->tags = $this->getTags($id);
+        $recipe->ingredients= $this->getIngredients($id);
         return $recipe;
     }
 

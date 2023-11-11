@@ -1,34 +1,34 @@
-<?php $title = "recette"; ?>
+<?php $title = "$recipe->rec_title"; ?>
 
 <?php ob_start(); ?>
 
 <?php
-if ($recette->rec_modification_date === "0000-00-00 00:00:00") { //$recette->rec_modification_date === "0000-00-00 00:00:00") {
-    $date = $recette->rec_creation_date;
+if ($recipe->rec_modification_date === "0000-00-00 00:00:00") { //$recipe->rec_modification_date === "0000-00-00 00:00:00") {
+    $date = $recipe->rec_creation_date;
 } else {
-    $date = $recette->rec_modification_date . "<em> modifié</em>";
+    $date = $recipe->rec_modification_date . "<em> modifié</em>";
 }
 ?>
 
 <div class="recipe-details-container">
-    <h1><?= $recette->rec_title ?></h1>
+    <h1><?= $recipe->rec_title ?></h1>
     <div class="publication-info">
         <p>
-            Posté par <span class="author"><?= $recette->use_nickname ?></span>,<br>
+            Posté par <span class="author"><?= $recipe->use_nickname ?></span>,<br>
             le <span class="date"><?= $date ?></span>
         </p>
     </div>
     <img src="./img/recipes/<?= $recipe->rec_image ?>" alt="Image de la recette en question" class="recipe-image">
     
     <div class="tag-container">
-        <?php foreach ($recette->tags as $tag) : ?>
+        <?php foreach ($recipe->tags as $tag) : ?>
         <span class="tag"><?= $tag ?></span>
         <?php endforeach; ?>
     </div>
     <div class="recipe-details-content">
-        <h3>Recette</h3>
+        <h3>recipe</h3>
         <p>
-        <?= $recette->rec_summary ?>
+        <?= $recipe->rec_summary ?>
         </p>
     </div>
 </div>
