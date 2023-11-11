@@ -22,7 +22,7 @@ class Permission {
         $this->type = $type;
 
         $this->user = [
-            "homepage",
+            "showEdito",
             "logout",
             "allRecipes",
             "filteredRecipes",
@@ -43,7 +43,8 @@ class Permission {
             "checkRecipes",
             "showRecipeUncheck",
             "checkRecipe",
-            "updateEdito"
+            "updateEdito",
+            "updateEditoPost"
         ];
 
         $this->special = [
