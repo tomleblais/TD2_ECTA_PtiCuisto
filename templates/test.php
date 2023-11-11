@@ -3,8 +3,8 @@
 <?php ob_start(); ?>
 <h1>Petit cuisto</h1>
 
-<a href="index.php?action=connexion">Connexion</a><br>
-<a href="index.php?action=logout">Déconnexionn</a><br>
+<a href="index.php?action=login">Connexion</a><br>
+<a href="index.php?action=logout">Déconnexion</a><br>
 <br>
 <a href="index.php?action=myRecipes">Mes recettes</a><br>
 <a href="index.php?action=addRecipe">Ajouter une recette</a><br>

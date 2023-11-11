@@ -44,10 +44,17 @@ try {
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
-        } elseif ($_GET['action'] === 'connexion' && $permission->isAllowed('connexion')) {
-            (new User_c())->connexion();
         } elseif ($_GET['action'] === 'login' && $permission->isAllowed('login')) {
             (new User_c())->login();
+        } elseif ($_GET['action'] === 'loginPost' && $permission->isAllowed('loginPost')) {
+            $user = new User_c();
+            $error = $user->loginPost();
+
+            if (!empty($error)) {
+                $user->login($error);
+            } else {
+                header("Location: ./index.php");
+            }
         }
         // EDITER ---------------------------------------------------------------------
         elseif ($_GET['action'] === 'addRecipe' && $permission->isAllowed('allRecipe')) {

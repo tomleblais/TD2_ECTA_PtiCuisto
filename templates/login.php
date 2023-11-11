@@ -2,9 +2,13 @@
 
 <?php ob_start(); ?>
 
-<!-- Contenue de la page -->
+<h1>Connection :</h1>
 
-<form action="index.php?action=login" method="POST">
+<?php if($error !== "") : ?>
+    <p><?= $error ?></p>
+<?php endif; ?>
+
+<form action="index.php?action=loginPost" method="POST">
     <input type="email" name="email" id="email">
     <input type="password" name="password" id="password">
     <button type="submit">Se connecter</button>

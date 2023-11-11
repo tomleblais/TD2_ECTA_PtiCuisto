@@ -12,6 +12,7 @@ class Permission {
     private ?int $id;
     private int $type;
     private $user;
+    private $userOnly;
     private $editer;
     private $admin;
     private $special;
@@ -22,17 +23,20 @@ class Permission {
 
         $this->user = [
             "homepage",
-            "connexion",
-            "login",
+            "logout",
             "allRecipes",
             "filteredRecipes",
             "showRecipe"
         ];
 
+        $this->userOnly = [
+            "login",
+            "loginPost",
+        ];
+
         $this->editer = [
             "addRecipe",
             "myRecipes",
-            "logout",
         ];
 
         $this->admin = [
@@ -45,11 +49,15 @@ class Permission {
         $this->special = [
             "updateRecipe",
             "updateRecipePost",
-            "deleteRecipe"
+            "deleteRecipe",
         ];
     }
 
     public function isAllowed(string $action, $opt = null): bool {
+        if (in_array($action, $this->userOnly)) {
+            return $this->type == UserManager::USER;
+        }
+
         if (in_array($action, $this->special)) {
             switch ($action) {
             case "updateRecipe":

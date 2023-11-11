@@ -35,7 +35,6 @@ class UserManager {
     }
     
     public function login($email, $password): int {
-        
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT COUNT(*) AS USER_COUNT FROM PC_USER WHERE USE_EMAIL = ? AND USE_PASSWORD = ?"
         );
@@ -43,8 +42,7 @@ class UserManager {
         $result = $statement->fetch();
         
         if ($result["USER_COUNT"] != 1) {
-            throw new \Exception("Aucun utilisateur ne correspond");
-            
+            return -1;
         } else {
             $statement = DatabaseConnection::getConnection()->prepare(
                 "SELECT USE_ID FROM PC_USER WHERE USE_EMAIL = ? AND USE_PASSWORD = ?"
