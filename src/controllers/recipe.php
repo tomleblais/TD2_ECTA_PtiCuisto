@@ -25,6 +25,28 @@ class Recipe_c {
         require('./templates/editer/myRecipes.php');
     }
 
+    public function addRecipe() {
+        require('./templates/editer/addRecipe.php');
+    }
+
+    public function checkRecipes() {
+        $recipes = (new RecipeModel())->getRecipes(0);
+        require('./templates/admin/checkRecipes.php');
+    }
+
+    public function viewRecipeUncheck(int $id) {
+        $recipe = (new RecipeModel())->getRecipe($id);
+        require('./templates/admin/viewRecipeUncheck.php');
+    }
+
+    public function checkRecipe(int $id) {
+        if ((new RecipeModel())->checkRecipe($id)) {
+            throw new \Exception("La recette n'a pas pu être validée !");
+        } else {
+            header("Location: ./index.php?action=checkRecipes");
+        }
+    }
+
     public function updateRecipe(int $id) {
         $recipe = (new RecipeModel())->getRecipe($id);
         require('./templates/editer/modifyRecipe.php');

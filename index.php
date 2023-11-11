@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-// TODO supprimer une recette
-// TODO modifier plus de chose de la recette
-// TODO update la recette dans la bdd
-// TODO gestion autorisation modifer recette
-
 // Require -----------------------------------------------------------------
 require_once('./src/model/user.php');
 require_once('./src/controllers/permission.php');
@@ -14,13 +9,7 @@ require_once('./src/controllers/recipe.php');
 require_once('./src/controllers/user.php');
 
 require_once('./src/controllers/homepage.php');
-
-require_once('./src/controllers/editer/addRecipe.php');
-
-require_once('./src/controllers/admin/checkRecipes.php');
 require_once('./src/controllers/admin/updateEdito.php');
-require_once('./src/controllers/admin/viewRecipeUncheck.php');
-require_once('./src/controllers/admin/checkRecipe.php');
 
 // Use application ----------------------------------------------------------
 use Application\Model\User\UserManager;
@@ -30,13 +19,7 @@ use Application\Controllers\Recipe\Recipe_c;
 use Application\Controllers\User\User_c;
 
 use Application\Controllers\Homepage\Homepage;
-
-use Application\Controllers\Editer\AddRecipe\AddRecipe;
-
-use Application\Controllers\Admin\CheckRecipes\CheckRecipes;
 use Application\Controllers\Admin\UpdateEdito\UpdateEdito;
-use Application\Controllers\Admin\ViewRecipeUncheck\ViewRecipeUncheck;
-use Application\Controllers\Admin\CheckRecipe\CheckRecipe;
 
 // Execute --------------------------------------------------------------------
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
@@ -68,7 +51,7 @@ try {
         }
         // EDITER ---------------------------------------------------------------------
         elseif ($_GET['action'] === 'addRecipe' && $permission->isAllowed('allRecipe')) {
-            (new AddRecipe())->execute();
+            (new Recipe_c())->addRecipe();
         } elseif ($_GET['action'] === 'myRecipes' && $permission->isAllowed('myRecipes')) {
             if (isset($_SESSION["id"])) {
                 (new Recipe_c())->myRecipes($_SESSION["id"]);
@@ -106,18 +89,18 @@ try {
         }
         // ADMIN ----------------------------------------------------------------------
         elseif ($_GET['action'] === 'checkRecipes' && $permission->isAllowed('checkRecipes')) {
-            (new CheckRecipes())->execute();
+            (new Recipe_c())->checkRecipes();
         } elseif ($_GET['action'] === 'updateEdito' && $permission->isAllowed('updateEdito')) {
             (new UpdateEdito())->execute();
         } elseif ($_GET['action'] === 'viewRecipeUncheck' && $permission->isAllowed('viewRecipeUncheck')) {
             if (isset($_GET['id'])) {
-                (new ViewRecipeUncheck())->execute(intval($_GET['id']));
+                (new Recipe_c())->viewRecipeUncheck(intval($_GET['id']));
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page non validé');
             }
         } elseif ($_GET['action'] === 'checkRecipe' && $permission->isAllowed('checkRecipe')) {
             if (isset($_GET['id'])) {
-                (new CheckRecipe())->execute(intval($_GET['id']));
+                (new Recipe_c())->checkRecipe(intval($_GET['id']));
             } else {
                 throw new Exception('Aucun identifiant pour validé la page !');
             }
