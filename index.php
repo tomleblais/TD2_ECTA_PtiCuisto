@@ -7,9 +7,7 @@ require_once('./src/controllers/permission.php');
 
 require_once('./src/controllers/recipe.php');
 require_once('./src/controllers/user.php');
-
-require_once('./src/controllers/homepage.php');
-require_once('./src/controllers/admin/updateEdito.php');
+require_once('./src/controllers/edito.php');
 
 // Use application ----------------------------------------------------------
 use Application\Model\User\UserManager;
@@ -17,9 +15,7 @@ use Application\Controllers\Permission\Permission;
 
 use Application\Controllers\Recipe\Recipe_c;
 use Application\Controllers\User\User_c;
-
-use Application\Controllers\Homepage\Homepage;
-use Application\Controllers\Admin\UpdateEdito\UpdateEdito;
+use Application\Controllers\Edito\Edito_c;
 
 // Execute --------------------------------------------------------------------
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
@@ -100,7 +96,7 @@ try {
         elseif ($_GET['action'] === 'checkRecipes' && $permission->isAllowed('checkRecipes')) {
             (new Recipe_c())->checkRecipes();
         } elseif ($_GET['action'] === 'updateEdito' && $permission->isAllowed('updateEdito')) {
-            (new UpdateEdito())->execute();
+            (new Edito_c())->updateEdito();
         } elseif ($_GET['action'] === 'showRecipeUncheck' && $permission->isAllowed('showRecipeUncheck')) {
             if (isset($_GET['id'])) {
                 (new Recipe_c())->showRecipeUncheck(intval($_GET['id']));
@@ -117,7 +113,7 @@ try {
             require('./templates/errors/error404.php');
         }
     } else {
-        (new Homepage())->execute();
+        (new Edito_c())->showEdito();
     }
 } catch (Exception $exception) {
     $errorMessage = $exception->getMessage();
