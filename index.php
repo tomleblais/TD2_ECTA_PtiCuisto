@@ -21,6 +21,7 @@ use Application\Controllers\Edito\Edito_c;
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 $type = isset($_SESSION['type']) ? $_SESSION['type'] : UserManager::USER;
 $permission = new Permission($id, $type);
+UserManager::setHeader($type);
 
 try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {

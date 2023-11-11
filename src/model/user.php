@@ -33,6 +33,19 @@ class UserManager {
             return self::NONE;
         }
     }
+
+    public static function setHeader(int $type) {
+        switch ($type) {
+            case self::EDITER:
+                $_SESSION['header'] = './templates/headers/editer.php';
+                break;
+            case self::ADMIN:
+                $_SESSION['header'] = './templates/headers/admin.php';
+                break;
+            default:
+                $_SESSION['header'] = './templates/headers/user.php';
+        }
+    }
     
     public function login($email, $password): int {
         $statement = DatabaseConnection::getConnection()->prepare(
