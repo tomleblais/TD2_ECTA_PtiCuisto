@@ -43,11 +43,11 @@ try {
         } elseif ($_GET['action'] === 'login' && $permission->isAllowed('login')) {
             (new User_c())->login();
         } elseif ($_GET['action'] === 'loginPost' && $permission->isAllowed('loginPost')) {
-            $user = new User_c();
-            $error = $user->loginPost();
+            $user_c = new User_c();
+            $error = $user_c->loginPost();
 
             if (!empty($error)) {
-                $user->login($error);
+                $user_c->login($error);
             } else {
                 header("Location: ./index.php");
             }
@@ -71,7 +71,14 @@ try {
             if (isset($_GET['id'])) {
                 $id = intval($_GET['id']);
                 if ($permission->isAllowed('updateRecipePost', $id)) {
-                    (new Recipe_c())->updateRecipePost($id);
+                    $recipe_c = new Recipe_c();
+                    $error = $recipe_c->updateRecipePost($id);
+
+                    if (!empty($error)) {
+                        $recipe_c->updateRecipe($id, $error);
+                    } else {
+                        header("Location: ./index.php?action=showRecipe&id=$id");
+                    }
                 } else {
                     require('./templates/errors/error404.php');
                 }
