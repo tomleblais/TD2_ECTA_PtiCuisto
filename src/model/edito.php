@@ -37,7 +37,7 @@ class Edito_m {
         );
 
         if (!$statement->execute([$edito->use_id, $edito->edi_content])) {
-            throw new \Exception("L'edito n'a pas étais mis à jour.");
+            throw new \Exception("L'edito n'a pas été mis à jour.");
         }
     }
 }
