@@ -35,11 +35,7 @@ if ($recipe->rec_modification_date === "0000-00-00 00:00:00") { //$recipe->rec_m
     </div>
     <div class="ingredient-container">
         <h3>Ingrédients</h3>
-<<<<<<< HEAD
         <ul class="ingredients">
-=======
-        <ul>
->>>>>>> 8d5575ec594ea21983536f13b90bac143b9aee92
             <?php foreach ($recipe->ingredients as $ingredient): ?>
                 <li>
                     <?= $ingredient ?>
