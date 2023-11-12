@@ -94,7 +94,7 @@ class UserManager {
 
     public function checkNickname(string $nickname): bool {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT * FROM PC_USER WHERE use_nickname = ?"
+            
         );
         
         if (!$statement->execute([$nickname])) {
@@ -122,27 +122,21 @@ class UserManager {
             $user->use_passworld,
         ]);
     }
-      
-    public function deleteUser($id){
-        $sqlCheck = "SELECT * FROM User";
-        $i=0;
-        foreach  (DatabaseConnection::getConnection()->query($sqlCheck) as $line){
-            $accounts[$i++] = $line;
-        }
-
-        $j = 0;
-        foreach ($accounts as $account){
-            if($id == $account['idUser']){
-                $j = 1;
-            }
-        }
-
-        if($j = 1){
-            $sqlRemoveUser = "DELETE FROM user WHERE idUser = '$id'";
-            DatabaseConnection::getConnection()->exec($sqlRemoveUser);
+    
+    public function deleteUser(int $id){
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT count(*) as nb FROM user WHERE use_id = ?"
+        );
+        $statement->execute([$id]);
+        $row = $statement->fetch();
+        if($row == 1){
+            $statement = DatabaseConnection::getConnection()->prepare(
+            "UPDATE PC_USER SET ust_id = 3 WHERE use_id = ?"  
+            );
+            return !$statement->execute([$id]);
         }
         else{
-            echo "There is no account with this id!";
+            throw new \Exception("L'utilisateur n'existe pas !");
         }
     }
     
