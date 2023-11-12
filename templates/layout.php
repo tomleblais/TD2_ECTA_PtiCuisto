@@ -15,7 +15,9 @@
         <!-- Style imports -->
         <link rel="stylesheet" href="./css/reset.css">
         <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/styleMobile.css">
         <link rel="stylesheet" href="./css/layout.css">
+        <link rel="stylesheet" href="./css/layoutMobile.css">
 
         <title>PtiCuisto - <?= $title ?></title>
     </head>

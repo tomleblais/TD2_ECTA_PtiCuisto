@@ -475,4 +475,10 @@ hr {
     font-family: var(--subtitle-font-family);
 }
 
+ul.ingredients li {
+    list-style-type: circle;
+    color: var(--primary-color);
+    margin-left: 40px;
+}
+
 /* COMMENTS */
