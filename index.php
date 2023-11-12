@@ -52,6 +52,24 @@ try {
             } else {
                 header("Location: ./index.php");
             }
+        } elseif ($_GET['action'] === 'filteredRecipesCategory' && $permission->isAllowed('filteredRecipesCategory')) {
+            if (isset($_GET['post']) && $_GET['post']) {
+                (new Recipe_c())->filteredRecipesCategory(true);
+            } else {
+                (new Recipe_c())->filteredRecipesCategory();
+            }
+        } elseif ($_GET['action'] === 'filteredRecipesTitle' && $permission->isAllowed('filteredRecipesTitle')) {
+            if (isset($_GET['post']) && $_GET['post']) {
+                (new Recipe_c())->filteredRecipesTitle(true);
+            } else {
+                (new Recipe_c())->filteredRecipesTitle();
+            }
+        } elseif ($_GET['action'] === 'filteredRecipesIngredient' && $permission->isAllowed('filteredRecipesIngredient')) {
+            if (isset($_GET['post']) && $_GET['post']) {
+                (new Recipe_c())->filteredRecipesIngredient(true);
+            } else {
+                (new Recipe_c())->filteredRecipesIngredient();
+            }
         }
         // EDITER ---------------------------------------------------------------------
         elseif ($_GET['action'] === 'addRecipe' && $permission->isAllowed('allRecipe')) {

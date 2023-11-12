@@ -82,4 +82,47 @@ class Recipe_c {
         (new RecipeModel())->deleteRecipe($id);
         header("Location: ./index.php");
     }
+
+    public function filteredRecipesCategory(bool $post = false) {
+        $recipeModel = new RecipeModel();
+        $categories = $recipeModel->getCategories();
+
+        if ($post) {
+            if (isset($_POST['category'])) {
+                $recipes = $recipeModel->getRecipesByCategory(intval($_POST['category']));
+            } else {
+                throw new \Exception("filteredRecipesCategory : category est vide.");
+            }
+        }
+
+        require('./templates/filteredRecipesCategory.php');
+    }
+
+    public function filteredRecipesTitle(bool $post = false) {
+        $recipeModel = new RecipeModel();
+        $titles = $recipeModel->getRecipes();
+
+        if ($post) {
+            if (isset($_POST['title'])) {
+                $recipes[] = $recipeModel->getRecipe(intval($_POST['title']));
+            } else {
+                throw new \Exception("filteredRecipesTitle : id est vide.");
+            }
+        }
+        require('./templates/filteredRecipesTitle.php');
+    }
+
+    public function filteredRecipesIngredient(bool $post = false) {
+        $recipeModel = new RecipeModel();
+        $ingredients = $recipeModel->getIngredients();
+
+        if ($post) {
+            if (isset($_POST['ingredient'])) {
+                $recipes = $recipeModel->getRecipesByIngredient(intval($_POST['ingredient']));
+            } else {
+                throw new \Exception("filteredRecipesIngredient : ingredient est vide.");
+            }
+        }
+        require('./templates/filteredRecipesIngredient.php');
+    }
 }

@@ -19,24 +19,24 @@ class Recipe {
     public int $use_id;
 }
 
+class Category {
+    public int $cat_id;
+    public string $cat_title;
+}
+
+class Ingredient {
+    public int $ing_id;
+    public string $ing_name;
+}
+
 class RecipeModel {
     public function getRecipes(int $valide = 1): array {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT rec_id, rec_title, rec_image FROM PC_RECIPE WHERE rec_valide = ?"
+            "SELECT rec_id, rec_title, rec_image, rec_summary FROM PC_RECIPE WHERE rec_valide = ?"
         );
         $statement->execute([$valide]);
 
-        $recipes = [];
-        while (($row = $statement->fetch())) {
-            $recipe = new Recipe();
-            $recipe->rec_id = $row["rec_id"];
-            $recipe->rec_title = $row["rec_title"];
-            $recipe->rec_image = $row["rec_image"];
-
-            $recipes[] = $recipe;
-        }
-
-        return $recipes;
+        return $this->createRecipes($statement);
     }
 
     public function getLatestRecipes(): array {
@@ -79,7 +79,7 @@ class RecipeModel {
         return $tags;
     }
 
-    public function getIngredients(int $id) : array {
+    public function getRecipeIngredients(int $id) : array {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT ing_name FROM PC_CONTAIN JOIN PC_INGREDIENT USING (ing_id) WHERE rec_id = ?"
         );
@@ -112,8 +112,10 @@ class RecipeModel {
         $recipe->rec_creation_date = $row["rec_creation_date"];
         $recipe->rec_modification_date = $row["rec_modification_date"];
         $recipe->use_nickname = $row["use_nickname"];
+        $recipe->rec_id = $id;
+
         $recipe->tags = $this->getTags($id);
-        $recipe->ingredients= $this->getIngredients($id);
+        $recipe->ingredients= $this->getRecipeIngredients($id);
         return $recipe;
     }
 
@@ -132,20 +134,11 @@ class RecipeModel {
 
     public function getMyRecipes(int $id) : array {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT rec_title, rec_id FROM PC_RECIPE WHERE use_id = ? AND rec_valide <> 2"
+            "SELECT rec_title, rec_id, rec_summary, rec_image FROM PC_RECIPE WHERE use_id = ? AND rec_valide <> 2"
         );
         $statement->execute([$id]);
 
-        $recipes = [];
-        while (($row = $statement->fetch())) {
-            $recipe = new Recipe();
-            $recipe->rec_id = $row["rec_id"];
-            $recipe->rec_title = $row["rec_title"];
-
-            $recipes[] = $recipe;
-        }
-
-        return $recipes;
+        return $this->createRecipes($statement);
     }
 
     public function checkRecipe(int $id) : bool {
@@ -158,7 +151,7 @@ class RecipeModel {
 
     public function updateRecipePost(Recipe $recipe) {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "UPDATE PC_RECIPE SET rec_title = ?, rec_summary = ? WHERE rec_id = ?"
+            "UPDATE PC_RECIPE SET rec_title = ?, rec_summary = ?, rec_valide = 0 WHERE rec_id = ?"
         );
 
         if (!$statement->execute([$recipe->rec_title, $recipe->rec_summary, $recipe->rec_id])) {
@@ -183,6 +176,8 @@ class RecipeModel {
             $recipe = new Recipe();
             $recipe->rec_id = $row["rec_id"];
             $recipe->rec_title = $row["rec_title"];
+            $recipe->rec_summary = $row["rec_summary"];
+            $recipe->rec_image = $row["rec_image"];
 
             $recipes[] = $recipe;
         }
@@ -190,28 +185,55 @@ class RecipeModel {
         return $recipes;
     }
 
-    public function getFilteredRecipesByCategory(int $category) : array {
+    public function getCategories() : array {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT rec_id, rec_title FROM PC_RECIPE WHERE cat_id = ?"
+            "SELECT cat_id, cat_title FROM PC_CATEGORY"
+        );
+        $statement->execute();
+
+        $categories = [];
+        while (($row = $statement->fetch())) {
+            $category = new Category();
+            $category->cat_id = $row["cat_id"];
+            $category->cat_title = $row["cat_title"];
+
+            $categories[] = $category;
+        }
+
+        return $categories;
+    }
+
+    public function getRecipesByCategory(int $category) : array {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT rec_id, rec_title, rec_summary, rec_image FROM PC_RECIPE WHERE cat_id = ?"
         );
         $statement->execute([$category]);
 
         return $this->createRecipes($statement);
     }
 
-    public function getFilteredRecipesByTitle(string $title) : array {
+    public function getIngredients() : array {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT rec_id, rec_title FROM pc_recipe WHERE rec_title = ?"
+            "SELECT ing_id, ing_name FROM PC_INGREDIENT"
         );
-        $statement->execute([$title]);
+        $statement->execute();
 
-        return $this->createRecipes($statement);
+        $ingredients = [];
+        while (($row = $statement->fetch())) {
+            $ingredient = new Ingredient();
+            $ingredient->ing_id = $row["ing_id"];
+            $ingredient->ing_name = $row["ing_name"];
+
+            $ingredients[] = $ingredient;
+        }
+
+        return $ingredients;
     }
 
-    public function getFilteredRecipesByIngredient(int $ingredient) : array {
+    public function getRecipesByIngredient(int $ingredient) : array {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT rec_id, rec_title FROM pc_recipe WHERE rec_id = (
-                SELECT rec_id FROM pc_contain WHERE ing_id = ?   
+            "SELECT rec_id, rec_title, rec_summary, rec_image FROM PC_RECIPE WHERE rec_id IN (
+                SELECT rec_id FROM PC_CONTAIN WHERE ing_id = ?   
             )"
         );
         $statement->execute([$ingredient]);

@@ -24,7 +24,9 @@ class Permission {
         $this->user = [
             "showEdito",
             "allRecipes",
-            "filteredRecipes",
+            "filteredRecipesCategory",
+            "filteredRecipesTitle",
+            "filteredRecipesIngredient",
             "showRecipe",
             "logout",
         ];
