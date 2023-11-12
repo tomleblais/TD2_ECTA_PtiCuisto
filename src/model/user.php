@@ -162,7 +162,7 @@ class UserManager {
             "INSERT INTO PC_USER (use_nickname, use_firstname, use_lastname, use_email, use_password)
             VALUES (?, ?, ?, ?, ?)"
         );
-        
+
         return $statement->execute([
             $user->use_nickname,
             $user->use_firstname,
@@ -170,11 +170,35 @@ class UserManager {
             $user->use_email,
             $user->use_password,
         ]);
+        
+    }
+
+    public function updateUser(User $user){
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "UPDATE PC_USER set use_nickname = ?, use_email = ?, use_firstname = ?, use_lastname = ? where use_id = ?"
+        );
+        
+        return $statement->execute([
+            $user->use_nickname,
+            $user->use_firstname,
+            $user->use_lastname,
+            $user->use_email,
+        ]);
+    }
+
+    public function updatePassword(User $user){
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "UPDATE PC_USER set use_password = ? where use_id = ?"
+        );
+            
+        return $statement->execute([
+            $user->use_password,
+        ]);
     }
     
     public function deleteUser(int $id){
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT count(*) as nb FROM user WHERE use_id = ?"
+            "SELECT count(*) as nb FROM PC_USER WHERE use_id = ?"
         );
         $statement->execute([$id]);
         $row = $statement->fetch();
@@ -188,6 +212,8 @@ class UserManager {
             throw new \Exception("L'utilisateur n'existe pas !");
         }
     }
+
+
     
     /**
      * TODO Check

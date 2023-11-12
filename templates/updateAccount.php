@@ -9,29 +9,29 @@
         <p><?= $error ?></p>
     <?php endif; ?>
 
-    <form action="./index.php?action=signinPost" method="post">
+    <form action="./index.php?action=updateUserPost" method="post">
         <table>
             <tbody>
                 <tr>
-                    <td><label for="nickname">Nom d'utilisateur : <?php UserManager::getUser($_SESSION["id"])->use_nickname ?></label></td>
-                    <td><input type="text" name="nickname" id="nickname"  maxlength="32" required> <?php UserManager::getUser($_SESSION["id"])->use_nickname ?> </td>
+                    <td><label for="nickname">Nom d'utilisateur : <?php $user->use_nickname ?></label></td>
+                    <td><input type="text" name="nickname" id="nickname" value="<?php $user->use_nickname ?>" maxlength="32" required> </td>
                 </tr>
                 <tr>
-                    <td><label for="firstname">Prénom : <?php UserManager::getUser($_SESSION["$id"])->use_firstname ?> </label></td>
-                    <td><input type="text" name="firstname" id="firstname" maxlength="32" required> <?php UserManager::getUser($_SESSION["$id"])->use_firstname ?> </td>
+                    <td><label for="firstname">Prénom : <?php $user->use_firstname ?> </label></td>
+                    <td><input type="text" name="firstname" id="firstname" value="<?php $user->use_firstname ?>" maxlength="32" required> </td>
                 </tr>
                 <tr>
-                    <td><label for="lastname">Nom : <?php UserManager::getUser($_SESSION["$id"])->use_name ?> </label></td>
-                    <td><input type="text" name="lastname" id="lastname" maxlength="32" required> <?php UserManager::getUser($_SESSION["$id"])->use_name ?> </td>
+                    <td><label for="lastname">Nom : <?php $user->use_name ?> </label></td>
+                    <td><input type="text" name="lastname" id="lastname" value="<?php $user->use_name ?>" maxlength="32" required> </td>
                 </tr>
                 <tr>
-                    <td><label for="email">Email : <?php UserManager::getUser($_SESSION["$id"])->use_email ?> </label></td>
-                    <td><input type="email" name="email" id="email" maxlength="32" required> <?php UserManager::getUser($_SESSION["$id"])->use_email ?> </td>
+                    <td><label for="email">Email : <?php $user->use_email ?> </label></td>
+                    <td><input type="email" name="email" id="email" value="<?php $user->use_email ?>" maxlength="32" required> </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="2"><button type="submit">Je modifie mon compte&mldr;</button></td>
+                    <td colspan="2"><button type="submit">Modifier mon compte&mldr;</button></td>
                 </tr>
             </tfoot>
         </table>
