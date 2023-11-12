@@ -162,10 +162,10 @@ class RecipeManager {
 
     public function addRecipe(Recipe $recipe) {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "INSERT INTO PC_RECIPE (cat_id, rec_title, rec_summary, rec_image, rec_creation_date, rec_valide) VALUES (?, ?, ?, ?, sysdate, 0)"
+            "INSERT INTO PC_RECIPE (CAT_ID, USE_ID, REC_TITLE, REC_SUMMARY, REC_CREATION_DATE, REC_VALIDE) VALUES (?, ?, ?, ?, now, 0)"
         );
 
-        if (!$statement->execute([$recipe->rec_title, $recipe->rec_summary, $recipe->rec_id, $recipe->rec_image])) {
+        if (!$statement->execute([$recipe->cat_id, $recipe->use_id, $recipe->rec_title, $recipe->rec_summary])) {
             throw new \Exception("La recette n'a pas été insérée.");
         }
     }

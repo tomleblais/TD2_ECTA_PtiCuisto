@@ -5,12 +5,12 @@
 
 <?php require('./src/views/user/shortcut/recipes.php') ?>
 
-<?php $content = ob_get_clean(); ?>
+
 
 <div class="form-container container">
     <h1>Proposer une recette</h1>
 
-    <?php if($error !== "") : ?>
+    <?php if (isset($error) && $error !== "") :  ?>
         <p><?= $error ?></p>
     <?php endif; ?>
 
@@ -22,8 +22,8 @@
                     <td><input type="text" name="title" id="title"  maxlength="32" required></td>
                 </tr>
                 <tr>
-                    <td><label for="type">Catégorie de la recette :</label></td>
-                    <td><select type="text" name="type" id="type" required>
+                    <td><label for="category">Catégorie de la recette :</label></td>
+                    <td><select type="text" name="category" id="category" required>
                         <option value="1">Entrée</option>
                         <option value="2">Plat</option>
                         <option value="3">Dessert</option>
@@ -34,10 +34,6 @@
                     <td><label for="summary">Description de la recette (étapes) :</label></td>
                     <td><textarea id="summary" name="summary" rows="10" cols="33" placeholder="Description de la recette ..."></textarea></td>
                 </tr>
-                <tr>
-                    <td><label for="image">Image de la recette :</label></td>
-                    <td><input type="file" name="image" accept="image/jpg, image/png, image/jpeg, image/gif" required></td>
-                </tr>
             </tbody>
             <tfoot>
                 <tr>
@@ -47,5 +43,7 @@
         </table>
     </form>
 </div>
+
+<?php $content = ob_get_clean(); ?>
 
 <?php require('./src/views/layout.php') ?>

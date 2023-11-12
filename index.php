@@ -124,6 +124,13 @@ try {
         // EDITER ---------------------------------------------------------------------
         elseif ($_GET['action'] === 'addRecipe' && $permission->isAllowed('allRecipe')) {
             (new RecipeController())->addRecipe();
+        } elseif ($_GET['action'] === 'addRecipePost' &&  $permission->isAllowed('addRecipe')) {
+            if (isset($_SESSION["id"])) {
+                $id = intval($_SESSION["id"]);
+            (new RecipeController())->addRecipePost($_SESSION["id"]);
+            } else {
+                throw new Exception("L'ID n'est pas définie");
+            }
         } elseif ($_GET['action'] === 'myRecipes' && $permission->isAllowed('myRecipes')) {
             if (isset($_SESSION["id"])) {
                 (new RecipeController())->myRecipes($_SESSION["id"]);

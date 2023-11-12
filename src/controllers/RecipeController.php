@@ -32,10 +32,6 @@ class RecipeController {
         require('./src/views/editer/myRecipesView.php');
     }
 
-    public function addRecipe() {
-        require('./src/views/editer/addRecipeView.php');
-    }
-
     public function checkRecipes() {
         $recipes = (new RecipeManager())->getRecipes(0);
         require('./src/views/admin/checkRecipesView.php');
@@ -83,6 +79,7 @@ class RecipeController {
 
     public function addRecipePost(int $id){
         $recipe = new Recipe();
+        $recipe->use_id = intval($_SESSION['id']);
         $recipe->rec_id = $id;
 
         if (!isset($_POST['title'])) {
@@ -92,6 +89,7 @@ class RecipeController {
         }
 
         $recipe->rec_title = $_POST['title'];
+        $recipe->cat_id = $_POST['category'];
         $recipe->rec_summary = $_POST['summary'];
 
         if (mb_strlen($recipe->rec_title, 'UTF-8') > 32) {
@@ -105,6 +103,7 @@ class RecipeController {
         } 
 
         (new RecipeManager())->addRecipe($recipe);
+        header("Location: ./index.php?action=myRecipes");
     }
 
     public function deleteRecipe(int $id) {
