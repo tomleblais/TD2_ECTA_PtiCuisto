@@ -34,6 +34,8 @@ class Permission {
         $this->userOnly = [
             "login",
             "loginPost",
+            "signin",
+            "signinPost",
         ];
 
         $this->editer = [

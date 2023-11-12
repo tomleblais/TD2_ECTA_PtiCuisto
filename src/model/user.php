@@ -6,6 +6,14 @@ require_once('./src/lib/database.php');
 
 use Application\Lib\Database\DatabaseConnection;
 
+class User {
+    public string $use_nickname;
+    public string $use_email;
+    public string $use_firstname;
+    public string $use_lastname;
+    public string $use_passworld;
+}
+
 class UserManager {
     public const NONE = 0;
     public const USER = 1;
@@ -49,7 +57,7 @@ class UserManager {
     
     public function login($email, $password): int {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT COUNT(*) AS USER_COUNT FROM PC_USER WHERE USE_EMAIL = ? AND USE_PASSWORD = ?"
+            "SELECT COUNT(*) AS USER_COUNT FROM PC_USER WHERE USE_EMAIL = ? AND USE_PASSWORD = ? AND UST_ID = 1"
         );
         $statement->execute([$email, $password]);
         $result = $statement->fetch();
@@ -68,26 +76,51 @@ class UserManager {
 
     }
 
-    public function insertUser($nicknameUser, $passwordUser, $emailUser, $firstnameUser, $lastnameUser) {
-        $sqlCheck = "SELECT * FROM User";
-        $i=0;
-        foreach  (DatabaseConnection::getConnection()->query($sqlCheck) as $line){
-            $accounts[$i++] = $line;
+    public function checkEmail(string $email): bool {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT * FROM PC_USER WHERE use_email = ?"
+        );
+        
+        if (!$statement->execute([$email])) {
+            throw new \Exception("Echec de la requête pour récupérer les recettes de l'edito.");
         }
 
-        $j = 0;
-        foreach ($accounts as $account){
-            if($nicknameUser == $account['nicknameUser']){
-                echo "This account already exists!";
-                $j = 1;
-            }
+        while ($statement->fetch()) {
+            return true;
         }
 
-        if($j = 0){
-            $passwordUser = hash('sha256', $passwordUser);
-            $sqlInsertUser = "INSERT INTO User (nicknameUser, passwordUser, emailUser, firstnameUser, lastnameUser, registrationDateUser) VALUES ('$nicknameUser', '$passwordUser', '$emailUser', '$firstnameUser', '$lastnameUser', NOW())";
-            DatabaseConnection::getConnection()->exec($sqlInsertUser);
+        return false;
+    }
+
+    public function checkNickname(string $nickname): bool {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT * FROM PC_USER WHERE use_nickname = ?"
+        );
+        
+        if (!$statement->execute([$nickname])) {
+            throw new \Exception("Echec de la requête pour récupérer les recettes de l'edito.");
         }
+
+        while ($statement->fetch()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function insertUser(User $user): bool {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "INSERT INTO PC_USER (use_nickname, use_firstname, use_lastname, use_email, use_password)
+            VALUES (?, ?, ?, ?, ?)"
+        );
+        
+        return $statement->execute([
+            $user->use_nickname,
+            $user->use_firstname,
+            $user->use_lastname,
+            $user->use_email,
+            $user->use_passworld,
+        ]);
     }
       
     public function deleteUser($id){

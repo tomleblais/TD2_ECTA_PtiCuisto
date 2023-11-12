@@ -70,6 +70,17 @@ try {
             } else {
                 (new Recipe_c())->filteredRecipesIngredient();
             }
+        } elseif ($_GET['action'] === 'signin' && $permission->isAllowed('signin')) {
+            (new User_c())->signin();
+        } elseif ($_GET['action'] === 'signinPost' && $permission->isAllowed('signinPost')) {
+            $user_c = new User_c();
+            $error = $user_c->signinPost();
+
+            if (!empty($error)) {
+                $user_c->signin($error);
+            } else {
+                $user_c->login("Votre compte à était créé avec succée.");
+            }
         }
         // EDITER ---------------------------------------------------------------------
         elseif ($_GET['action'] === 'addRecipe' && $permission->isAllowed('allRecipe')) {
