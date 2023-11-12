@@ -8,6 +8,7 @@ require_once('./src/controllers/permission.php');
 require_once('./src/controllers/recipe.php');
 require_once('./src/controllers/user.php');
 require_once('./src/controllers/edito.php');
+require_once('./src/controllers/comment.php');
 
 // Use application ----------------------------------------------------------
 use Application\Model\User\UserManager;
@@ -16,6 +17,7 @@ use Application\Controllers\Permission\Permission;
 use Application\Controllers\Recipe\Recipe_c;
 use Application\Controllers\User\User_c;
 use Application\Controllers\Edito\Edito_c;
+use Application\Controllers\Comment\Comment_c;
 
 // Execute --------------------------------------------------------------------
 $id = isset($_GET['id']) ? intval($_GET['id']) : null;
@@ -38,6 +40,15 @@ try {
             if (isset($_GET['id'])) {
                 $id = intval($_GET['id']);
                 (new Recipe_c())->showRecipe($id, $permission->isAllowed('updateRecipe', $id));
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
+        } elseif ($_GET['action'] === 'writeCommentPost' && $permission->isAllowed('writeComment')) {
+            if (isset($_GET['id'])) {
+                $id = intval($_GET['id']);
+                $erreur = (new Comment_c())->writeCommentPost($id, $permission->isAllowed('writeComment', $id));
+
+                header("Location: ./index.php?action=showRecipe&id=$id");
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }

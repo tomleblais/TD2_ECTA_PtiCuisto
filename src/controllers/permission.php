@@ -28,6 +28,7 @@ class Permission {
             "filteredRecipesTitle",
             "filteredRecipesIngredient",
             "showRecipe",
+            "writeComment",
             "logout",
         ];
 

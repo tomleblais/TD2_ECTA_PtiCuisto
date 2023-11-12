@@ -221,7 +221,8 @@ input[type="date"],
 input[type="time"],
 input[type="datetime-local"],
 input[type="month"],
-input[type="week"] {
+input[type="week"],
+textarea {
     display: inline-block;
 
     margin-top: calc(var(--margin-top) * 2);
@@ -258,8 +259,13 @@ input[type="date"]::placeholder,
 input[type="time"]::placeholder,
 input[type="datetime-local"]::placeholder,
 input[type="month"]::placeholder,
-input[type="week"]::placeholder {
+input[type="week"]::placeholder,
+textarea::placeholder {
     font-style: italic;
+}
+
+textarea {
+    width: calc(100% - var(--padding-left) - var(--padding-right) - var(--margin-left) * 2 - var(--margin-right) * 2);
 }
 
 /* Select input */
