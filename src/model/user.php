@@ -163,8 +163,8 @@ class UserManager {
         $user->use_lastname = $row["use_lastname"];
         $user->use_email = $row["use_email"];
         $user->use_password = $row["use_password"];
-        $user->uty_id = intval($row["uty_id"]);
-        $user->ust_id = intval($row["ust_id"]);
+        $user->uty_id = intval($row["uty_ID"]);
+        $user->ust_id = intval($row["ust_ID"]);
 
         return $user;
     }

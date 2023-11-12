@@ -16,17 +16,7 @@
                 </ul>
             </li>
             <li>
-                <?php if (!isset($_SESSION['id'])) : ?>
                 <a href="./index.php?action=login">Connexion</a>
-                <?php else : ?>
-                <li>
-                    <a href="./index.php?action=showUser">Mon compte</a>
-                    <ul>
-                        <li><a href="./index.php?action=showUser&id=<?= $_SESSION['id'] ?>">Changer mes information</a></li>
-                        <li><a href="./index.php?action=logout">Se déconnecter</a></li>
-                    </ul>
-                </li>
-                <?php endif; ?>
             </li>
         </ul>
     </nav>
