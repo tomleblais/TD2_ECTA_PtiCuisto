@@ -11,8 +11,17 @@ class User_c {
         require('./templates/login.php');
     }
 
-    public function disableUserPost() {
-        
+    public function showUsers() {
+        $users = (new UserManager())->getUsers();   
+
+        require('./templates/admin/showUsers.php');
+    }
+
+    public function updateUserStatusPost(int $use_id) {
+        $ust_id = intval($_POST['status']);
+        (new UserManager())->updateUserStatus($use_id, $ust_id);
+
+        header("Location: ./index.php?action=showUsers");
     }
     
     public function loginPost() {

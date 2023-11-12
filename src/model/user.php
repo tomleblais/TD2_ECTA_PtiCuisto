@@ -35,7 +35,8 @@ class UserManager {
 
     public function getUsers(): array{
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT USE_ID, USE_NICKNAME, UST_ID FROM PC_USERS
+            "SELECT USE_ID, USE_NICKNAME, USE_EMAIL, USE_FIRSTNAME, USE_LASTNAME, USE_PASSWORD, UTY_ID, UST_ID
+            FROM PC_USER
             JOIN PC_USER_STATUS USING (UST_ID)"
         );
         $statement->execute();
@@ -44,9 +45,15 @@ class UserManager {
 
         while (($row = $statement->fetch())) {
             $user = new User();
-            $user->use_id = intval($row["use_id"]);
-            $user->use_nickname = $row["use_nickname"];
-            $user->ust_id = $row["ust_id"];
+
+            $user->use_id = intval($row["USE_ID"]);
+            $user->use_nickname = $row["USE_NICKNAME"];
+            $user->use_email = $row["USE_EMAIL"];
+            $user->use_firstname = $row["USE_FIRSTNAME"];
+            $user->use_lastname = $row["USE_LASTNAME"];
+            $user->use_password = $row["USE_PASSWORD"];
+            $user->uty_id = intval($row["UTY_ID"]);
+            $user->ust_id = intval($row["UST_ID"]);
 
             $users[] = $user;
         }
@@ -172,23 +179,6 @@ class UserManager {
         ]);
     }
     
-    public function deleteUser(int $id){
-        $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT count(*) as nb FROM user WHERE use_id = ?"
-        );
-        $statement->execute([$id]);
-        $row = $statement->fetch();
-        if($row == 1){
-            $statement = DatabaseConnection::getConnection()->prepare(
-            "UPDATE PC_USER SET ust_id = 3 WHERE use_id = ?"  
-            );
-            return !$statement->execute([$id]);
-        }
-        else{
-            throw new \Exception("L'utilisateur n'existe pas !");
-        }
-    }
-    
     /**
      * TODO Check
      */
@@ -198,11 +188,24 @@ class UserManager {
         DatabaseConnection::getConnection()->exec($sqlUpdateUser);
     }
     
-    /**
-     * TODO Check
-     */
-    public function suspendUser($id){
-        $sqlUpdateUser = "UPDATE User SET UST_CODE = '2' WHERE idUser = $id";
-        DatabaseConnection::getConnection()->exec($sqlUpdateUser);
+    public function updateUserStatus(int $use_id, int $ust_id){
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT count(*) AS USER_COUNT
+            FROM PC_USER
+            WHERE USE_ID = ?"
+        );
+        $statement->execute([$use_id]);
+        $row = $statement->fetch();
+
+        if(intval($row["USER_COUNT"]) == 1){
+            $statement = DatabaseConnection::getConnection()->prepare(
+                "UPDATE PC_USER
+                SET UST_ID = ? WHERE
+                USE_ID = ?"
+            );
+            return !$statement->execute([$ust_id, $use_id]);
+        } else {
+            throw new \Exception("L'utilisateur n'existe pas.");
+        }
     }
 }

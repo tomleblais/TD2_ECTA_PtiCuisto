@@ -172,8 +172,15 @@ try {
             } else {
                 header("Location: ./index.php");
             }
-        } elseif ($_GET['action'] === 'disableUserPost' && $permission->isAllowed('disableUserPost')) {
-            (new User_c())->disableUserPost();
+        } elseif ($_GET['action'] === 'showUsers' && $permission->isAllowed('showUsers')) {
+            (new User_c())->showUsers();
+        } elseif ($_GET['action'] === 'updateUserStatusPost' && $permission->isAllowed('updateUserStatus')) {
+            if (isset($_GET['use_id'])) {
+                $use_id = intval($_GET['use_id']);
+                (new User_c())->updateUserStatusPost($use_id);
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
         } else {
             require('./templates/errors/error404.php');
         }

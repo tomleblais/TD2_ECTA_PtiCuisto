@@ -22,6 +22,9 @@
                 <a href="./index.php?action=checkRecipes">Valider les recettes</a>
             </li>
             <li>
+                <a href="./index.php?action=showUsers">Utilisateurs</a>
+            </li>
+            <li>
                 <?php if (!isset($_SESSION['id'])) : ?>
                 <a href="./index.php?action=login">Connexion</a>
                 <?php else : ?>
