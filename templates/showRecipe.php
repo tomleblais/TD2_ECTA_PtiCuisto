@@ -50,6 +50,13 @@ if ($recipe->rec_modification_date === "0000-00-00 00:00:00") { //$recipe->rec_m
         </p>
     </div>
 </div>
+
+<?php if ($modify) : ?>
+<form action="index.php?action=updateRecipe&id=<?= $id ?>" method="POST">
+    <button type="submit">Modifier</button>
+</form>
+<?php endif; ?>
+
 <div class="comment-container">
     <h3>Commentaires</h3>
     <?php if (!(empty($comments))):
@@ -72,13 +79,6 @@ if ($recipe->rec_modification_date === "0000-00-00 00:00:00") { //$recipe->rec_m
         echo "<div><em>Il n'y a pas de commentaire</em></div>";
     endif;
     ?>
-</div>
-
-<?php if ($modify) : ?>
-<form action="index.php?action=updateRecipe&id=<?= $id ?>" method="POST">
-    <button type="submit">Modifier</button>
-</form>
-<?php endif; ?>
 </div>
 
 <?php if (isset($_SESSION['id'])) : ?>

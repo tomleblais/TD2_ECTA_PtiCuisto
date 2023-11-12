@@ -16,7 +16,7 @@
                 </ul>
             </li>
             <li>
-                <?php if (isset($_SESSION['id'])): ?>
+                <?php if (!isset($_SESSION['id'])): ?>
                 <a href="./index.php?action=login">Connexion</a>
                 <?php else: ?>
                 <a href="./index.php?action=showUser&id=<?= $_SESSION['id'] ?>">Mon compte</a>
