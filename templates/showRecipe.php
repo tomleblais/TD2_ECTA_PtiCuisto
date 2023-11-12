@@ -74,11 +74,24 @@ if ($recipe->rec_modification_date === "0000-00-00 00:00:00") { //$recipe->rec_m
     ?>
 </div>
 
-<?php if ($modify): ?>
-    <form action="index.php?action=updateRecipe&id=<?= $id ?>" method="POST">
-        <button type="submit">Modifier</button>
+<?php if ($modify) : ?>
+<form action="index.php?action=updateRecipe&id=<?= $id ?>" method="POST">
+    <button type="submit">Modifier</button>
+</form>
+<?php endif; ?>
+</div>
+
+<?php if (isset($_SESSION['id'])) : ?>
+<div class="write-comment-container container">
+    <h5><?= $recipe->use_nickname ?></h5>
+    <form action="index.php?action=writeCommentPost&id=<?= $id ?>" method="POST">
+        <textarea name="content" id="content" placeholder="Ajouter un commentaire..."></textarea>
+        <br>
+        <input type="hidden" name="nickname" value="<?= $recipe->use_nickname ?>">
+        <button type="submit">J'envoie mon commentaire&mldr;</button>
     </form>
-<?php endif ?>
+</div>
+<?php endif; ?>
 
 <?php $content = ob_get_clean(); ?>
 
