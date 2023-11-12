@@ -23,8 +23,7 @@ class UserManager {
     public const EDITER = 2;
     public const ADMIN = 3;
 
-    public static function getType(int $id): int
-    {
+    public static function getType(int $id): int {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT uty_id FROM PC_USER WHERE use_id = ?"
         );
@@ -33,7 +32,7 @@ class UserManager {
         return self::numberToConst($statement->fetch()["uty_id"]);
     }
 
-    public function getUsers(): array{
+    public function getUsers(): array {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT USE_ID, USE_NICKNAME, UST_ID FROM PC_USERS
             JOIN PC_USER_STATUS USING (UST_ID)"
@@ -53,58 +52,33 @@ class UserManager {
 
         return $users;
     }
-
-    public function getUser(int $use_id) : User
-    {
-        $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT USE_ID, USE_NICKNAME, UST_ID FROM PC_USERS
-            JOIN PC_USER_STATUS USING (UST_ID)
-            WHERE use_id = ?"
-        );
-        $statement->execute([$use_id]);
-
-        if (!($row = $statement->fetch())) {
-            throw new \Exception("L'utilisateur n'a pas pu être trouvé !");
-        }
-
-            $user = new User();
-            $user->use_id = intval($row["use_id"]);
-            $user->use_nickname = $row["use_nickname"];
-            $user->ust_id = $row["ust_id"];
-        return $user;
-
-    }
-
-    private static function numberToConst(int $number): int
-    {
+    private static function numberToConst(int $number): int {
         switch ($number) {
-            case 1:
-                return self::USER;
-            case 2:
-                return self::EDITER;
-            case 3:
-                return self::ADMIN;
-            default:
-                return self::NONE;
+        case 1:
+            return self::USER;
+        case 2:
+            return self::EDITER;
+        case 3:
+            return self::ADMIN;
+        default:
+            return self::NONE;
         }
     }
 
-    public static function setHeader(int $type)
-    {
+    public static function setHeader(int $type) {
         switch ($type) {
-            case self::EDITER:
-                $_SESSION['header'] = './templates/headers/editer.php';
-                break;
-            case self::ADMIN:
-                $_SESSION['header'] = './templates/headers/admin.php';
-                break;
-            default:
-                $_SESSION['header'] = './templates/headers/user.php';
+        case self::EDITER:
+            $_SESSION['header'] = './templates/headers/editer.php';
+            break;
+        case self::ADMIN:
+            $_SESSION['header'] = './templates/headers/admin.php';
+            break;
+        default:
+            $_SESSION['header'] = './templates/headers/user.php';
         }
     }
 
-    public function login($email, $password): int
-    {
+    public function login($email, $password): int {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT COUNT(*) AS USER_COUNT FROM PC_USER WHERE USE_EMAIL = ? AND USE_PASSWORD = ? AND UST_ID = 1"
         );
@@ -122,7 +96,6 @@ class UserManager {
 
             return $result["USE_ID"];
         }
-
     }
 
     public function checkEmail(string $email): bool {
@@ -143,7 +116,7 @@ class UserManager {
 
     public function checkNickname(string $nickname): bool {
         $statement = DatabaseConnection::getConnection()->prepare(
-            
+            "SELECT * FROM PC_USER WHERE use_nickname = ?"
         );
         
         if (!$statement->execute([$nickname])) {
@@ -171,6 +144,29 @@ class UserManager {
             $user->use_password,
         ]);
         
+    }
+
+    public function getUser(int $id) {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT * FROM PC_USER WHERE use_id = ?"
+        );
+        $statement->execute([$id]);
+
+        if (!$row = $statement->fetch()) {
+            throw new \Exception("La requête pour récupérer l'utilisateur à échoué.");
+        }
+
+        $user = new User();
+        $user->use_id = intval($row["use_id"]);
+        $user->use_nickname = $row["use_nickname"];
+        $user->use_firstname = $row["use_firstname"];
+        $user->use_lastname = $row["use_lastname"];
+        $user->use_email = $row["use_email"];
+        $user->use_password = $row["use_password"];
+        $user->uty_id = intval($row["uty_id"]);
+        $user->ust_id = intval($row["ust_id"]);
+
+        return $user;
     }
 
     public function updateUser(User $user){
