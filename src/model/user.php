@@ -143,7 +143,7 @@ class UserManager {
 
     public function checkNickname(string $nickname): bool {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT * FROM PC_USER WHERE use_nickname = ?"
+            
         );
         
         if (!$statement->execute([$nickname])) {
@@ -162,7 +162,7 @@ class UserManager {
             "INSERT INTO PC_USER (use_nickname, use_firstname, use_lastname, use_email, use_password)
             VALUES (?, ?, ?, ?, ?)"
         );
-        
+
         return $statement->execute([
             $user->use_nickname,
             $user->use_firstname,
@@ -170,40 +170,47 @@ class UserManager {
             $user->use_email,
             $user->use_password,
         ]);
+        
     }
-      
-    /**
-     * TODO Check
-     */
-    public function deleteUser($id){
-        $sqlCheck = "SELECT * FROM User";
-        $i = 0;
-        foreach (DatabaseConnection::getConnection()->query($sqlCheck) as $line) {
-            $accounts[$i++] = $line;
-        }
 
-        $j = 0;
-        foreach ($accounts as $account) {
-            if ($id == $account['idUser']) {
-                $j = 1;
-            }
-        }
+    public function updateUser(User $user){
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "UPDATE PC_USER set use_nickname = ?, use_email = ?, use_firstname = ?, use_lastname = ? where use_id = ?"
+        );
+        
+        return $statement->execute([
+            $user->use_nickname,
+            $user->use_firstname,
+            $user->use_lastname,
+            $user->use_email,
+        ]);
+    }
 
-        if ($j = 1) {
-            $sqlRemoveUser = "DELETE FROM user WHERE idUser = '$id'";
-            DatabaseConnection::getConnection()->exec($sqlRemoveUser);
-        } else {
-            echo "There is no account with this id!";
-        }
+    public function updatePassword(User $user){
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "UPDATE PC_USER set use_password = ? where use_id = ?"
+        );
+            
+        return $statement->execute([
+            $user->use_password,
+        ]);
     }
     
-    /**
-     * TODO Check
-     */
-    public function updatePassword($newPassword, $id){
-        $passwordUser = hash('sha256', $newPassword);
-        $sqlUpdateUser = "UPDATE User SET passwordUser = '$passwordUser' WHERE idUser = $id";
-        DatabaseConnection::getConnection()->exec($sqlUpdateUser);
+    public function deleteUser(int $id){
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT count(*) as nb FROM PC_USER WHERE use_id = ?"
+        );
+        $statement->execute([$id]);
+        $row = $statement->fetch();
+        if($row == 1){
+            $statement = DatabaseConnection::getConnection()->prepare(
+            "UPDATE PC_USER SET ust_id = 3 WHERE use_id = ?"  
+            );
+            return !$statement->execute([$id]);
+        }
+        else{
+            throw new \Exception("L'utilisateur n'existe pas !");
+        }
     }
     
     /**
