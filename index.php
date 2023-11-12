@@ -99,6 +99,27 @@ try {
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
+        } elseif ($_GET['action'] === 'updateUser' && $permission->isAllowed('updateUser')) {
+            if (isset($_GET['id'])) {
+                $id = intval($_GET['id']);
+                (new User_c())->updateUser($id);
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
+        } elseif ($_GET['action'] === 'updateAccountPost' && $permission->isAllowed('updateUser')) {
+            if (isset($_GET['id'])) {
+                $id = intval($_GET['id']);
+                (new User_c())->updateAccountPost($id);
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
+        } elseif ($_GET['action'] === 'updatePasswordPost' && $permission->isAllowed('updateUser')) {
+            if (isset($_GET['id'])) {
+                $id = intval($_GET['id']);
+                (new User_c())->updatePasswordPost($id);
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
         }
         // EDITER ---------------------------------------------------------------------
         elseif ($_GET['action'] === 'addRecipe' && $permission->isAllowed('allRecipe')) {
@@ -146,6 +167,14 @@ try {
             }
         } elseif ($_GET['action'] === 'logout' && $permission->isAllowed('logout')) {
             (new User_c())->logout();
+        }  elseif ($_GET['action'] === 'showUser' && $permission->isAllowed('showUser')) {
+            if (isset($_GET['id'])) {
+                (new User_c())->showUser(intval($_GET['id']));
+            } elseif (isset($_SESSION['id'])) {
+                (new User_c())->showUser($id);
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
         }
         // ADMIN ----------------------------------------------------------------------
         elseif ($_GET['action'] === 'checkRecipes' && $permission->isAllowed('checkRecipes')) {
@@ -173,8 +202,15 @@ try {
             } else {
                 header("Location: ./index.php");
             }
-        } elseif ($_GET['action'] === 'disableUserPost' && $permission->isAllowed('disableUserPost')) {
-            // (new User_c())->disableUserPost();
+        } elseif ($_GET['action'] === 'showUsers' && $permission->isAllowed('showUsers')) {
+            (new User_c())->showUsers();
+        } elseif ($_GET['action'] === 'updateUserStatusPost' && $permission->isAllowed('updateUserStatus')) {
+            if (isset($_GET['use_id'])) {
+                $use_id = intval($_GET['use_id']);
+                (new User_c())->updateUserStatusPost($use_id);
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
         } else {
             require('./templates/errors/error404.php');
         }

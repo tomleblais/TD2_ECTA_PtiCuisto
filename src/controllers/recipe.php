@@ -73,7 +73,7 @@ class Recipe_c {
             return "Le contenue ne peut pas faire plus de 4096 caractères.";
         } elseif (mb_strlen($recipe->rec_summary, 'UTF-8') < 3) {
             return "Le contenue ne peut pas faire moins de 3 caractères";
-        } 
+        }
 
         (new RecipeModel())->updateRecipePost($recipe);
     }

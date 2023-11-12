@@ -35,7 +35,7 @@ if ($recipe->rec_modification_date === "0000-00-00 00:00:00") { //$recipe->rec_m
     </div>
     <div class="ingredient-container">
         <h3>Ingrédients</h3>
-        <ul>
+        <ul class="ingredients">
             <?php foreach ($recipe->ingredients as $ingredient): ?>
                 <li>
                     <?= $ingredient ?>
@@ -44,7 +44,7 @@ if ($recipe->rec_modification_date === "0000-00-00 00:00:00") { //$recipe->rec_m
         </ul>
     </div>
     <div class="recipe-details-content">
-        <h3>recipe</h3>
+        <h3>Recette</h3>
         <p>
             <?= $recipe->rec_summary ?>
         </p>

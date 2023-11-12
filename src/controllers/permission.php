@@ -30,6 +30,7 @@ class Permission {
             "showRecipe",
             "writeComment",
             "logout",
+            "updateUser"
         ];
 
         $this->userOnly = [
@@ -46,6 +47,8 @@ class Permission {
         ];
 
         $this->admin = [
+            "showUsers",
+            "updateUserStatus",
             "checkRecipes",
             "showRecipeUncheck",
             "checkRecipe",

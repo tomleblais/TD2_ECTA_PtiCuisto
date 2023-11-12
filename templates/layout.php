@@ -28,9 +28,9 @@
         <main>
             <?= $content ?>
         </main>
-    </body>
 
-    <footer>
-        @ECTA Bon appetit !
-    </footer>
+        <footer>
+            @ECTA Bon appetit !
+        </footer>
+    </body>
 </html>

@@ -2,7 +2,7 @@
 
 use Application\Model\User\UserManager;
 
- $title = "$user->use_nickname"; ?>
+$title = "$user->use_nickname"; ?>
 
 <?php ob_start(); ?>
 
@@ -11,16 +11,16 @@ use Application\Model\User\UserManager;
 <h2>Nom d'utilisateur</h2>
 <p><?= $user->use_nickname ?></p>
 
-<h2>Nom :</h2>
+<h2>Prénom :</h2>
 <p><?= $user->use_firstname ?></p>
 
-<h2>Prénom :</h2>
+<h2>Nom :</h2>
 <p><?= $user->use_lastname ?></p>
 
-<h2>Mail :</h2>
+<h2>Email :</h2>
 <p><?= $user->use_email ?></p>
 
-<h2>Type :</h2>
+<h2>Type d'utilisateur</h2>
 <p><?= ($user->uty_id == UserManager::ADMIN) ? "Administrateur" : "Editeur" ?></p>
 
 <?php $content = ob_get_clean(); ?>

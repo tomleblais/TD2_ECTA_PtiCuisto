@@ -12,6 +12,30 @@ class User_c {
         require('./templates/signin.php');
     }
 
+    public function showUser(int $use_id){
+        $user = (new UserManager())->getUser($use_id);
+
+        require('./templates/showUser.php');
+    }
+
+    public function showUsers() {
+        $users = (new UserManager())->getUsers();   
+
+        require('./templates/admin/showUsers.php');
+    }
+
+    public function updateUser(int $use_id) {
+        $user = (new UserManager())->getUser($use_id);
+
+        require("./templates/updateUser.php");
+    }
+
+    public function updateUserStatusPost(int $use_id) {
+        $ust_id = intval($_POST['status']);
+        (new UserManager())->updateUserStatus($use_id, $ust_id);
+
+        header("Location: ./index.php?action=showUsers");
+    }
     public function signinPost() {
         if (!isset($_POST['nickname'])) {
             return "Nom d'utilisateur indéfini.";
@@ -108,21 +132,60 @@ class User_c {
         $_SESSION["type"] = UserManager::getType($id);
     }
 
-    public function showUser(int $use_id){
-        $user = (new UserManager())->getUser($use_id);
-        require('./templates/showUser.php');
-    }
+    public function updateAccountPost(int $use_id){
 
-    public function updateUserPost(){
+        $use_nickname = htmlspecialchars($_POST['nickname']);
+        $use_firstname = htmlspecialchars($_POST['firstname']);
+        $use_lastname = htmlspecialchars($_POST['lastname']);
         $email = htmlspecialchars(strtolower($_POST['email']));
+
         if (strlen($email) > 256 || strlen($email) < 0) {
             return "L'email est trop long ou trop court";
+        } elseif (empty($use_nickname) || strlen($use_nickname) > 32) {
+            return "Le nom d'utilisateur est trop long ou trop court";
+        } elseif (empty($use_firstname) || strlen($use_firstname) > 32) {
+            return "Le prénom est trop long ou trop court";
+        } elseif (empty($use_lastname) || strlen($use_lastname) > 32) {
+            return "Le nom est trop long ou trop court";
         }
 
         $emailPattern = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/";
         if (!preg_match($emailPattern, $email)) {
             return "Adresse email invalide";
         }
+
+        $user = new User();
+        $user->use_id = $use_id;
+        $user->use_nickname = $use_nickname;
+        $user->use_firstname = $use_firstname;
+        $user->use_lastname = $use_lastname;
+        $user->use_email = $email;
+
+        (new UserManager())->updateAccount($user);
+
+        header("Location: ./index.php?action=showUser&id=$user->use_id");
+    }
+
+    public function updatePasswordPost(int $use_id){
+
+        $old_password = htmlspecialchars($_POST['oldpassword']);
+        
+        $new_password = htmlspecialchars($_POST['newpassword']);
+        $new_password2 = htmlspecialchars($_POST['newpassword2']);
+
+        if (strlen($new_password) > 256 || strlen($new_password) < 0) {
+            return "Le nouveau mot de passe est trop long ou trop court.";
+        } elseif ($new_password != $new_password2){
+            return "Les deux mots de passes ne correspondent pas.";
+        }
+
+        $user = new User();
+        $user->use_id = $use_id;
+        $user->use_password = hash("sha256", $new_password);
+
+        (new UserManager())->updatePassword($user);
+
+        header("Location: ./index.php?action=showUser&id=$user->use_id");
     }
 
     public function logout() {

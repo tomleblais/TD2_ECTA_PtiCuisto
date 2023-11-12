@@ -19,20 +19,11 @@
                 <a href="./index.php?action=myRecipes">Mes Recettes</a>
             </li>
             <li>
-                <a href="./index.php?action=logout">Deconnexion</a>
-            </li>
-            <li>
-                <?php if (!isset($_SESSION['id'])) : ?>
-                <a href="./index.php?action=login">Connexion</a>
-                <?php else : ?>
-                <li>
-                    <a href="./index.php?action=showUser">Mon compte</a>
-                    <ul>
-                        <li><a href="./index.php?action=showUser">Changer mes information</a></li>
-                        <li><a href="./index.php?action=logout">Se déconnecter</a></li>
-                    </ul>
-                </li>
-                <?php endif; ?>
+                <a href="./index.php?action=showUser&id=<?= $_SESSION['id'] ?>">Mon compte</a>
+                <ul>
+                <li><a href="./index.php?action=updateUser&id=<?= $_SESSION['id'] ?>">Modifier mon compte</a></li>
+                    <li><a href="./index.php?action=logout">Se déconnecter</a></li>
+                </ul>
             </li>
         </ul>
     </nav>

@@ -43,6 +43,7 @@ class RecipeModel {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT rec_id, rec_title, rec_summary, rec_image
             FROM PC_RECIPE
+            WHERE rec_valide = 1
             ORDER BY rec_creation_date DESC
             LIMIT 3"
         );

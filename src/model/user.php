@@ -34,7 +34,8 @@ class UserManager {
 
     public function getUsers(): array {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT USE_ID, USE_NICKNAME, UST_ID FROM PC_USERS
+            "SELECT USE_ID, USE_NICKNAME, USE_EMAIL, USE_FIRSTNAME, USE_LASTNAME, USE_PASSWORD, UTY_ID, UST_ID
+            FROM PC_USER
             JOIN PC_USER_STATUS USING (UST_ID)"
         );
         $statement->execute();
@@ -43,9 +44,15 @@ class UserManager {
 
         while (($row = $statement->fetch())) {
             $user = new User();
-            $user->use_id = intval($row["use_id"]);
-            $user->use_nickname = $row["use_nickname"];
-            $user->ust_id = $row["ust_id"];
+
+            $user->use_id = intval($row["USE_ID"]);
+            $user->use_nickname = $row["USE_NICKNAME"];
+            $user->use_email = $row["USE_EMAIL"];
+            $user->use_firstname = $row["USE_FIRSTNAME"];
+            $user->use_lastname = $row["USE_LASTNAME"];
+            $user->use_password = $row["USE_PASSWORD"];
+            $user->uty_id = intval($row["UTY_ID"]);
+            $user->ust_id = intval($row["UST_ID"]);
 
             $users[] = $user;
         }
@@ -148,7 +155,8 @@ class UserManager {
 
     public function getUser(int $id) {
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT * FROM PC_USER WHERE use_id = ?"
+            "SELECT USE_ID, USE_NICKNAME, USE_EMAIL, USE_FIRSTNAME, USE_LASTNAME, USE_PASSWORD, UTY_ID, UST_ID
+            FROM PC_USER WHERE USE_ID = ?"
         );
         $statement->execute([$id]);
 
@@ -157,63 +165,68 @@ class UserManager {
         }
 
         $user = new User();
-        $user->use_id = intval($row["use_id"]);
-        $user->use_nickname = $row["use_nickname"];
-        $user->use_firstname = $row["use_firstname"];
-        $user->use_lastname = $row["use_lastname"];
-        $user->use_email = $row["use_email"];
-        $user->use_password = $row["use_password"];
-        $user->uty_id = intval($row["uty_id"]);
-        $user->ust_id = intval($row["ust_id"]);
+        $user->use_id = intval($row["USE_ID"]);
+        $user->use_nickname = $row["USE_NICKNAME"];
+        $user->use_firstname = $row["USE_FIRSTNAME"];
+        $user->use_lastname = $row["USE_LASTNAME"];
+        $user->use_email = $row["USE_EMAIL"];
+        $user->use_password = $row["USE_PASSWORD"];
+        $user->uty_id = intval($row["UTY_ID"]);
+        $user->ust_id = intval($row["UST_ID"]);
 
         return $user;
     }
 
-    public function updateUser(User $user){
+    public function updateAccount(User $user){
         $statement = DatabaseConnection::getConnection()->prepare(
-            "UPDATE PC_USER set use_nickname = ?, use_email = ?, use_firstname = ?, use_lastname = ? where use_id = ?"
+            "UPDATE PC_USER
+            SET USE_NICKNAME = ?,
+                USE_EMAIL = ?,
+                USE_FIRSTNAME = ?,
+                USE_LASTNAME = ?
+            WHERE USE_ID = ?"
         );
         
         return $statement->execute([
             $user->use_nickname,
+            $user->use_email,
             $user->use_firstname,
             $user->use_lastname,
-            $user->use_email,
+            $user->use_id
         ]);
     }
 
     public function updatePassword(User $user){
         $statement = DatabaseConnection::getConnection()->prepare(
-            "UPDATE PC_USER set use_password = ? where use_id = ?"
+            "UPDATE PC_USER
+            SET USE_PASSWORD = ?
+            WHERE USE_ID = ?"
         );
             
         return $statement->execute([
             $user->use_password,
+            $user->use_id
         ]);
     }
     
-    public function deleteUser(int $id){
+    public function updateUserStatus(int $use_id, int $ust_id){
         $statement = DatabaseConnection::getConnection()->prepare(
-            "SELECT count(*) as nb FROM PC_USER WHERE use_id = ?"
+            "SELECT count(*) AS USER_COUNT
+            FROM PC_USER
+            WHERE USE_ID = ?"
         );
-        $statement->execute([$id]);
+        $statement->execute([$use_id]);
         $row = $statement->fetch();
-        if($row == 1){
+
+        if(intval($row["USER_COUNT"]) == 1){
             $statement = DatabaseConnection::getConnection()->prepare(
-            "UPDATE PC_USER SET ust_id = 3 WHERE use_id = ?"  
+                "UPDATE PC_USER
+                SET UST_ID = ? WHERE
+                USE_ID = ?"
             );
-            return !$statement->execute([$id]);
+            return !$statement->execute([$ust_id, $use_id]);
+        } else {
+            throw new \Exception("L'utilisateur n'existe pas.");
         }
-        else{
-            throw new \Exception("L'utilisateur n'existe pas !");
-        }
-    }
-    
-    /**
-     * TODO Check
-     */
-    public function suspendUser($id){
-        $sqlUpdateUser = "UPDATE User SET UST_CODE = '2' WHERE idUser = $id";
-        DatabaseConnection::getConnection()->exec($sqlUpdateUser);
     }
 }
