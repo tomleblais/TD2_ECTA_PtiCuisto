@@ -20,7 +20,7 @@ use Application\Controllers\Edito\Edito_c;
 use Application\Controllers\Comment\Comment_c;
 
 // Execute --------------------------------------------------------------------
-$id = isset($_GET['id']) ? intval($_GET['id']) : null;
+$id = isset($_SESSION['id']) ? intval($_SESSION['id']) : null;
 $type = isset($_SESSION['type']) ? $_SESSION['type'] : UserManager::USER;
 $permission = new Permission($id, $type);
 UserManager::setHeader($type);
@@ -80,6 +80,23 @@ try {
                 (new Recipe_c())->filteredRecipesIngredient(true);
             } else {
                 (new Recipe_c())->filteredRecipesIngredient();
+            }
+        } elseif ($_GET['action'] === 'signin' && $permission->isAllowed('signin')) {
+            (new User_c())->signin();
+        } elseif ($_GET['action'] === 'signinPost' && $permission->isAllowed('signinPost')) {
+            $user_c = new User_c();
+            $error = $user_c->signinPost();
+
+            if (!empty($error)) {
+                $user_c->signin($error);
+            } else {
+                $user_c->login("Votre compte à était créé avec succée.");
+            }
+        } elseif ($_GET['action'] === 'showUser' && $permission->isAllowed('showUser')) {
+            if (isset($_GET['id'])) {
+                // TODO
+            } else {
+                (new User_c())->showUser($id);
             }
         }
         // EDITER ---------------------------------------------------------------------
