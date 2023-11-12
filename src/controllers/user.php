@@ -125,23 +125,6 @@ class User_c {
         }
     }
 
-    /*public function updatePasswordPost(){
-        $password = htmlspecialchars($_POST['newpassword']);
-        $password2 = htmlspecialchars($_POST['newpassword2']);
-        if (strlen($password) > 256 || strlen($password) < 0) {
-            return "Le nouveau mot de passe est trop long ou trop court";
-        }
-
-        if($password != $password2){
-            return "Les 2 mots de passes ne sont pas identiques";
-        }
-
-        $id = (new UserManager())->login($email, hash("sha256", $password));
-        if ($id === -1) {
-            return "Mot de passe invalide";
-        }
-    }*/
-
     public function logout() {
         session_destroy();
         header("Location: ./index.php");

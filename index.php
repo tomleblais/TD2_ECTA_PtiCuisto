@@ -29,7 +29,7 @@ try {
     if (isset($_GET['action']) && $_GET['action'] !== '') {
         // NONE -----------------------------------------------------------------------
         if ($type == UserManager::NONE) {
-            throw new RangeException("Type d'utilisateur inconu, vous ne pouvez pas être John Doe !");
+            throw new RangeException("Type d'utilisateur inconnu, vous ne pouvez pas être John Doe !");
         }
         // USER -----------------------------------------------------------------------
         if ($_GET['action'] === 'allRecipes' && $permission->isAllowed('allRecipes')) {
@@ -90,7 +90,7 @@ try {
             if (!empty($error)) {
                 $user_c->signin($error);
             } else {
-                $user_c->login("Votre compte à était créé avec succée.");
+                $user_c->login("Votre compte a été créé avec succès.");
             }
         } elseif ($_GET['action'] === 'showUser' && $permission->isAllowed('showUser')) {
             if (isset($_GET['id'])) {
@@ -107,13 +107,13 @@ try {
             if (isset($_SESSION["id"])) {
                 (new Recipe_c())->myRecipes($_SESSION["id"]);
             } else {
-                throw new Exception("L'ID n'est pas déffinie");
+                throw new Exception("L'ID n'est pas définie");
             }
         } elseif ($_GET['action'] === 'updateRecipe' && $permission->isAllowed('updateRecipe')) {
             if (isset($_SESSION["id"])) {
                 (new Recipe_c())->updateRecipe(intval($_GET['id']));
             } else {
-                throw new Exception("L'ID n'est pas déffinie");
+                throw new Exception("L'ID n'est pas définie");
             }
         } elseif ($_GET['action'] === 'updateRecipePost') {
             if (isset($_GET['id'])) {
@@ -154,13 +154,13 @@ try {
             if (isset($_GET['id'])) {
                 (new Recipe_c())->showRecipeUncheck(intval($_GET['id']));
             } else {
-                throw new Exception('Aucun identifiant pour afficher une page non validé');
+                throw new Exception('Aucun identifiant pour afficher une page non validée');
             }
         } elseif ($_GET['action'] === 'checkRecipe' && $permission->isAllowed('checkRecipe')) {
             if (isset($_GET['id'])) {
                 (new Recipe_c())->checkRecipe(intval($_GET['id']));
             } else {
-                throw new Exception('Aucun identifiant pour validé la page !');
+                throw new Exception('Aucun identifiant pour valider la page !');
             }
         } elseif ($_GET['action'] === "updateEdito" && $permission->isAllowed('updateEdito')) {
             (new Edito_c())->updateEdito();

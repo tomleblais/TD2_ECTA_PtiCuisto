@@ -78,6 +78,32 @@ class Recipe_c {
         (new RecipeModel())->updateRecipePost($recipe);
     }
 
+    public function addRecipePost(){
+        $recipe = new Recipe();
+        $recipe->rec_id = $id;
+
+        if (!isset($_POST['title'])) {
+            return "Le titre ne peux pas être vide.";
+        } elseif (!isset($_POST['summary'])) {
+           return "Le contenue ne peux pas être vide.";
+        }
+
+        $recipe->rec_title = $_POST['title'];
+        $recipe->rec_summary = $_POST['summary'];
+
+        if (mb_strlen($recipe->rec_title, 'UTF-8') > 32) {
+            return "Le titre ne peut pas faire plus de 32 caractères.";
+        } elseif (mb_strlen($recipe->rec_title, 'UTF-8') < 3) {
+            return "Le titre ne peut pas faire moins de 3 caractères";
+        } elseif (mb_strlen($recipe->rec_summary, 'UTF-8') > 4096) {
+            return "Le contenue ne peut pas faire plus de 4096 caractères.";
+        } elseif (mb_strlen($recipe->rec_summary, 'UTF-8') < 3) {
+            return "Le contenue ne peut pas faire moins de 3 caractères";
+        } 
+
+        (new RecipeModel())->addRecipe($recipe);
+    }
+
     public function deleteRecipe(int $id) {
         (new RecipeModel())->deleteRecipe($id);
         header("Location: ./index.php");

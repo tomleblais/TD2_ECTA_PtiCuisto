@@ -155,7 +155,17 @@ class RecipeModel {
         );
 
         if (!$statement->execute([$recipe->rec_title, $recipe->rec_summary, $recipe->rec_id])) {
-            throw new \Exception("La recette n'a pas était modifiée.");
+            throw new \Exception("La recette n'a pas été modifiée.");
+        }
+    }
+
+    public function addRecipe(Recipe $recipe) {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "INSERT INTO PC_RECIPE (cat_id, rec_title, rec_summary, rec_image, rec_creation_date, rec_valide) VALUES (?, ?, ?, ?, sysdate, 0)"
+        );
+
+        if (!$statement->execute([$recipe->rec_title, $recipe->rec_summary, $recipe->rec_id, $recipe->rec_image])) {
+            throw new \Exception("La recette n'a pas été insérée.");
         }
     }
 
@@ -165,7 +175,7 @@ class RecipeModel {
         );
 
         if (!$statement->execute([$id])) {
-            throw new \Exception("La recete n'a pas était supprimée.");
+            throw new \Exception("La recete n'a pas été supprimée.");
         }
     }
 
