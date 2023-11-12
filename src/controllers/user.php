@@ -11,6 +11,13 @@ class User_c {
     public function signin(string $error = "") {
         require('./templates/signin.php');
     }
+
+    public function showUser(int $use_id){
+        $user = (new UserManager())->getUser($use_id);
+        
+        require('./templates/showUser.php');
+    }
+
     public function showUsers() {
         $users = (new UserManager())->getUsers();   
 
@@ -117,11 +124,6 @@ class User_c {
 
         $_SESSION["id"] = $id;
         $_SESSION["type"] = UserManager::getType($id);
-    }
-
-    public function showUser(int $use_id){
-        $user = (new UserManager())->getUser($use_id);
-        require('./templates/showUser.php');
     }
 
     public function updateUserPost(){
