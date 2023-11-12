@@ -4,6 +4,11 @@
 
 <div class="form-container container">
     <h1>S'inscrire</h1>
+
+    <?php if($error !== "") : ?>
+        <p><?= $error ?></p>
+    <?php endif; ?>
+
     <form action="./index.php?action=signinPost" method="post">
         <table>
             <tbody>
@@ -26,6 +31,10 @@
                 <tr>
                     <td><label for="password" class="password">Mot de passe :</label></td>
                     <td><input type="password" name="password" id="password" maxlength="128" required></td>
+                </tr>
+                <tr>
+                    <td><label for="password2" class="password">Confirmation du mot de passe :</label></td>
+                    <td><input type="password" name="password2" id="password2" maxlength="128" required></td>
                 </tr>
             </tbody>
             <tfoot>

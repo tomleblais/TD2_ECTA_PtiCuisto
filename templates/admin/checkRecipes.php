@@ -13,7 +13,7 @@
             </div>
             <div class="recipe-right">
                 <h3><?= $recipe->rec_title ?></h3>
-                <p><?= substr($recipe->rec_summary, 1, 500) . "..." ?></p>
+                <p><?= substr($recipe->rec_summary, 0, 500) . "..." ?></p>
             </div>
         </div>
     </a>
