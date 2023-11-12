@@ -19,9 +19,6 @@
                 <a href="./index.php?action=myRecipes">Mes Recettes</a>
             </li>
             <li>
-                <a href="./index.php?action=logout">Deconnexion</a>
-            </li>
-            <li>
                 <a>Mon compte</a>
                 <ul>
                     <li><a href="./index.php?action=showUser">Voir mes information</a></li>

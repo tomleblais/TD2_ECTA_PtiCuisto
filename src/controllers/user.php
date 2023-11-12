@@ -12,6 +12,24 @@ class User_c {
         require('./templates/signin.php');
     }
 
+    public function showUser(int $use_id){
+        $user = (new UserManager())->getUser($use_id);
+        
+        require('./templates/showUser.php');
+    }
+
+    public function showUsers() {
+        $users = (new UserManager())->getUsers();   
+
+        require('./templates/admin/showUsers.php');
+    }
+
+    public function updateUserStatusPost(int $use_id) {
+        $ust_id = intval($_POST['status']);
+        (new UserManager())->updateUserStatus($use_id, $ust_id);
+
+        header("Location: ./index.php?action=showUsers");
+    }
     public function signinPost() {
         if (!isset($_POST['nickname'])) {
             return "Nom d'utilisateur indéfini.";
@@ -106,11 +124,6 @@ class User_c {
 
         $_SESSION["id"] = $id;
         $_SESSION["type"] = UserManager::getType($id);
-    }
-
-    public function showUser(int $use_id){
-        $user = (new UserManager())->getUser($use_id);
-        require('./templates/showUser.php');
     }
 
     public function updateUserPost(){
