@@ -144,6 +144,8 @@ try {
             } else {
                 header("Location: ./index.php");
             }
+        } elseif ($_GET['action'] === 'disableUserPost' && $permission->isAllowed('disableUserPost')) {
+            (new User_c())->disableUserPost();
         } else {
             require('./templates/errors/error404.php');
         }

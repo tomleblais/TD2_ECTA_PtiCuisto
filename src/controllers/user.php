@@ -10,6 +10,10 @@ class User_c {
     public function login(string $error = "") {
         require('./templates/login.php');
     }
+
+    public function disableUserPost() {
+        
+    }
     
     public function loginPost() {
         if (!isset($_POST['email']) && !isset($_POST['password'])) {
