@@ -2,22 +2,22 @@
 session_start();
 
 // Require -----------------------------------------------------------------
-require_once('./src/model/user.php');
-require_once('./src/controllers/permission.php');
+require_once('./src/models/UserModel.php');
+require_once('./src/controllers/PermissionController.php');
 
-require_once('./src/controllers/recipe.php');
-require_once('./src/controllers/user.php');
-require_once('./src/controllers/edito.php');
-require_once('./src/controllers/comment.php');
+require_once('./src/controllers/RecipeController.php');
+require_once('./src/controllers/UserController.php');
+require_once('./src/controllers/EditoController.php');
+require_once('./src/controllers/CommentController.php');
 
 // Use application ----------------------------------------------------------
-use Application\Model\User\UserManager;
-use Application\Controllers\Permission\Permission;
+use Application\Model\UserModel\UserManager;
 
-use Application\Controllers\Recipe\Recipe_c;
-use Application\Controllers\User\User_c;
-use Application\Controllers\Edito\Edito_c;
-use Application\Controllers\Comment\Comment_c;
+use Application\Controllers\PermissionController\Permission;
+use Application\Controllers\RecipeController\RecipeController;
+use Application\Controllers\UserController\UserController;
+use Application\Controllers\EditoController\EditoController;
+use Application\Controllers\CommentController\CommentController;
 
 // Execute --------------------------------------------------------------------
 $id = isset($_SESSION['id']) ? intval($_SESSION['id']) : null;
@@ -33,29 +33,29 @@ try {
         }
         // USER -----------------------------------------------------------------------
         if ($_GET['action'] === 'allRecipes' && $permission->isAllowed('allRecipes')) {
-            (new Recipe_c())->allRecipes();
+            (new RecipeController())->allRecipes();
         } elseif ($_GET['action'] === 'filteredRecipes' && $permission->isAllowed('filteredRecipes')) {
             // TODO filteredRecipes
-        } elseif ($_GET['action'] === 'showRecipe' && $permission->isAllowed('showRecipe')) {
+        } elseif ($_GET['action'] === 'recipeDetails' && $permission->isAllowed('recipeDetails')) {
             if (isset($_GET['id'])) {
                 $id = intval($_GET['id']);
-                (new Recipe_c())->showRecipe($id, $permission->isAllowed('updateRecipe', $id));
+                (new RecipeController())->recipeDetails($id, $permission->isAllowed('recipeDetails', $id));
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
         } elseif ($_GET['action'] === 'writeCommentPost' && $permission->isAllowed('writeComment')) {
             if (isset($_GET['id'])) {
                 $id = intval($_GET['id']);
-                $erreur = (new Comment_c())->writeCommentPost($id, $permission->isAllowed('writeComment', $id));
+                $erreur = (new CommentController())->writeCommentPost($id, $permission->isAllowed('writeComment', $id));
 
-                header("Location: ./index.php?action=showRecipe&id=$id");
+                header("Location: ./index.php?action=recipeDetails&id=$id");
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
         } elseif ($_GET['action'] === 'login' && $permission->isAllowed('login')) {
-            (new User_c())->login();
+            (new UserController())->login();
         } elseif ($_GET['action'] === 'loginPost' && $permission->isAllowed('loginPost')) {
-            $user_c = new User_c();
+            $user_c = new UserController();
             $error = $user_c->loginPost();
 
             if (!empty($error)) {
@@ -65,26 +65,26 @@ try {
             }
         } elseif ($_GET['action'] === 'filteredRecipesCategory' && $permission->isAllowed('filteredRecipesCategory')) {
             if (isset($_GET['post']) && $_GET['post']) {
-                (new Recipe_c())->filteredRecipesCategory(true);
+                (new RecipeController())->filteredRecipesCategory(true);
             } else {
-                (new Recipe_c())->filteredRecipesCategory();
+                (new RecipeController())->filteredRecipesCategory();
             }
         } elseif ($_GET['action'] === 'filteredRecipesTitle' && $permission->isAllowed('filteredRecipesTitle')) {
             if (isset($_GET['post']) && $_GET['post']) {
-                (new Recipe_c())->filteredRecipesTitle(true);
+                (new RecipeController())->filteredRecipesTitle(true);
             } else {
-                (new Recipe_c())->filteredRecipesTitle();
+                (new RecipeController())->filteredRecipesTitle();
             }
         } elseif ($_GET['action'] === 'filteredRecipesIngredient' && $permission->isAllowed('filteredRecipesIngredient')) {
             if (isset($_GET['post']) && $_GET['post']) {
-                (new Recipe_c())->filteredRecipesIngredient(true);
+                (new RecipeController())->filteredRecipesIngredient(true);
             } else {
-                (new Recipe_c())->filteredRecipesIngredient();
+                (new RecipeController())->filteredRecipesIngredient();
             }
         } elseif ($_GET['action'] === 'signin' && $permission->isAllowed('signin')) {
-            (new User_c())->signin();
+            (new UserController())->signin();
         } elseif ($_GET['action'] === 'signinPost' && $permission->isAllowed('signinPost')) {
-            $user_c = new User_c();
+            $user_c = new UserController();
             $error = $user_c->signinPost();
 
             if (!empty($error)) {
@@ -92,47 +92,47 @@ try {
             } else {
                 $user_c->login("Votre compte a été créé avec succès.");
             }
-        } elseif ($_GET['action'] === 'showUser' && $permission->isAllowed('showUser')) {
+        } elseif ($_GET['action'] === 'userDetails' && $permission->isAllowed('userDetails')) {
             if (isset($_GET['id'])) {
                 $id = intval($_GET['id']);
-                (new User_c())->showUser($id);
+                (new UserController())->userDetails($id);
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
         } elseif ($_GET['action'] === 'updateUser' && $permission->isAllowed('updateUser')) {
             if (isset($_GET['id'])) {
                 $id = intval($_GET['id']);
-                (new User_c())->updateUser($id);
+                (new UserController())->updateUser($id);
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
         } elseif ($_GET['action'] === 'updateAccountPost' && $permission->isAllowed('updateUser')) {
             if (isset($_GET['id'])) {
                 $id = intval($_GET['id']);
-                (new User_c())->updateAccountPost($id);
+                (new UserController())->updateAccountPost($id);
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
         } elseif ($_GET['action'] === 'updatePasswordPost' && $permission->isAllowed('updateUser')) {
             if (isset($_GET['id'])) {
                 $id = intval($_GET['id']);
-                (new User_c())->updatePasswordPost($id);
+                (new UserController())->updatePasswordPost($id);
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
         }
         // EDITER ---------------------------------------------------------------------
         elseif ($_GET['action'] === 'addRecipe' && $permission->isAllowed('allRecipe')) {
-            (new Recipe_c())->addRecipe();
+            (new RecipeController())->addRecipe();
         } elseif ($_GET['action'] === 'myRecipes' && $permission->isAllowed('myRecipes')) {
             if (isset($_SESSION["id"])) {
-                (new Recipe_c())->myRecipes($_SESSION["id"]);
+                (new RecipeController())->myRecipes($_SESSION["id"]);
             } else {
                 throw new Exception("L'ID n'est pas définie");
             }
         } elseif ($_GET['action'] === 'updateRecipe' && $permission->isAllowed('updateRecipe')) {
             if (isset($_SESSION["id"])) {
-                (new Recipe_c())->updateRecipe(intval($_GET['id']));
+                (new RecipeController())->updateRecipe(intval($_GET['id']));
             } else {
                 throw new Exception("L'ID n'est pas définie");
             }
@@ -140,16 +140,16 @@ try {
             if (isset($_GET['id'])) {
                 $id = intval($_GET['id']);
                 if ($permission->isAllowed('updateRecipePost', $id)) {
-                    $recipe_c = new Recipe_c();
+                    $recipe_c = new RecipeController();
                     $error = $recipe_c->updateRecipePost($id);
 
                     if (!empty($error)) {
                         $recipe_c->updateRecipe($id, $error);
                     } else {
-                        header("Location: ./index.php?action=showRecipe&id=$id");
+                        header("Location: ./index.php?action=recipeDetails&id=$id");
                     }
                 } else {
-                    require('./templates/errors/error404.php');
+                    require('./src/views/errors/error404.php');
                 }
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
@@ -158,43 +158,43 @@ try {
             if (isset($_GET['id'])) {
                 $id = intval($_GET['id']);
                 if ($permission->isAllowed('deleteRecipe', $id)) {
-                    (new Recipe_c())->deleteRecipe($id);
+                    (new RecipeController())->deleteRecipe($id);
                 } else {
-                    require('./templates/errors/error404.php');
+                    require('./src/views/errors/error404.php');
                 }
             } else {
                 throw new Exception('Aucun identifiant pour supprimer la recette');
             }
         } elseif ($_GET['action'] === 'logout' && $permission->isAllowed('logout')) {
-            (new User_c())->logout();
-        }  elseif ($_GET['action'] === 'showUser' && $permission->isAllowed('showUser')) {
+            (new UserController())->logout();
+        }  elseif ($_GET['action'] === 'userDetails' && $permission->isAllowed('userDetails')) {
             if (isset($_GET['id'])) {
-                (new User_c())->showUser(intval($_GET['id']));
+                (new UserController())->userDetails(intval($_GET['id']));
             } elseif (isset($_SESSION['id'])) {
-                (new User_c())->showUser($id);
+                (new UserController())->userDetails($id);
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
         }
         // ADMIN ----------------------------------------------------------------------
         elseif ($_GET['action'] === 'checkRecipes' && $permission->isAllowed('checkRecipes')) {
-            (new Recipe_c())->checkRecipes();
-        } elseif ($_GET['action'] === 'showRecipeUncheck' && $permission->isAllowed('showRecipeUncheck')) {
+            (new RecipeController())->checkRecipes();
+        } elseif ($_GET['action'] === 'allUncheckedRecipes' && $permission->isAllowed('allUncheckedRecipes')) {
             if (isset($_GET['id'])) {
-                (new Recipe_c())->showRecipeUncheck(intval($_GET['id']));
+                (new RecipeController())->allUncheckedRecipes(intval($_GET['id']));
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page non validée');
             }
         } elseif ($_GET['action'] === 'checkRecipe' && $permission->isAllowed('checkRecipe')) {
             if (isset($_GET['id'])) {
-                (new Recipe_c())->checkRecipe(intval($_GET['id']));
+                (new RecipeController())->checkRecipe(intval($_GET['id']));
             } else {
                 throw new Exception('Aucun identifiant pour valider la page !');
             }
         } elseif ($_GET['action'] === "updateEdito" && $permission->isAllowed('updateEdito')) {
-            (new Edito_c())->updateEdito();
+            (new EditoController())->updateEdito();
         } elseif ($_GET['action'] === 'updateEditoPost' && $permission->isAllowed('updateEditoPost')) {
-            $edito_c = new Edito_c();
+            $edito_c = new EditoController();
             $error = $edito_c->updateEditoPost();
 
             if (!empty($error)) {
@@ -202,23 +202,23 @@ try {
             } else {
                 header("Location: ./index.php");
             }
-        } elseif ($_GET['action'] === 'showUsers' && $permission->isAllowed('showUsers')) {
-            (new User_c())->showUsers();
+        } elseif ($_GET['action'] === 'allUsers' && $permission->isAllowed('allUsers')) {
+            (new UserController())->allUsers();
         } elseif ($_GET['action'] === 'updateUserStatusPost' && $permission->isAllowed('updateUserStatus')) {
             if (isset($_GET['use_id'])) {
                 $use_id = intval($_GET['use_id']);
-                (new User_c())->updateUserStatusPost($use_id);
+                (new UserController())->updateUserStatusPost($use_id);
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
         } else {
-            require('./templates/errors/error404.php');
+            require('./src/views/errors/error404.php');
         }
     } else {
-        (new Edito_c())->showEdito($type == UserManager::ADMIN);
+        (new EditoController())->showEdito($type == UserManager::ADMIN);
     }
 } catch (Exception $exception) {
     $errorMessage = $exception->getMessage();
 
-    require('./templates/errors/error.php');
+    require('./src/views/errors/error.php');
 }
