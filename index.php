@@ -18,7 +18,7 @@ use Application\Controllers\User\User_c;
 use Application\Controllers\Edito\Edito_c;
 
 // Execute --------------------------------------------------------------------
-$id = isset($_GET['id']) ? intval($_GET['id']) : null;
+$id = isset($_SESSION['id']) ? intval($_SESSION['id']) : null;
 $type = isset($_SESSION['type']) ? $_SESSION['type'] : UserManager::USER;
 $permission = new Permission($id, $type);
 UserManager::setHeader($type);
@@ -80,6 +80,12 @@ try {
                 $user_c->signin($error);
             } else {
                 $user_c->login("Votre compte à était créé avec succée.");
+            }
+        } elseif ($_GET['action'] === 'showUser' && $permission->isAllowed('showUser')) {
+            if (isset($_GET['id'])) {
+                // TODO
+            } else {
+                (new User_c())->showUser($id);
             }
         }
         // EDITER ---------------------------------------------------------------------

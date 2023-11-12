@@ -41,6 +41,7 @@ class Permission {
         $this->editer = [
             "addRecipe",
             "myRecipes",
+            "showUser"
         ];
 
         $this->admin = [
@@ -74,6 +75,13 @@ class Permission {
 
                 return $this->type === UserManager::ADMIN
                     || $this->id === (new RecipeModel)->getAutor($opt);
+            case "showUser":
+                if (is_nan($opt)) {
+                    throw new \Exception("L'option id n'est pas un nombre. (permission.php)");
+                }
+
+                return $this->type === UserManager::ADMIN
+                    || $this->id == $opt;
             }
         }
         

@@ -21,6 +21,9 @@
             <li>
                 <a href="./index.php?action=logout">Deconnexion</a>
             </li>
+            <li>
+                <a href="./index.php?action=showUser">Mon compte</a>
+            </li>
         </ul>
     </nav>
 </header>

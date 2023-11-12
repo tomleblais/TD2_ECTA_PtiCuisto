@@ -7,11 +7,14 @@ require_once('./src/lib/database.php');
 use Application\Lib\Database\DatabaseConnection;
 
 class User {
+    public int $use_id;
     public string $use_nickname;
     public string $use_email;
     public string $use_firstname;
     public string $use_lastname;
-    public string $use_passworld;
+    public string $use_password;
+    public int $uty_id;
+    public int $ust_id;
 }
 
 class UserManager {
@@ -108,6 +111,29 @@ class UserManager {
         return false;
     }
 
+    public function getUser(int $id) {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT * FROM PC_USER WHERE use_id = ?"
+        );
+        $statement->execute([$id]);
+
+        if (!$row = $statement->fetch()) {
+            throw new \Exception("La requête pour récupérer l'utilisateur à échoué.");
+        }
+
+        $user = new User();
+        $user->use_id = intval($row["use_id"]);
+        $user->use_nickname = $row["use_nickname"];
+        $user->use_firstname = $row["use_firstname"];
+        $user->use_lastname = $row["use_lastname"];
+        $user->use_email = $row["use_email"];
+        $user->use_password = $row["use_password"];
+        $user->uty_id = intval($row["uty_ID"]);
+        $user->ust_id = intval($row["ust_ID"]);
+
+        return $user;
+    }
+
     public function insertUser(User $user): bool {
         $statement = DatabaseConnection::getConnection()->prepare(
             "INSERT INTO PC_USER (use_nickname, use_firstname, use_lastname, use_email, use_password)
@@ -119,10 +145,13 @@ class UserManager {
             $user->use_firstname,
             $user->use_lastname,
             $user->use_email,
-            $user->use_passworld,
+            $user->use_password,
         ]);
     }
       
+    /**
+     * TODO Check
+     */
     public function deleteUser($id){
         $sqlCheck = "SELECT * FROM User";
         $i=0;
@@ -146,12 +175,18 @@ class UserManager {
         }
     }
     
+    /**
+     * TODO Check
+     */
     public function updatePassword($newPassword, $id){
         $passwordUser = hash('sha256', $newPassword);
         $sqlUpdateUser = "UPDATE User SET passwordUser = '$passwordUser' WHERE idUser = $id";
         DatabaseConnection::getConnection()->exec($sqlUpdateUser);
     }
     
+    /**
+     * TODO Check
+     */
     public function suspendUser($id){
         $sqlUpdateUser = "UPDATE User SET UST_CODE = '2' WHERE idUser = $id";
         DatabaseConnection::getConnection()->exec($sqlUpdateUser);

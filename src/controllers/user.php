@@ -33,7 +33,7 @@ class User_c {
         $user->use_firstname = $_POST["firstname"];
         $user->use_lastname = $_POST["lastname"];
         $user->use_email = htmlspecialchars(strtolower($_POST['email']));
-        $user->use_passworld = hash("sha256", htmlspecialchars($_POST['password']));
+        $user->use_password = hash("sha256", htmlspecialchars($_POST['password']));
 
         if (mb_strlen($user->use_nickname, 'UTF-8') > 32) {
             return "Le nom d'utilisateur ne peut pas faire plus de 32 caractères.";
@@ -51,7 +51,7 @@ class User_c {
             return "Votre email ne peut pas faire plus de 128 caractères.";
         } elseif (mb_strlen($user->use_email, 'UTF-8') < 3) {
             return "Votre email ne peut pas faire moins de 3 caractères";
-        } elseif (strlen($user->use_passworld) > 256 || strlen($user->use_passworld) < 2) {
+        } elseif (strlen($user->use_password) > 256 || strlen($user->use_password) < 2) {
             return "Le mot de passe est trop long ou trop court, entre 8 et 256 caractères";
         } elseif ($_POST["password"] !== $_POST["password2"]) {
             return "Les deux mots de passe ne correspondent pas.";
@@ -112,5 +112,10 @@ class User_c {
     public function logout() {
         session_destroy();
         header("Location: ./index.php");
+    }
+
+    public function showUser(int $id) {
+        $user = (new UserManager())->getUser($id);
+        require('./templates/editer/showUser.php');
     }
 }
