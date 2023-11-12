@@ -22,6 +22,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	text-decoration: none;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -52,3 +53,25 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #7890cd #dedede;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #dedede;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #7890cd;
+    border-radius: 100px;
+    border: 3px none #ffffff;
+  }

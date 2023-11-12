@@ -1,0 +1,133 @@
+:root {
+        /* GENERAL */
+        --mobile-primary-color: #7890cd;
+        --mobile-primary-background-color: #fff;
+        --mobile-primary-hover-background-color: #eee;
+
+        --mobile-font-family: "Open Sans";
+        --mobile-font-size: 12pt;
+
+        --mobile-line-height: 1.15;
+
+        --mobile-margin-top: 2px;
+        --mobile-margin-bottom: 2px;
+        --mobile-margin-left: 2px;
+        --mobile-margin-right: 2px;
+
+        --mobile-padding-top: 2px;
+        --mobile-padding-bottom: 2px;
+        --mobile-padding-left: 2px;
+        --mobile-padding-right: 2px;
+
+        /* MAIN */
+        --mobile-main-margin-top: 0;
+        --mobile-main-margin-bottom: 0;
+        --mobile-main-margin-left: 0;
+        --mobile-main-margin-right: 0;
+
+        --mobile-main-padding-top: 5px;
+        --mobile-main-padding-bottom: 5px;
+        --mobile-main-padding-left: 5px;
+        --mobile-main-padding-right: 5px;
+
+        /* BODY */
+        --mobile-body-margin-top: 0;
+        --mobile-body-margin-bottom: var(--body-margin-top);
+        --mobile-body-margin-left: 0;
+        --mobile-body-margin-right: var(--body-margin-left);
+
+        --mobile-body-padding-top: 20px;
+        --mobile-body-padding-bottom: var(--body-padding-top);
+        --mobile-body-padding-left: 20px;
+        --mobile-body-padding-right: var(--body-padding-left);
+
+        /* HEADER */
+        --mobile-header-color: var(--secondary-color);
+        --mobile-header-background-color: var(--primary-color);
+
+        --mobile-header-margin-top: 0;
+        --mobile-header-margin-bottom: 0;
+        --mobile-header-margin-left: 0;
+        --mobile-header-margin-right: 0;
+
+        --mobile-header-padding-top: 2px;
+        --mobile-header-padding-bottom: 2px;
+        --mobile-header-padding-left: 2px;
+        --mobile-header-padding-right: 2px;
+
+        /* FOOTER */
+        --mobile-footer-color: var(--secondary-color);
+        --mobile-footer-background-color: var(--secondary-background-color);
+
+        --mobile-footer-margin-top: 0;
+        --mobile-footer-margin-bottom: var(--footer-margin-top);
+        --mobile-footer-margin-left: 0;
+        --mobile-footer-margin-right: var(--footer-margin-left);
+
+        --mobile-footer-padding-top: 40px;
+        --mobile-footer-padding-bottom: var(--footer-padding-top);
+        --mobile-footer-padding-left: 20px;
+        --mobile-footer-padding-right: var(--footer-padding-left);
+
+        /* HEADINGS */
+        --mobile-title-font-family: "Permanent Marker";
+
+        --mobile-title-padding-top: 2.5px;
+        --mobile-title-padding-bottom: 2.5px;
+        --mobile-title-padding-left: 2px;
+        --mobile-title-padding-right: 2px;
+
+        --mobile-title-margin-top: 2.5px;
+        --mobile-title-margin-bottom: 2.5px;
+        --mobile-title-margin-left: 2.5px;
+        --mobile-title-margin-right: 2.5px;
+
+        --mobile-subtitle-font-family: "Pacifico";
+
+        --mobile-subtitle-padding-top: 2.5px;
+        --mobile-subtitle-padding-bottom: 2.5px;
+        --mobile-subtitle-padding-left: 2px;
+        --mobile-subtitle-padding-right: 2px;
+
+        --mobile-subtitle-margin-top: 2.5px;
+        --mobile-subtitle-margin-bottom: 2.5px;
+        --mobile-subtitle-margin-left: 2px;
+        --mobile-subtitle-margin-right: 2px;
+
+        /* BORDERS */
+        --mobile-border-width: 3px;
+        --mobile-border-style: solid;
+        --mobile-border-color: var(--primary-color);
+
+        --mobile-border-top-width: var(--border-width);
+        --mobile-border-top-style: var(--border-style);
+        --mobile-border-top-color: var(--border-color);
+
+        --mobile-border-bottom-width: var(--border-width);
+        --mobile-border-bottom-style: var(--border-style);
+        --mobile-border-bottom-color: var(--border-color);
+
+        --mobile-border-left-width: var(--border-width);
+        --mobile-border-left-style: var(--border-style);
+        --mobile-border-left-color: var(--border-color);
+
+        --mobile-border-right-width: var(--border-width);
+        --mobile-border-right-style: var(--border-style);
+        --mobile-border-right-color: var(--border-color);
+
+        --mobile-border-radius: 2px;
+        --mobile-border-top-left-radius: var(--border-radius);
+        --mobile-border-top-right-radius: var(--border-radius);
+        --mobile-border-bottom-left-radius: var(--border-radius);
+        --mobile-border-top-right-radius: var(--border-radius);
+
+        /* RECIPE DETAILS */
+        --mobile-recipe-details-width: 400px;
+        --mobile-recipe-details-height: 200px;
+
+        /* SHADOWS */
+        --mobile-box-shadow-offset-x: 2px;
+        --mobile-box-shadow-offset-y: 2px;
+        --mobile-box-shadow-blur-radius: 2px;
+        --mobile-box-shadow-color: var(--tertiary-color);
+    }

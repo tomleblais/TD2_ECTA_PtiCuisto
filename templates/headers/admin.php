@@ -31,7 +31,7 @@
                 <li>
                     <a href="./index.php?action=showUser">Mon compte</a>
                     <ul>
-                        <li><a href="./index.php?action=showUser">Modifier mon compte</a></li>
+                    <li><a href="./index.php?action=showUser&id=<?= $_SESSION['id'] ?>">Modifier mon compte</a></li>
                         <li><a href="./index.php?action=logout">Se déconnecter</a></li>
                     </ul>
                 </li>
