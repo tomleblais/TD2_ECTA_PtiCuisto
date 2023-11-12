@@ -94,9 +94,10 @@ try {
             }
         } elseif ($_GET['action'] === 'showUser' && $permission->isAllowed('showUser')) {
             if (isset($_GET['id'])) {
-                // TODO
-            } else {
+                $id = intval($_GET['id']);
                 (new User_c())->showUser($id);
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
             }
         }
         // EDITER ---------------------------------------------------------------------

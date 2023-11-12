@@ -7,6 +7,11 @@ require_once("./src/model/user.php");
 use Application\Model\User\UserManager;
 
 class User_c {
+    public function showUser(int $use_id){
+        $user = (new UserManager())->getUser($use_id);
+        require('./templates/showUser.php');
+    }
+
     public function login(string $error = "") {
         require('./templates/login.php');
     }

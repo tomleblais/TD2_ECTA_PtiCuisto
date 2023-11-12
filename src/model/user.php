@@ -64,7 +64,7 @@ class UserManager {
         $statement->execute([$use_id]);
 
         if (!($row = $statement->fetch())) {
-            throw new \Exception("L'utilisateur n'a pas pu être trouvée !");
+            throw new \Exception("L'utilisateur n'a pas pu être trouvé !");
         }
 
             $user = new User();
