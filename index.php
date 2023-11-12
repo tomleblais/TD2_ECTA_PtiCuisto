@@ -167,6 +167,14 @@ try {
             }
         } elseif ($_GET['action'] === 'logout' && $permission->isAllowed('logout')) {
             (new User_c())->logout();
+        }  elseif ($_GET['action'] === 'showUser' && $permission->isAllowed('showUser')) {
+            if (isset($_GET['id'])) {
+                (new User_c())->showUser(intval($_GET['id']));
+            } elseif (isset($_SESSION['id'])) {
+                (new User_c())->showUser($id);
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
         }
         // ADMIN ----------------------------------------------------------------------
         elseif ($_GET['action'] === 'checkRecipes' && $permission->isAllowed('checkRecipes')) {

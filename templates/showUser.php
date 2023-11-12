@@ -17,10 +17,11 @@ $title = "$user->use_nickname"; ?>
 <h2>Nom :</h2>
 <p><?= $user->use_lastname ?></p>
 
-<h2>Mail :</h2>
+<h2>Email :</h2>
 <p><?= $user->use_email ?></p>
 
-<h2>Type :</h2>
+<h2>Type d'utilisateur</h2>
+>>>>>>> 97b373836ec9f6bdd37c1de9fbd78ab62d065ff2
 <p><?= ($user->uty_id == UserManager::ADMIN) ? "Administrateur" : "Editeur" ?></p>
 
 <?php $content = ob_get_clean(); ?>
