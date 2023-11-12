@@ -212,17 +212,6 @@ class UserManager {
             throw new \Exception("L'utilisateur n'existe pas !");
         }
     }
-
-
-    
-    /**
-     * TODO Check
-     */
-    public function updatePassword($newPassword, $id){
-        $passwordUser = hash('sha256', $newPassword);
-        $sqlUpdateUser = "UPDATE User SET passwordUser = '$passwordUser' WHERE idUser = $id";
-        DatabaseConnection::getConnection()->exec($sqlUpdateUser);
-    }
     
     /**
      * TODO Check
