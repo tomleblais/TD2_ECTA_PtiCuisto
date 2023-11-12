@@ -30,6 +30,7 @@ class Permission {
             "showRecipe",
             "writeComment",
             "logout",
+            "updateUser"
         ];
 
         $this->userOnly = [

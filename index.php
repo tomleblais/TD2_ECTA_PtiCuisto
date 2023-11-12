@@ -99,6 +99,27 @@ try {
             } else {
                 throw new Exception('Aucun identifiant pour afficher une page');
             }
+        } elseif ($_GET['action'] === 'updateUser' && $permission->isAllowed('updateUser')) {
+            if (isset($_GET['id'])) {
+                $id = intval($_GET['id']);
+                (new User_c())->updateUser($id);
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
+        } elseif ($_GET['action'] === 'updateAccountPost' && $permission->isAllowed('updateUser')) {
+            if (isset($_GET['id'])) {
+                $id = intval($_GET['id']);
+                (new User_c())->updateAccountPost($id);
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
+        } elseif ($_GET['action'] === 'updatePasswordPost' && $permission->isAllowed('updateUser')) {
+            if (isset($_GET['id'])) {
+                $id = intval($_GET['id']);
+                (new User_c())->updatePasswordPost($id);
+            } else {
+                throw new Exception('Aucun identifiant pour afficher une page');
+            }
         }
         // EDITER ---------------------------------------------------------------------
         elseif ($_GET['action'] === 'addRecipe' && $permission->isAllowed('allRecipe')) {

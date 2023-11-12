@@ -2,7 +2,7 @@
 
 use Application\Model\User\UserManager;
 
- $title = "$user->use_nickname"; ?>
+$title = "$user->use_nickname"; ?>
 
 <?php ob_start(); ?>
 
@@ -11,10 +11,10 @@ use Application\Model\User\UserManager;
 <h2>Nom d'utilisateur</h2>
 <p><?= $user->use_nickname ?></p>
 
-<h2>Nom :</h2>
+<h2>Prénom :</h2>
 <p><?= $user->use_firstname ?></p>
 
-<h2>Prénom :</h2>
+<h2>Nom :</h2>
 <p><?= $user->use_lastname ?></p>
 
 <h2>Mail :</h2>

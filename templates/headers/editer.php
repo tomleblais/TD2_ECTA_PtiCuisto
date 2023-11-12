@@ -19,12 +19,9 @@
                 <a href="./index.php?action=myRecipes">Mes Recettes</a>
             </li>
             <li>
-                <a href="./index.php?action=logout">Deconnexion</a>
-            </li>
-            <li>
                 <a href="./index.php?action=showUser&id=<?= $_SESSION['id'] ?>">Mon compte</a>
                 <ul>
-                <li><a href="./index.php?action=showUser&id=<?= $_SESSION['id'] ?>">Modifier mon compte</a></li>
+                <li><a href="./index.php?action=updateUser&id=<?= $_SESSION['id'] ?>">Modifier mon compte</a></li>
                     <li><a href="./index.php?action=logout">Se déconnecter</a></li>
                 </ul>
             </li>

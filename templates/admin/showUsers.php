@@ -4,9 +4,9 @@
 
 <h1>Les utilisateurs du site</h1>
 
-<div class="container">
+<div class="user-container">
     <?php foreach ($users as $user): ?>
-    <div class="user">
+    <div class="user container">
         <h5><?= $user->use_nickname ?></h5>
         <form action="./index.php?action=updateUserStatusPost&use_id=<?= $user->use_id?>" method="post">
             <select name="status" id="status">
