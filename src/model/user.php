@@ -7,11 +7,14 @@ require_once('./src/lib/database.php');
 use Application\Lib\Database\DatabaseConnection;
 
 class User {
+    public int $use_id;
     public string $use_nickname;
     public string $use_email;
     public string $use_firstname;
     public string $use_lastname;
-    public string $use_passworld;
+    public string $use_password;
+    public int $uty_id;
+    public int $ust_id;
 }
 
 class UserManager {
@@ -20,7 +23,8 @@ class UserManager {
     public const EDITER = 2;
     public const ADMIN = 3;
 
-    public static function getType(int $id): int {
+    public static function getType(int $id): int
+    {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT uty_id FROM PC_USER WHERE use_id = ?"
         );
@@ -29,20 +33,64 @@ class UserManager {
         return self::numberToConst($statement->fetch()["uty_id"]);
     }
 
-    private static function numberToConst(int $number): int {
+    public function getUsers(): array{
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT USE_ID, USE_NICKNAME, UST_ID FROM PC_USERS
+            JOIN PC_USER_STATUS USING (UST_ID)"
+        );
+        $statement->execute();
+
+        $users = [];
+
+        while (($row = $statement->fetch())) {
+            $user = new User();
+            $user->use_id = intval($row["use_id"]);
+            $user->use_nickname = $row["use_nickname"];
+            $user->ust_id = $row["ust_id"];
+
+            $users[] = $user;
+        }
+
+        return $users;
+    }
+
+    public function getUser(int $use_id) : User
+    {
+        $statement = DatabaseConnection::getConnection()->prepare(
+            "SELECT USE_ID, USE_NICKNAME, UST_ID FROM PC_USERS
+            JOIN PC_USER_STATUS USING (UST_ID)
+            WHERE use_id = ?"
+        );
+        $statement->execute([$use_id]);
+
+        if (!($row = $statement->fetch())) {
+            throw new \Exception("L'utilisateur n'a pas pu être trouvée !");
+        }
+
+            $user = new User();
+            $user->use_id = intval($row["use_id"]);
+            $user->use_nickname = $row["use_nickname"];
+            $user->ust_id = $row["ust_id"];
+        return $user;
+
+    }
+
+    private static function numberToConst(int $number): int
+    {
         switch ($number) {
-        case 1:
-            return self::USER;
-        case 2:
-            return self::EDITER;
-        case 3:
-            return self::ADMIN;
-        default:
-            return self::NONE;
+            case 1:
+                return self::USER;
+            case 2:
+                return self::EDITER;
+            case 3:
+                return self::ADMIN;
+            default:
+                return self::NONE;
         }
     }
 
-    public static function setHeader(int $type) {
+    public static function setHeader(int $type)
+    {
         switch ($type) {
             case self::EDITER:
                 $_SESSION['header'] = './templates/headers/editer.php';
@@ -54,14 +102,15 @@ class UserManager {
                 $_SESSION['header'] = './templates/headers/user.php';
         }
     }
-    
-    public function login($email, $password): int {
+
+    public function login($email, $password): int
+    {
         $statement = DatabaseConnection::getConnection()->prepare(
             "SELECT COUNT(*) AS USER_COUNT FROM PC_USER WHERE USE_EMAIL = ? AND USE_PASSWORD = ? AND UST_ID = 1"
         );
         $statement->execute([$email, $password]);
         $result = $statement->fetch();
-        
+
         if ($result["USER_COUNT"] != 1) {
             return -1;
         } else {
@@ -70,7 +119,7 @@ class UserManager {
             );
             $statement->execute([$email, $password]);
             $result = $statement->fetch();
-    
+
             return $result["USE_ID"];
         }
 
@@ -119,7 +168,7 @@ class UserManager {
             $user->use_firstname,
             $user->use_lastname,
             $user->use_email,
-            $user->use_passworld,
+            $user->use_password,
         ]);
     }
     
@@ -140,12 +189,18 @@ class UserManager {
         }
     }
     
+    /**
+     * TODO Check
+     */
     public function updatePassword($newPassword, $id){
         $passwordUser = hash('sha256', $newPassword);
         $sqlUpdateUser = "UPDATE User SET passwordUser = '$passwordUser' WHERE idUser = $id";
         DatabaseConnection::getConnection()->exec($sqlUpdateUser);
     }
     
+    /**
+     * TODO Check
+     */
     public function suspendUser($id){
         $sqlUpdateUser = "UPDATE User SET UST_CODE = '2' WHERE idUser = $id";
         DatabaseConnection::getConnection()->exec($sqlUpdateUser);
